@@ -1,3 +1,15 @@
+-- 创建数据库 lain
+IF DB_NAME() <> 'lain'
+BEGIN
+    IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'lain')
+    BEGIN
+        CREATE DATABASE lain;
+    END
+END
+
+-- 切换到 lain 数据库
+USE lain;
+
 -- 文件信息表
 IF OBJECT_ID('file_info', 'U') IS NOT NULL
     DROP TABLE file_info;

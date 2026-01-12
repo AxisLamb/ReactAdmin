@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.5  (64 bit)
-MySQL - 8.0.20 : Database - ai_lain
+MySQL - 8.0.20 : Database - lain
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 8.0.20 : Database - ai_lain
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ai_lain` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`lain` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE `ai_lain`;
+USE `lain`;
 
 /*Table structure for table `file_info` */
 
