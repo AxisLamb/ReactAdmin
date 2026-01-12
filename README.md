@@ -17,6 +17,7 @@
 #### 前端技术栈
 - **运行环境**: Node.js v22.17.0
 - **UI框架**: Ant Design React 5.x
+- **前端仓库**: [ReactAdminFront](https://github.com/AxisLamb/ReactAdminFront)
 
 ## 后端启动方法
 如果没有数据库需要预先安装数据库。执行命令：
