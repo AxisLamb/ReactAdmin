@@ -18,6 +18,13 @@
 - **运行环境**: Node.js v22.17.0
 - **UI框架**: Ant Design React 5.x
 
+## 后端启动方法
+如果没有数据库需要预先安装数据库。执行命令：
+```bash
+mvn clean install
+```
+参考下面的`数据库配置示例`，`文件存储配置示例`，`缓存配置示例` 修改配置文件 `application-dev.yml`，并启动项目。
+
 ## 前端启动方法
 To start the frontend application, simply run these two commands:
 ```bash
@@ -43,7 +50,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      # SQL Server 配置示例
+      # SQL Server 配置示例，可以按需改成Oracle，PostgreSQL等数据库等
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
       url: jdbc:sqlserver://192.168.1.130:1433;DatabaseName=test;encrypt=false
       username: sa

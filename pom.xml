@@ -28,6 +28,8 @@
         <hutool.version>5.8.16</hutool.version>
         <mysql-connector.version>8.2.0</mysql-connector.version>
         <mssql-jdbc.version>12.10.1.jre11</mssql-jdbc.version>
+        <oracle-driver.version>23.7.0.25.01</oracle-driver.version>
+        <postgresql.version>42.7.3</postgresql.version>
         <lombok.version>1.18.32</lombok.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
         <druid.version>1.2.20</druid.version>
@@ -160,6 +162,22 @@
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>${mssql-jdbc.version}</version>
+        </dependency>
+
+        <!-- Oracle Driver -->
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <version>${oracle-driver.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- PostgreSQL Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Spring Data Redis -->

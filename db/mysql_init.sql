@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.5  (64 bit)
-MySQL - 8.0.20 : Database - lain
+MySQL - 8.0.20 : Database - lain_db
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 8.0.20 : Database - lain
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`lain` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`lain_db` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE `lain`;
+USE `lain_db`;
 
 /*Table structure for table `file_info` */
 
@@ -45,13 +45,6 @@ CREATE TABLE `file_info` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文件信息表';
 
 /*Data for the table `file_info` */
-
-insert  into `file_info`(`id`,`file_id`,`original_name`,`file_size`,`file_type`,`bucket_name`,`object_name`,`file_path`,`service_module`,`business_type`,`business_id`,`status`,`created_by`,`create_time`,`updated_by`,`update_time`) values 
-(1,'ea527620b8f144f09ca4ea60dce8d381','微信截图_20250115113516.png',44496,'image/png','os-lain-imgs-image','1764731845378_704e20abfce348539191baa2ef3dbb7a.png','http://10.37.131.224:9000/os-lain-imgs-image/1764731845378_704e20abfce348539191baa2ef3dbb7a.png','LAIN','layer','1',0,1,'2025-12-03 11:17:26',NULL,'2025-12-10 15:51:49'),
-(2,'8570e01e-25c4-4222-984b-427865d09b0d','微信图片_20230911165121.jpg',127201,'image/jpeg','os-lain-imgs-image','20251210_ead0aa9b26d64858a1976bd850eb31f7______20230911165121.jpg','.\\uploads\\os-lain-imgs-image\\20251210_ead0aa9b26d64858a1976bd850eb31f7______20230911165121.jpg','local','test','2',0,1,'2025-12-10 16:34:07',1,'2025-12-10 16:35:30'),
-(3,'055e9de4-7888-48e0-896a-de95bc669687','微信图片_20230911165121.jpg',127201,'image/jpeg','os-lain-imgs-image','20251210_a3eb473cda5646f684c820663fcc8ae7______20230911165121.jpg','.\\uploads\\os-lain-imgs-image\\20251210_a3eb473cda5646f684c820663fcc8ae7______20230911165121.jpg','local','test','2',0,1,'2025-12-10 16:35:59',1,'2025-12-10 16:36:17'),
-(4,'191644e738a9494bbba945cb4873aaa7','微信截图_20250115113516.png',44496,'image/png','os-lain-imgs-image','1767608381270_78b5194f902140dea96d6beba4d589cd.png','http://10.37.131.224:9000/os-lain-imgs-image/1767608381270_78b5194f902140dea96d6beba4d589cd.png','xxx','x','2',0,1,'2026-01-05 18:19:42',1,'2026-01-05 18:22:12'),
-(5,'03e125e27aec47a0aa6bf076a4830290','入职一年纪念.png',258968,'image/png','os-lain-imgs-image','1767841063306_bcaf760c0f094af4aa87197494b4d350.png','http://10.37.131.224:9000/os-lain-imgs-image/1767841063306_bcaf760c0f094af4aa87197494b4d350.png','11','112','113',1,1,'2026-01-08 10:57:44',1,'2026-01-08 10:57:44');
 
 /*Table structure for table `sys_audit_log` */
 
@@ -98,10 +91,6 @@ CREATE TABLE `sys_dict` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据字典表';
 
 /*Data for the table `sys_dict` */
-
-insert  into `sys_dict`(`dict_id`,`dict_name`,`dict_type`,`status`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values 
-(8,'lain','layer',1,'xxx',1,'2025-12-03 16:52:54',1,'2025-12-10 15:53:14'),
-(9,'xxxx1111','xxxx111',1,'xxxxx',1,'2026-01-05 18:18:36',1,'2026-01-05 18:18:36');
 
 /*Table structure for table `sys_dict_item` */
 

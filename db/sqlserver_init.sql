@@ -1,14 +1,14 @@
 -- 创建数据库 lain
-IF DB_NAME() <> 'lain'
+IF DB_NAME() <> 'lain_db'
 BEGIN
-    IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'lain')
+    IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'lain_db')
     BEGIN
-        CREATE DATABASE lain;
+        CREATE DATABASE lain_db;
     END
 END
 
 -- 切换到 lain 数据库
-USE lain;
+USE lain_db;
 
 -- 文件信息表
 IF OBJECT_ID('file_info', 'U') IS NOT NULL
