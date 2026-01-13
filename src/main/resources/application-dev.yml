@@ -1,49 +1,50 @@
 os:
     cache:
         type: REDIS
-    redis:
-        # ip: 10.10.10.181
-        ip: localhost
-        port: 16379
-        password: 'SbtyMveYNfLzTks7H0apCmyStPzWJqjy'
-        database: 0
+        redis:
+            # ip: 10.10.10.181
+            ip: localhost
+            port: 16379
+            password: 'SbtyMveYNfLzTks7H0apCmyStPzWJqjy'
+            database: 0
     file:
-        client:
-            type: MINIO
-    local:
-        base-path: ./uploads
+        type: MINIO
+        local:
+            base-path: ./uploads
 
-    minio:
-        endpoint: http://10.37.131.224:9000
-        access-key: admin
-        secret-key: password
+        minio:
+            endpoint: http://10.37.131.224:9000
+            access-key: admin
+            secret-key: password
 
-    aliyun:
-        oss:
-            endpoint: your-endpoint
-            access-key-id: your-access-key-id
-            access-key-secret: your-access-key-secret
+        aliyun:
+            oss:
+                endpoint: your-endpoint
+                access-key-id: your-access-key-id
+                access-key-secret: your-access-key-secret
 
 spring:
     cache:
         type: GENERIC
     data:
         redis:
-            host: ${os.redis.ip}
-            password: ${os.redis.password}
-            port: ${os.redis.port}
-            database: ${os.redis.database}
+            host: ${os.cache.redis.ip}
+            password: ${os.cache.redis.password}
+            port: ${os.cache.redis.port}
+            database: ${os.cache.redis.database}
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         druid:
-#            driver-class-name: com.mysql.cj.jdbc.Driver
-#            url: jdbc:mysql://10.37.131.222:3307/ai_lain?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-#            username: root
-#            password: 123456
-            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-            url: jdbc:sqlserver://192.168.1.130:1433;DatabaseName=lain_db;encrypt=false
-            username: sa
-            password: admin123
+            # mysql
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            url: jdbc:mysql://10.37.131.222:3307/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+            username: root
+            password: 123456
+            # sqlserver
+#            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#            url: jdbc:sqlserver://192.168.1.130:1433;DatabaseName=lain_db;encrypt=false
+#            username: sa
+#            password: admin123
             initial-size: 10
             max-active: 100
             min-idle: 10
@@ -53,7 +54,6 @@ spring:
             time-between-eviction-runs-millis: 60000
             min-evictable-idle-time-millis: 300000
             # mysql
-            # validation-query: SELECT 1
             # sqlserver
             validation-query: SELECT 'x'
             test-while-idle: true

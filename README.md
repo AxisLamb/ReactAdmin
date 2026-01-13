@@ -40,10 +40,10 @@ npm run dev
 项目支持多种主流数据库，可根据实际需求灵活切换：
 
 #### 已集成数据库驱动
-- **MySQL**: 通过 `mysql-connector-j` 驱动支持
-- **SQL Server**: 通过 `mssql-jdbc` 驱动支持
-- **PostgreSQL**: 可通过配置启用
-- **Oracle**: 可通过添加驱动支持
+- **MySQL**
+- **SQL Server**
+- **PostgreSQL**
+- **Oracle**
 
 #### 数据库配置示例
 ```yaml

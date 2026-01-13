@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = CustomFileClientProperties.PREFIX)
 public class CustomFileClientProperties {
-    public static final String PREFIX = "os.file.client";
+    public static final String PREFIX = "os.file";
 
     /**
      * 缓存类型 default: MINIO

@@ -1,38 +1,37 @@
 os:
     cache:
         type: REDIS
-    redis:
-        # ip: 10.10.10.181
-        ip: production.redis.com
-        port: 16379
-        password: 'SbtyMveYNfLzTks7H0apCmyStPzWJqjy'
-        database: 0
+        redis:
+            # ip: 10.10.10.181
+            ip: production.redis.com
+            port: 6379
+            password: '1111111'
+            database: 0
     file:
-        client:
-            type: MINIO
-    local:
-        base-path: /usr/lain/uploads
+        type: MINIO
+        local:
+            base-path: /usr/lain/uploads
 
-    minio:
-        endpoint: http://production.oss.com:9000
-        access-key: admin
-        secret-key: password
+        minio:
+            endpoint: http://production.oss.com:9000
+            access-key: admin
+            secret-key: password
 
-    aliyun:
-        oss:
-            endpoint: your-endpoint
-            access-key-id: your-access-key-id
-            access-key-secret: your-access-key-secret
+        aliyun:
+            oss:
+                endpoint: your-endpoint
+                access-key-id: your-access-key-id
+                access-key-secret: your-access-key-secret
 
 spring:
     cache:
         type: GENERIC
     data:
         redis:
-            host: ${os.redis.ip}
-            password: ${os.redis.password}
-            port: ${os.redis.port}
-            database: ${os.redis.database}
+            host: ${os.cache.redis.ip}
+            password: ${os.cache.redis.password}
+            port: ${os.cache.redis.port}
+            database: ${os.cache.redis.database}
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         druid:

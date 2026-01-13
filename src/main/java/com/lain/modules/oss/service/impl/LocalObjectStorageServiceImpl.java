@@ -27,7 +27,7 @@ import java.util.UUID;
 @Component
 public class LocalObjectStorageServiceImpl implements ObjectStorageService {
 
-    @Value("${os.local.base-path:./uploads}")
+    @Value("${os.file.local.base-path:./uploads}")
     private String basePath;
 
     @PostConstruct

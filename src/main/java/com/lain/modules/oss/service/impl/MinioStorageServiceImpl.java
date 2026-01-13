@@ -22,13 +22,13 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class MinioStorageServiceImpl implements ObjectStorageService {
 
-    @Value("${os.minio.endpoint}")
+    @Value("${os.file.minio.endpoint}")
     private String endpoint;
 
-    @Value("${os.minio.access-key}")
+    @Value("${os.file.minio.access-key}")
     private String accessKey;
 
-    @Value("${os.minio.secret-key}")
+    @Value("${os.file.minio.secret-key}")
     private String secretKey;
 
 //    @Value("${minio.bucket-prefix:}")

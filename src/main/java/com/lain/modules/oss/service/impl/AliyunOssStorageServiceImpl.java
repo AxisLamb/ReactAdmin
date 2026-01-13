@@ -27,16 +27,16 @@ import java.util.UUID;
 @Slf4j
 public class AliyunOssStorageServiceImpl implements ObjectStorageService {
 
-    @Value("${os.aliyun.oss.endpoint}")
+    @Value("${os.file.aliyun.oss.endpoint}")
     private String endpoint;
 
-    @Value("${os.aliyun.oss.access-key-id}")
+    @Value("${os.file.aliyun.oss.access-key-id}")
     private String accessKeyId;
 
-    @Value("${os.aliyun.oss.access-key-secret}")
+    @Value("${os.file.aliyun.oss.access-key-secret}")
     private String accessKeySecret;
 
-    @Value("${os.aliyun.oss.bucket-prefix:}")
+    @Value("${os.file.aliyun.oss.bucket-prefix:}")
     private String bucketPrefix;
 
     private OSS ossClient;
