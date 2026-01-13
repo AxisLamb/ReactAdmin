@@ -13,6 +13,7 @@
 - **安全认证**: Sa-Token 1.40.0
 - **数据库连接池**: Druid 1.2.20
 - **文档工具**: Knife4j 4.4.0
+- **后端仓库**: [ReactAdmin](https://github.com/AxisLamb/ReactAdmin)
 
 #### 前端技术栈
 - **运行环境**: Node.js v22.17.0
@@ -74,14 +75,20 @@ spring:
 ```yaml
 os:
   file:
-    client:
-      type: MINIO  # 支持 LOCAL, MINIO, ALIYUN 等
-  local:
-    base-path: ./uploads  # 本地存储路径
-  minio:
-    endpoint: http://10.37.131.224:9000
-    access-key: admin
-    secret-key: password
+    type: MINIO # 支持 LOCAL, MINIO, ALIYUN 等
+    local:
+      base-path: ./uploads # 本地存储路径
+    
+    minio:
+      endpoint: http://10.37.131.224:9000
+      access-key: admin
+      secret-key: password
+    
+    aliyun:
+      oss:
+        endpoint: your-endpoint
+        access-key-id: your-access-key-id
+        access-key-secret: your-access-key-secret
 ```
 
 
@@ -97,12 +104,13 @@ os:
 ```yaml
 os:
   cache:
-    type: REDIS  # 支持 REDIS 或 LOCAL
-  redis:
-    ip: localhost
-    port: 16379
-    password: 'SbtyMveYNfLzTks7H0apCmyStPzWJqjy'
-    database: 0
+    type: REDIS
+    redis:
+      # ip: 10.10.10.181
+      ip: localhost
+      port: 6379
+      password: '123456'
+      database: 0
 ```
 
 
