@@ -1,5 +1,7 @@
 package com.lain.modules.sys.service.impl;
 
+import cn.dev33.satoken.session.SaSession;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -7,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lain.common.utils.SecurityUtil;
 import com.lain.common.vo.R;
+import com.lain.config.auth.AuthConstant;
 import com.lain.modules.sys.dao.SysUserMapper;
 import com.lain.modules.sys.dao.SysUserRoleMapper;
 import com.lain.modules.sys.entity.SysRole;
@@ -150,6 +153,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 不允许删除超级管理员
         if (list.contains(1L)) {
             return R.error("系统管理员不能删除");
+        }
+
+        // 不允许删除自己
+        SaSession tokenSession = StpUtil.getTokenSession();
+        String userId = tokenSession.getString(AuthConstant.TOKEN_SESSION_KEY_USER_ID);
+        Long userIdInt = Long.parseLong(userId);
+        if (list.contains(userIdInt)) {
+            return R.error("不能删除自己");
         }
 
         List<SysUser> users = this.listByIds(list);

@@ -215,7 +215,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         // 添加受保护的主布局路由
         RouteConfig mainLayoutRoute = new RouteConfig("/", "MainLayout");
         mainLayoutRoute.setProtectedRoute(true);
-        mainLayoutRoute.setChildren(buildChildrenRoutes(rootMenus, menuMap));
+        // dashboard home page 默认添加
+        RouteConfig dashBoard = new RouteConfig("dashboard", "Dashboard");
+        List<RouteConfig> routeConfigs = buildChildrenRoutes(rootMenus, menuMap);
+        routeConfigs.add(dashBoard);
+        mainLayoutRoute.setChildren(routeConfigs);
         routes.add(mainLayoutRoute);
 
         return routes;

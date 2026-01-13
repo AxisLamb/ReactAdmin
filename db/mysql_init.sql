@@ -157,7 +157,6 @@ insert  into `sys_menu`(`menu_id`,`parent_id`,`name`,`url`,`react_component`,`pe
 (14,11,'删除菜单',NULL,NULL,'sys:menu:delete',2,NULL,2,NULL,NULL,NULL,NULL),
 (19,1,'系统日志','sys/log',NULL,'sys:log:list',1,'file-text',4,NULL,NULL,NULL,NULL),
 (20,19,'删除日志',NULL,NULL,'sys:log:delete',2,NULL,0,NULL,NULL,NULL,NULL),
-(21,0,'仪表盘','dashboard','Dashboard',NULL,0,'dashboard',1,NULL,NULL,NULL,NULL),
 (22,0,'工作台','workbench',NULL,NULL,0,'desktop',2,NULL,NULL,NULL,NULL),
 (37,0,'系统监控','monitor',NULL,NULL,0,'monitor',4,NULL,NULL,NULL,NULL),
 (38,37,'服务监控','server',NULL,'monitor:server:list',1,'fund',0,NULL,NULL,NULL,NULL),
@@ -244,7 +243,6 @@ insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values
 (18,1,18),
 (19,1,19),
 (20,1,20),
-(21,1,21),
 (22,1,22),
 (23,1,23),
 (24,1,24),
@@ -281,7 +279,6 @@ insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values
 (55,2,12),
 (56,2,13),
 (57,2,14),
-(58,2,21),
 (59,2,22),
 (60,2,23),
 (61,2,24),
@@ -290,7 +287,6 @@ insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values
 (64,2,41),
 (65,2,42),
 (66,2,43),
-(67,3,21),
 (68,3,22),
 (69,3,23),
 (70,3,24),
@@ -331,15 +327,12 @@ insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values
 (234,7,1),
 (235,7,2),
 (236,7,3),
-(237,7,21),
 (238,8,1),
 (239,8,2),
 (240,8,4),
-(241,8,21),
 (242,9,1),
 (243,9,2),
-(244,9,5),
-(245,9,21);
+(244,9,5);
 
 /*Table structure for table `sys_user` */
 
