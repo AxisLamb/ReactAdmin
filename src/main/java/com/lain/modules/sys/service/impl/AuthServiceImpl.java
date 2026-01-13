@@ -50,13 +50,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public R login(LoginParam loginParam) {
         // 根据用户名查找用户
-        SysUser user = sysUserService.findByUsername(loginParam.getUsername());
+        SysUser user = sysUserService.findByUsername(loginParam.getUsername().trim());
         if (user == null) {
             return R.error("用户名或密码错误");
         }
 
         // 验证密码
-        if (!SecurityUtil.verifyPassword(loginParam.getPassword(), user.getPassword())) {
+        if (!SecurityUtil.verifyPassword(loginParam.getPassword().trim(), user.getPassword())) {
             return R.error("用户名或密码错误");
         }
 
