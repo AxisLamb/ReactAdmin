@@ -41,6 +41,7 @@
         <esdk-obs-java.version>3.24.3</esdk-obs-java.version>
         <qiniu-java-sdk.version>7.15.1</qiniu-java-sdk.version>
         <minio.version>8.5.12</minio.version>
+        <agentscope.version>2.0.0</agentscope.version>
     </properties>
 
     <dependencies>
@@ -254,6 +255,34 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.15.2</version>
         </dependency>
+
+        <!-- ALI AI -->
+<!--        <dependency>-->
+<!--            <groupId>io.agentscope</groupId>-->
+<!--            <artifactId>agentscope-spring-boot-starter</artifactId>-->
+<!--            <version>1.0.12</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.agentscope</groupId>-->
+<!--            <artifactId>agentscope-admin-spring-boot-starter</artifactId>-->
+<!--            <version>2.0.0</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>io.agentscope</groupId>
+            <artifactId>agentscope-harness</artifactId>
+            <version>${agentscope.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.agentscope</groupId>
+            <artifactId>agentscope-extensions-model-dashscope</artifactId>
+            <version>${agentscope.version}</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.agentscope</groupId>-->
+<!--            <artifactId>agentscope-dashscope-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+        <!-- ALI AI -->
+
     </dependencies>
 
     <build>
