@@ -55,5 +55,6 @@ public class FileOperationAgent {
         agent.call(Msg.builder()
                 .textContent("请列出 /tmp/test-agent 目录的内容，并告诉我 info.txt 文件的详细信息。")
                 .build(), ctx).block();
+
     }
 }

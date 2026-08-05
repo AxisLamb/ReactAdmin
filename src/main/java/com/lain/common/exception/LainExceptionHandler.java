@@ -18,6 +18,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 /**
  * 异常处理器
@@ -40,6 +41,15 @@ public class LainExceptionHandler {
 	public R handlerNoFoundException(Exception e) {
 		logger.error(e.getMessage(), e);
 		return R.error(404, "路径不存在，请检查路径是否正确");
+	}
+
+	/**
+	 * 处理静态资源不存在异常（如浏览器自动请求 favicon.ico），仅记录警告，避免刷屏 ERROR 日志
+	 */
+	@ExceptionHandler(NoResourceFoundException.class)
+	public R handleNoResourceFoundException(NoResourceFoundException e) {
+		logger.warn("静态资源不存在: {}", e.getResourcePath());
+		return R.error(404, "资源不存在，请检查路径是否正确");
 	}
 
 	@ExceptionHandler(DuplicateKeyException.class)
