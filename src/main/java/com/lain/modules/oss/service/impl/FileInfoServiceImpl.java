@@ -1,6 +1,7 @@
 package com.lain.modules.oss.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lain.modules.oss.service.ObjectStorageService;
@@ -63,9 +64,9 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
     @Override
     public List<FileInfo> listByBusiness(String serviceModule, String businessType, String businessId) {
         LambdaQueryWrapper<FileInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(FileInfo::getServiceModule, serviceModule)
-                .eq(FileInfo::getBusinessType, businessType)
-                .eq(FileInfo::getBusinessId, businessId)
+        queryWrapper.eq(StringUtils.hasText(serviceModule), FileInfo::getServiceModule, serviceModule)
+                .eq(StringUtils.hasText(businessType), FileInfo::getBusinessType, businessType)
+                .eq(StringUtils.hasText(businessId), FileInfo::getBusinessId, businessId)
                 .eq(FileInfo::getStatus, 1); // 状态为有效
         return this.list(queryWrapper);
     }
