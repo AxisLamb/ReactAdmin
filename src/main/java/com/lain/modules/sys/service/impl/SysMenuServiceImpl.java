@@ -58,6 +58,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
         if (isPersonal) {
             List<Long> menuIds = findAllMenuIdsByUserId();
+            // 空集合直接返回，避免拼出非法的 IN () 语句
+            if (CollectionUtil.isEmpty(menuIds)) {
+                return List.of();
+            }
             queryWrapper = queryWrapper.in(SysMenu::getMenuId, menuIds);
         }
 
@@ -186,10 +190,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
         List<Long> menuIds = findAllMenuIdsByUserId();
 
-        // 获取用户所有菜单数据
-        LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper = queryWrapper.in(SysMenu::getMenuId, menuIds).orderByAsc(SysMenu::getOrderNum); // 按排序字段排序
-        List<SysMenu> allMenus = list(queryWrapper);
+        // 获取用户所有菜单数据（menuIds 为空时跳过查询，避免拼出非法的 IN () 语句）
+        List<SysMenu> allMenus;
+        if (CollectionUtil.isEmpty(menuIds)) {
+            allMenus = List.of();
+        } else {
+            LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper = queryWrapper.in(SysMenu::getMenuId, menuIds).orderByAsc(SysMenu::getOrderNum); // 按排序字段排序
+            allMenus = list(queryWrapper);
+        }
 
         // 构建根节点（一级菜单）
         List<SysMenu> rootMenus = new ArrayList<>();

@@ -133,6 +133,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
 //        SysUser user = new SysUser();
         BeanUtils.copyProperties(userVO, user);
+        user.setPassword(SecurityUtil.encryptPassword(userVO.getPassword()));
         updateById(user);
         // 需要先删除旧的用户角色绑定关系
         sysUserRoleMapper.delete(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getUserId, user.getUserId()));
