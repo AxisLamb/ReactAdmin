@@ -180,7 +180,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public UserInfoVO getUserInfo(String userId) {
-        SysUser user = getById(userId);
+        // 必须转为Long再查询，PostgreSQL不支持bigint与varchar的隐式类型转换
+        SysUser user = getById(Long.valueOf(userId));
         if (user == null) {
             return null;
         }

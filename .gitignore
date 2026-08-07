@@ -31,3 +31,4 @@ target/
 *.iml
 *.iws
 out/
+./uploads
