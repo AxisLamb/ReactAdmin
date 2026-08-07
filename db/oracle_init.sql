@@ -242,7 +242,7 @@ INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (43, 41, '修改密码', NULL, NULL, 'sys:profile:password', 1, NULL, 1, NULL, NULL, NULL, NULL);
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
-(44, 23, '文件管理', 'file', NULL, 'oss:file:list', 1, 'file-image', 3, NULL, NULL, NULL, NULL);
+(44, 1, '文件管理', 'sys/file', 'FileList', 'oss:file:list', 1, 'file-image', 3, NULL, NULL, NULL, NULL);
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (45, 44, '上传文件', NULL, NULL, 'oss:file:upload', 2, NULL, 0, NULL, NULL, NULL, NULL);
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
@@ -252,7 +252,7 @@ INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (48, 44, '删除文件', NULL, NULL, 'oss:file:delete', 2, NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
-(49, 1, '数据字典', 'sys/dict', NULL, 'sys:dict:list', 1, 'book', 5, NULL, NULL, NULL, NULL);
+(49, 1, '数据字典', 'sys/dict', 'DictList', 'sys:dict:list', 1, 'book', 5, NULL, NULL, NULL, NULL);
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (50, 49, '查询字典', NULL, NULL, 'sys:dict:list', 2, NULL, 0, NULL, NULL, NULL, NULL);
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
