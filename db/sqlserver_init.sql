@@ -16,6 +16,7 @@ GO
 CREATE TABLE [dbo].[file_info](
 	[id] [bigint] IDENTITY(1,1) NOT NULL,
 	[file_id] [nvarchar](64) NOT NULL,
+	[user_id] [bigint] NULL,
 	[original_name] [nvarchar](255) NOT NULL,
 	[file_size] [bigint] NOT NULL,
 	[file_type] [nvarchar](100) NULL,
@@ -24,6 +25,7 @@ CREATE TABLE [dbo].[file_info](
 	[file_path] [nvarchar](1000) NULL,
 	[service_module] [nvarchar](100) NULL,
 	[business_type] [nvarchar](100) NULL,
+	[business_table] [nvarchar](100) NULL,
 	[business_id] [nvarchar](100) NULL,
 	[status] [bit] NOT NULL,
 	[created_by] [bigint] NULL,

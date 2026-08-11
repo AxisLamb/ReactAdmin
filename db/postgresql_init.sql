@@ -8,6 +8,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE file_info (
     id BIGSERIAL PRIMARY KEY,
     file_id VARCHAR(64) NOT NULL UNIQUE,
+    user_id BIGINT,
     original_name VARCHAR(255) NOT NULL,
     file_size BIGINT NOT NULL,
     file_type VARCHAR(100),
@@ -16,6 +17,7 @@ CREATE TABLE file_info (
     file_path VARCHAR(1000),
     service_module VARCHAR(100),
     business_type VARCHAR(100),
+    business_table VARCHAR(100),
     business_id VARCHAR(100),
     status SMALLINT NOT NULL DEFAULT 1,
     created_by BIGINT,
@@ -33,6 +35,7 @@ CREATE INDEX idx_created_time ON file_info(create_time);
 COMMENT ON TABLE file_info IS '文件信息表';
 COMMENT ON COLUMN file_info.id IS '主键ID';
 COMMENT ON COLUMN file_info.file_id IS '文件唯一标识';
+COMMENT ON COLUMN file_info.user_id IS '上传用户ID';
 COMMENT ON COLUMN file_info.original_name IS '原始文件名';
 COMMENT ON COLUMN file_info.file_size IS '文件大小(字节)';
 COMMENT ON COLUMN file_info.file_type IS '文件类型';
@@ -41,6 +44,7 @@ COMMENT ON COLUMN file_info.object_name IS '对象名称';
 COMMENT ON COLUMN file_info.file_path IS '文件路径';
 COMMENT ON COLUMN file_info.service_module IS '服务模块';
 COMMENT ON COLUMN file_info.business_type IS '业务类型';
+COMMENT ON COLUMN file_info.business_table IS '业务表名';
 COMMENT ON COLUMN file_info.business_id IS '业务ID';
 COMMENT ON COLUMN file_info.status IS '状态: 0-禁用, 1-正常';
 COMMENT ON COLUMN file_info.created_by IS '创建人';

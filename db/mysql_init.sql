@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS `file_info`;
 CREATE TABLE `file_info` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `file_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件唯一标识',
+  `user_id` bigint DEFAULT NULL COMMENT '上传用户ID',
   `original_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '原始文件名',
   `file_size` bigint NOT NULL COMMENT '文件大小(字节)',
   `file_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '文件类型',
@@ -31,6 +32,7 @@ CREATE TABLE `file_info` (
   `file_path` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '文件路径',
   `service_module` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '服务模块',
   `business_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '业务类型',
+  `business_table` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '业务表名',
   `business_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '业务ID',
   `status` tinyint NOT NULL DEFAULT '1' COMMENT '状态: 0-禁用, 1-正常',
   `created_by` bigint DEFAULT NULL COMMENT '创建人',
@@ -39,6 +41,7 @@ CREATE TABLE `file_info` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_file_id` (`file_id`),
+  KEY `idx_user_id` (`user_id`),
   KEY `idx_business` (`business_type`,`business_id`),
   KEY `idx_service_module` (`service_module`),
   KEY `idx_created_time` (`create_time`)
