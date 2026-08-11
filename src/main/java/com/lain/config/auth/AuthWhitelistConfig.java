@@ -22,7 +22,8 @@ public class AuthWhitelistConfig {
         "/v3/api-docs-ext/**",
         "/favicon.ico",
         "/auth/login",
-        "/error"
+        "/error",
+        "/upload/**"
     );
 
     /**

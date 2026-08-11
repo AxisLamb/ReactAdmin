@@ -1,5 +1,6 @@
 package com.lain.modules.oss.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lain.common.exception.LainException;
@@ -43,9 +44,12 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         // 2. 上传至对象存储
         FileUploadResult result = objectStorageService.uploadFile(request);
 
+        long loginIdAsLong = StpUtil.getLoginIdAsLong();
+
         // 3. 保存文件信息
         FileInfo fileInfo = new FileInfo();
         fileInfo.setFileId(result.getFileId());
+        fileInfo.setUserId(loginIdAsLong);
         fileInfo.setOriginalName(result.getOriginalName());
         fileInfo.setFileSize(result.getFileSize());
         fileInfo.setFileType(result.getFileType());
@@ -54,6 +58,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         fileInfo.setFilePath(result.getFilePath());
         fileInfo.setServiceModule(request.getServiceModule());
         fileInfo.setBusinessType(request.getBusinessType());
+        fileInfo.setBusinessTable(request.getBusinessTable());
         fileInfo.setBusinessId(request.getBusinessId());
         save(fileInfo);
 

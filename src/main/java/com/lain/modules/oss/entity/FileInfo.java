@@ -14,6 +14,8 @@ public class FileInfo extends BaseEntity {
 
     private String fileId;
 
+    private Long userId;
+
     private String originalName;
 
     private Long fileSize;
@@ -29,6 +31,8 @@ public class FileInfo extends BaseEntity {
     private String serviceModule;
 
     private String businessType;
+
+    private String businessTable;
 
     private String businessId;
 

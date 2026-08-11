@@ -23,8 +23,10 @@ public class SaTokenConfig implements WebMvcConfigurer {
                     StpUtil.checkLogin();
                 }))
                 .addPathPatterns("/**")
-                .excludePathPatterns(authWhitelistConfig.getWhitelistPaths())
-        ;
+                .excludePathPatterns(authWhitelistConfig.getWhitelistPaths());
+
+        registry.addInterceptor(new UploadAuthInterceptor())
+                .addPathPatterns("/upload/**");
     }
 
 }

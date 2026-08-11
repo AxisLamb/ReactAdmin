@@ -48,9 +48,9 @@ public class OSSController {
     public R<FileUploadResult> upload(
             @Parameter(description = "上传的文件", required = true) @RequestParam("file") MultipartFile file,
             @Parameter(description = "服务模块标识，如 sys、cms") @RequestParam(value = "serviceModule", required = false) String serviceModule,
-            @Parameter(description = "业务类型，如 sys_user") @RequestParam(value = "businessType", required = false) String businessType,
+            @Parameter(description = "业务名，如 avatar") @RequestParam(value = "businessType", required = false) String businessType,
             @Parameter(description = "业务主键ID") @RequestParam(value = "businessId", required = false) String businessId,
-            @Parameter(description = "业务字段名，如 avatar") @RequestParam(value = "businessField", required = false) String businessField) throws IOException {
+            @Parameter(description = "业务表，如 sys_user") @RequestParam(value = "businessTable", required = false) String businessTable) throws IOException {
         FileUploadRequest request = FileUploadRequest.builder()
                 .originalName(file.getOriginalFilename())
                 .fileSize(file.getSize())
@@ -59,7 +59,7 @@ public class OSSController {
                 .serviceModule(serviceModule)
                 .businessType(businessType)
                 .businessId(businessId)
-                .businessField(businessField)
+                .businessTable(businessTable)
                 .build();
         return R.ok(fileInfoService.uploadAndSave(request));
     }

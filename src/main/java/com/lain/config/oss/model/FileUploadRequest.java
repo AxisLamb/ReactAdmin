@@ -29,14 +29,14 @@ public class FileUploadRequest {
     /** 服务模块（如 sys、order），用于桶隔离与业务归组 */
     private String serviceModule;
 
-    /** 业务类型（如 sys_user、contract） */
+    /** 业务类型 如 avatar */
     private String businessType;
 
     /** 业务主键（如用户ID）；与 serviceModule、businessType 同时传入时，上传后自动建立 file_biz_ref 关联 */
     private String businessId;
 
-    /** 业务字段名（如 avatar） */
-    private String businessField;
+    /** 业务表（如 sys_user、contract） */
+    private String businessTable;
 
     /** 显式指定存储桶（可选，为空时由 StoragePathStrategy 决定） */
     private String bucketName;
