@@ -34,15 +34,4 @@ public class FileInfo extends BaseEntity {
 
     private Integer status = 1;
 
-//    @TableField(fill = FieldFill.INSERT)
-//    private String createdBy;
-//
-//    @TableField(fill = FieldFill.INSERT)
-//    private LocalDateTime createdTime;
-//
-//    @TableField(fill = FieldFill.UPDATE)
-//    private String updatedBy;
-//
-//    @TableField(fill = FieldFill.UPDATE)
-//    private LocalDateTime updatedTime;
 }

@@ -1,119 +1,134 @@
 package com.lain.modules.oss.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.springframework.util.StringUtils;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lain.modules.oss.service.ObjectStorageService;
+import com.lain.common.exception.LainException;
 import com.lain.config.oss.model.FileUploadRequest;
 import com.lain.config.oss.model.FileUploadResult;
+import com.lain.config.oss.model.StorageLocation;
+import com.lain.config.oss.strategy.StoragePathStrategy;
 import com.lain.modules.oss.dao.FileInfoMapper;
 import com.lain.modules.oss.entity.FileInfo;
 import com.lain.modules.oss.service.FileInfoService;
+import com.lain.modules.oss.service.ObjectStorageService;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> implements FileInfoService {
 
-    @Autowired
-    private ObjectStorageService objectStorageService;
-
-    @Autowired
-    private FileInfoMapper fileInfoMapper;
+    private final ObjectStorageService objectStorageService;
+    private final StoragePathStrategy storagePathStrategy;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public FileUploadResult uploadAndSave(FileUploadRequest request) {
-        // 上传到对象存储
-        FileUploadResult uploadResult = objectStorageService.uploadFile(request);
+        // 1. 解析存储位置（桶 + 对象路径）
+        StorageLocation location = storagePathStrategy.resolve(request);
+        request.setBucketName(location.getBucketName());
+        request.setObjectName(location.getObjectName());
 
-        // 保存元数据到数据库
+        // 2. 上传至对象存储
+        FileUploadResult result = objectStorageService.uploadFile(request);
+
+        // 3. 保存文件信息
         FileInfo fileInfo = new FileInfo();
-        fileInfo.setFileId(uploadResult.getFileId());
-        fileInfo.setOriginalName(request.getOriginalName());
-        fileInfo.setFileSize(request.getFileSize());
-        fileInfo.setFileType(request.getFileType());
-        fileInfo.setBucketName(uploadResult.getBucketName());
-        fileInfo.setObjectName(uploadResult.getObjectName());
-        fileInfo.setFilePath(uploadResult.getFilePath());
+        fileInfo.setFileId(result.getFileId());
+        fileInfo.setOriginalName(result.getOriginalName());
+        fileInfo.setFileSize(result.getFileSize());
+        fileInfo.setFileType(result.getFileType());
+        fileInfo.setBucketName(result.getBucketName());
+        fileInfo.setObjectName(result.getObjectName());
+        fileInfo.setFilePath(result.getFilePath());
         fileInfo.setServiceModule(request.getServiceModule());
         fileInfo.setBusinessType(request.getBusinessType());
         fileInfo.setBusinessId(request.getBusinessId());
+        save(fileInfo);
 
-        this.save(fileInfo);
-
-        return uploadResult;
+        return result;
     }
 
     @Override
     public FileInfo getByFileId(String fileId) {
-        LambdaQueryWrapper<FileInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(FileInfo::getFileId, fileId)
-                .eq(FileInfo::getStatus, 1);
-        return this.getOne(queryWrapper, false);
+        return getOne(new LambdaQueryWrapper<FileInfo>()
+                .eq(FileInfo::getFileId, fileId)
+                .eq(FileInfo::getStatus, 1));
     }
 
     @Override
     public List<FileInfo> listByBusiness(String serviceModule, String businessType, String businessId) {
-        LambdaQueryWrapper<FileInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(StringUtils.hasText(serviceModule), FileInfo::getServiceModule, serviceModule)
+        List<FileInfo> files = list(new LambdaQueryWrapper<FileInfo>()
+                .eq(StringUtils.hasText(serviceModule), FileInfo::getServiceModule, serviceModule)
                 .eq(StringUtils.hasText(businessType), FileInfo::getBusinessType, businessType)
                 .eq(StringUtils.hasText(businessId), FileInfo::getBusinessId, businessId)
-                .eq(FileInfo::getStatus, 1); // 状态为有效
-        return this.list(queryWrapper);
+                .eq(FileInfo::getStatus, 1));
+
+        return files;
     }
 
     @Override
-    @Transactional
-    public boolean deleteByFileId(String fileId) {
-        FileInfo fileInfo = this.getByFileId(fileId);
-        if (fileInfo != null) {
-            // 从对象存储删除文件
-            objectStorageService.deleteFile(fileInfo.getBucketName(), fileInfo.getObjectName());
-
-            // 逻辑删除数据库记录 - 使用MyBatis Plus的update方法
-            FileInfo updateFileInfo = new FileInfo();
-            updateFileInfo.setStatus(0); // 设置状态为删除状态
-            LambdaUpdateWrapper<FileInfo> queryWrapper = new LambdaUpdateWrapper<>();
-            queryWrapper.eq(FileInfo::getFileId, fileId);
-            return this.update(updateFileInfo, queryWrapper);
+    public FileInfo getFileByBusiness(String serviceModule, String businessType, String businessId) {
+        List<FileInfo> refs = listByBusiness(serviceModule, businessType, businessId);
+        if (refs.isEmpty()) {
+            return null;
         }
-        return false;
+        return getByFileId(refs.get(0).getFileId());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteByFileId(String fileId) {
+        FileInfo fileInfo = getByFileId(fileId);
+        if (fileInfo == null) {
+            throw new LainException("文件不存在");
+        }
+
+        boolean deleted = objectStorageService.deleteFile(fileInfo.getBucketName(), fileInfo.getObjectName());
+        if (deleted) {
+            removeById(fileInfo.getId());
+        }
+        return deleted;
     }
 
     @Override
     public void downloadFile(String fileId, HttpServletResponse response) {
-        FileInfo fileInfo = this.getByFileId(fileId);
+        FileInfo fileInfo = getByFileId(fileId);
         if (fileInfo == null) {
-            throw new RuntimeException("文件不存在");
+            throw new LainException("文件不存在");
         }
 
-        try {
-            response.setContentType(fileInfo.getFileType());
-            response.setHeader("Content-Disposition",
-                "attachment; filename=" + URLEncoder.encode(fileInfo.getOriginalName(), "UTF-8"));
+        try (InputStream inputStream = objectStorageService.downloadFile(fileInfo.getBucketName(), fileInfo.getObjectName());
+             OutputStream outputStream = response.getOutputStream()) {
 
-            OutputStream outputStream = response.getOutputStream();
-            objectStorageService.downloadFile(fileInfo.getBucketName(), fileInfo.getObjectName(), outputStream);
-            outputStream.flush();
-        } catch (IOException e) {
-            throw new RuntimeException("文件下载失败", e);
+            response.setContentType(fileInfo.getFileType());
+            response.setHeader("Content-Disposition", "attachment;filename=" +
+                    URLEncoder.encode(fileInfo.getOriginalName(), StandardCharsets.UTF_8));
+
+            inputStream.transferTo(outputStream);
+            response.flushBuffer();
+        } catch (Exception e) {
+            log.error("文件下载失败", e);
+            throw new LainException("文件下载失败");
         }
     }
 
     @Override
     public String getFileUrl(String fileId) {
-        FileInfo fileInfo = this.getByFileId(fileId);
+        FileInfo fileInfo = getByFileId(fileId);
         if (fileInfo == null) {
-            return null;
+            throw new LainException("文件不存在");
         }
         return objectStorageService.getFileUrl(fileInfo.getBucketName(), fileInfo.getObjectName());
     }

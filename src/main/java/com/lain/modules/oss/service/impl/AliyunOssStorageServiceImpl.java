@@ -1,189 +1,154 @@
 package com.lain.modules.oss.service.impl;
 
-import com.aliyun.core.utils.IOUtils;
+import cn.hutool.core.util.StrUtil;
 import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.OSSObject;
-import com.aliyun.oss.model.PutObjectRequest;
-import com.lain.modules.oss.service.ObjectStorageService;
-import com.lain.config.oss.model.BucketKey;
+import com.lain.common.exception.LainException;
 import com.lain.config.oss.model.FileUploadRequest;
 import com.lain.config.oss.model.FileUploadResult;
-import com.lain.config.oss.properties.CustomFileClientProperties;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
+import com.lain.config.oss.properties.AliyunOssProperties;
+import com.lain.config.oss.properties.FileClientType;
+import com.lain.modules.oss.service.ObjectStorageService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
-@Component
-@ConditionalOnProperty(prefix = CustomFileClientProperties.PREFIX, name = "type", havingValue = "ALIYUN")
+/**
+ * 阿里云 OSS 对象存储服务实现
+ */
 @Slf4j
+@Component
+@RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "os.file", name = "type", havingValue = "ALIYUN")
 public class AliyunOssStorageServiceImpl implements ObjectStorageService {
 
-    @Value("${os.file.aliyun.oss.endpoint}")
-    private String endpoint;
-
-    @Value("${os.file.aliyun.oss.access-key-id}")
-    private String accessKeyId;
-
-    @Value("${os.file.aliyun.oss.access-key-secret}")
-    private String accessKeySecret;
-
-    @Value("${os.file.aliyun.oss.bucket-prefix:}")
-    private String bucketPrefix;
-
-    private OSS ossClient;
-
-    @PostConstruct
-    public void init() {
-        this.ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-    }
-
-    @PreDestroy
-    public void destroy() {
-        if (ossClient != null) {
-            ossClient.shutdown();
-        }
-    }
+    private final OSS ossClient;
+    private final AliyunOssProperties properties;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public FileUploadResult uploadFile(FileUploadRequest request) {
-        String bucketName = getBucketName(request.getBucketKey());
-        String objectName = generateObjectName(request.getOriginalName());
-        String fileId = UUID.randomUUID().toString().replace("-", "");
+        String bucketName = request.getBucketName();
+        String objectName = request.getObjectName();
+        if (StrUtil.isBlank(bucketName) || StrUtil.isBlank(objectName)) {
+            throw new LainException("存储位置未解析，请检查 StoragePathStrategy 配置");
+        }
+
+        createBucketIfNotExists(bucketName);
 
         try {
-            // 创建存储桶（如果不存在）
-            createBucketIfNotExists(request.getBucketKey());
-
-            // 上传文件
-            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, request.getInputStream());
-            ossClient.putObject(putObjectRequest);
-
-            // 构建访问路径
-            String filePath = "https://" + bucketName + "." + endpoint + "/" + objectName;
-
-            return FileUploadResult.builder()
-                    .fileId(fileId)
-                    .bucketName(bucketName)
-                    .objectName(objectName)
-                    .filePath(filePath)
-                    .originalName(request.getOriginalName())
-                    .fileSize(request.getFileSize())
-                    .fileType(request.getFileType())
-                    .build();
-
+            ossClient.putObject(bucketName, objectName, request.getInputStream());
         } catch (Exception e) {
-            throw new RuntimeException("文件上传失败", e);
+            log.error("阿里云OSS文件上传失败", e);
+            throw new LainException("文件上传失败");
         }
+
+        return FileUploadResult.builder()
+                .fileId(UUID.randomUUID().toString().replace("-", ""))
+                .originalName(request.getOriginalName())
+                .fileSize(request.getFileSize())
+                .fileType(request.getFileType())
+                .bucketName(bucketName)
+                .objectName(objectName)
+                .filePath(getFileUrl(bucketName, objectName))
+                .build();
     }
 
     @Override
-    public void downloadFile(BucketKey key, String objectName, OutputStream outputStream) {
-        String bucketName = getBucketName(key);
-        downloadFile(bucketName, objectName, outputStream);
+    public InputStream downloadFile(String bucketName, String objectName) {
+        try {
+            OSSObject ossObject = ossClient.getObject(bucketName, objectName);
+            return ossObject.getObjectContent();
+        } catch (Exception e) {
+            log.error("阿里云OSS文件下载失败", e);
+            throw new LainException("文件下载失败");
+        }
     }
 
     @Override
     public void downloadFile(String bucketName, String objectName, OutputStream outputStream) {
-        try {
-            OSSObject ossObject = ossClient.getObject(bucketName, objectName);
-            IOUtils.copy(ossObject.getObjectContent(), outputStream);
+        try (InputStream inputStream = downloadFile(bucketName, objectName)) {
+            inputStream.transferTo(outputStream);
         } catch (Exception e) {
-            throw new RuntimeException("文件下载失败", e);
+            log.error("阿里云OSS文件下载失败", e);
+            throw new LainException("文件下载失败");
         }
-    }
-
-    @Override
-    public String getFileUrl(BucketKey key, String objectName) {
-        String bucketName = getBucketName(key);
-        return getFileUrl(bucketName, objectName);
     }
 
     @Override
     public String getFileUrl(String bucketName, String objectName) {
         try {
-            Date expiration = new Date(new Date().getTime() + 3600 * 1000 * 24 * 7); // 7天后过期
+            Date expiration = new Date(System.currentTimeMillis() + properties.getUrlExpiry() * 1000L);
             URL url = ossClient.generatePresignedUrl(bucketName, objectName, expiration);
             return url.toString();
         } catch (Exception e) {
-            throw new RuntimeException("获取文件URL失败", e);
+            log.error("阿里云OSS获取文件URL失败", e);
+            throw new LainException("获取文件URL失败");
         }
     }
 
     @Override
-    public boolean deleteFile(BucketKey key, String objectName) {
-        String bucketName = getBucketName(key);
-        return deleteFile(bucketName, objectName);
-    }
-
-    @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteFile(String bucketName, String objectName) {
         try {
             ossClient.deleteObject(bucketName, objectName);
             return true;
         } catch (Exception e) {
-            log.error("删除文件失败", e);
+            log.error("阿里云OSS文件删除失败", e);
             return false;
         }
     }
 
     @Override
-    public boolean exists(BucketKey key, String objectName) {
+    public boolean exists(String bucketName, String objectName) {
         try {
-            return ossClient.doesObjectExist(getBucketName(key), objectName);
+            return ossClient.doesObjectExist(bucketName, objectName);
         } catch (Exception e) {
             return false;
         }
     }
 
     @Override
-    public boolean createBucket(BucketKey key) {
+    public void createBucket(String bucketName) {
         try {
-            String fullBucketName = getBucketName(key);
-            if (!ossClient.doesBucketExist(fullBucketName)) {
-                ossClient.createBucket(fullBucketName);
+            ossClient.createBucket(bucketName);
+        } catch (Exception e) {
+            log.error("阿里云OSS创建存储桶失败", e);
+            throw new LainException("创建存储桶失败");
+        }
+    }
+
+    @Override
+    public void deleteBucket(String bucketName) {
+        try {
+            ossClient.deleteBucket(bucketName);
+        } catch (Exception e) {
+            log.error("阿里云OSS删除存储桶失败", e);
+            throw new LainException("删除存储桶失败");
+        }
+    }
+
+    private void createBucketIfNotExists(String bucketName) {
+        try {
+            if (!ossClient.doesBucketExist(bucketName)) {
+                createBucket(bucketName);
             }
-            return true;
         } catch (Exception e) {
-            log.error("创建存储桶失败", e);
-            return false;
+            log.error("阿里云OSS检查存储桶失败", e);
+            throw new LainException("检查存储桶失败");
         }
     }
 
     @Override
-    public boolean deleteBucket(BucketKey key) {
-        try {
-            ossClient.deleteBucket(getBucketName(key));
-            return true;
-        } catch (Exception e) {
-            log.error("删除存储桶失败", e);
-            return false;
-        }
-    }
-
-    private String getBucketName(BucketKey key) {
-        return key.getKey();
-    }
-
-    private String generateObjectName(String originalName) {
-        String ext = "";
-        if (originalName.contains(".")) {
-            ext = originalName.substring(originalName.lastIndexOf("."));
-        }
-        return System.currentTimeMillis() + "_" + UUID.randomUUID().toString().replace("-", "") + ext;
-    }
-
-    private void createBucketIfNotExists(BucketKey key) {
-        if (!ossClient.doesBucketExist(key.getKey())) {
-            createBucket(key);
-        }
+    public String toString() {
+        return FileClientType.ALIYUN.name();
     }
 }
