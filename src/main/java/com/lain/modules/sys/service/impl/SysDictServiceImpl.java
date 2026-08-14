@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lain.modules.sys.dao.SysDictMapper;
 import com.lain.modules.sys.entity.SysDict;
+import com.lain.modules.sys.service.SysDictItemService;
 import com.lain.modules.sys.service.SysDictService;
 import com.lain.modules.sys.vo.SysDictVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> implements SysDictService {
+
+    private final SysDictItemService sysDictItemService;
 
     @Override
     public Page<SysDictVO> pageDict(Page<SysDict> page, SysDictVO dictVO) {
@@ -71,10 +75,13 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     }
 
     @Override
+    @Transactional
     public boolean deleteDict(Long dictId) {
         if (dictId == null) {
             throw new IllegalArgumentException("字典ID不能为空");
         }
+        // 先删除该字典下的全部字典项，再删除字典本身
+        sysDictItemService.removeByDictId(dictId);
         return this.removeById(dictId);
     }
 

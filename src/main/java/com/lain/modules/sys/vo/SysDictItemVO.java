@@ -2,9 +2,13 @@
 package com.lain.modules.sys.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Schema(description = "数据字典项VO")
 public class SysDictItemVO {
     @Schema(description = "字典项ID")

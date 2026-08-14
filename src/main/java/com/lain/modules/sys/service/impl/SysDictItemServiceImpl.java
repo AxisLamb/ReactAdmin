@@ -94,6 +94,14 @@ public class SysDictItemServiceImpl extends ServiceImpl<SysDictItemMapper, SysDi
         return this.removeById(itemId);
     }
 
+    @Override
+    public boolean removeByDictId(Long dictId) {
+        if (dictId == null) {
+            throw new IllegalArgumentException("字典ID不能为空");
+        }
+        return this.remove(new QueryWrapper<SysDictItem>().eq("dict_id", dictId));
+    }
+
     /**
      * 构建查询条件
      */

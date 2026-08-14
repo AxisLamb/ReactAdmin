@@ -47,19 +47,18 @@ public class OSSController {
     })
     public R<FileUploadResult> upload(
             @Parameter(description = "上传的文件", required = true) @RequestParam("file") MultipartFile file,
-            @Parameter(description = "服务模块标识，如 sys、cms") @RequestParam(value = "serviceModule", required = false) String serviceModule,
+//            @Parameter(description = "服务模块标识，如 sys、cms") @RequestParam(value = "serviceModule", required = false) String serviceModule,
             @Parameter(description = "业务名，如 avatar") @RequestParam(value = "businessType", required = false) String businessType,
-            @Parameter(description = "业务主键ID") @RequestParam(value = "businessId", required = false) String businessId,
-            @Parameter(description = "业务表，如 sys_user") @RequestParam(value = "businessTable", required = false) String businessTable) throws IOException {
+            @Parameter(description = "业务主键ID") @RequestParam(value = "businessId", required = false) String businessId
+//            @Parameter(description = "业务表，如 sys_user") @RequestParam(value = "businessTable", required = false) String businessTable
+    ) throws IOException {
         FileUploadRequest request = FileUploadRequest.builder()
                 .originalName(file.getOriginalFilename())
                 .fileSize(file.getSize())
                 .fileType(file.getContentType())
                 .inputStream(file.getInputStream())
-                .serviceModule(serviceModule)
                 .businessType(businessType)
                 .businessId(businessId)
-                .businessTable(businessTable)
                 .build();
         return R.ok(fileInfoService.uploadAndSave(request));
     }
@@ -126,7 +125,7 @@ public class OSSController {
     /**
      * 文件下载
      */
-    @GetMapping("/{fileId}/download")
+    @GetMapping("/download/{fileId}")
     @SaCheckPermission("oss:file:download")
     @Operation(summary = "文件下载", description = "根据文件ID下载文件，返回文件流")
     @ApiResponses({
@@ -143,7 +142,7 @@ public class OSSController {
     /**
      * 获取文件访问URL
      */
-    @GetMapping("/{fileId}/url")
+    @GetMapping("/url/{fileId}")
     @Operation(summary = "获取文件访问URL", description = "根据文件ID获取文件的访问链接")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "获取成功",

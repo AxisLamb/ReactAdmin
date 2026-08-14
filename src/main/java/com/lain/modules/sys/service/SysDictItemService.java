@@ -43,4 +43,9 @@ public interface SysDictItemService extends IService<SysDictItem> {
      * 删除字典项
      */
     boolean deleteDictItem(Long itemId);
+
+    /**
+     * 根据字典ID删除该字典下的全部字典项
+     */
+    boolean removeByDictId(Long dictId);
 }

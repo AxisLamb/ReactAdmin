@@ -3,6 +3,7 @@ package com.lain.modules.oss.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lain.common.constant.StatusEnum;
 import com.lain.common.exception.LainException;
 import com.lain.config.oss.model.FileUploadRequest;
 import com.lain.config.oss.model.FileUploadResult;
@@ -12,9 +13,12 @@ import com.lain.modules.oss.dao.FileInfoMapper;
 import com.lain.modules.oss.entity.FileInfo;
 import com.lain.modules.oss.service.FileInfoService;
 import com.lain.modules.oss.service.ObjectStorageService;
+import com.lain.modules.sys.service.SysDictItemService;
+import com.lain.modules.sys.vo.SysDictItemVO;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -32,10 +36,23 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
 
     private final ObjectStorageService objectStorageService;
     private final StoragePathStrategy storagePathStrategy;
+    private final SysDictItemService sysDictItemService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public FileUploadResult uploadAndSave(FileUploadRequest request) {
+        // 校验前端是否传值正确，bussiness type必须要在字典项定义范围内
+        SysDictItemVO voParam = new SysDictItemVO();
+        voParam.setItemLabel(request.getBusinessType());
+        voParam.setStatus(StatusEnum.ENABLE.getCode());
+        List<SysDictItemVO> itemList = sysDictItemService.listDictItem(voParam);
+        if (itemList.size() != 2) {
+            throw new LainException("文件业务类型字典项不存在，请联系管理员");
+        }
+        List<String> collect = itemList.stream().map(SysDictItemVO::getItemValue).toList();
+        request.setServiceModule(collect.get(0));
+        request.setBusinessTable(collect.get(1));
+
         // 1. 解析存储位置（桶 + 对象路径）
         StorageLocation location = storagePathStrategy.resolve(request);
         request.setBucketName(location.getBucketName());
@@ -44,22 +61,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         // 2. 上传至对象存储
         FileUploadResult result = objectStorageService.uploadFile(request);
 
-        long loginIdAsLong = StpUtil.getLoginIdAsLong();
-
-        // 3. 保存文件信息
-        FileInfo fileInfo = new FileInfo();
-        fileInfo.setFileId(result.getFileId());
-        fileInfo.setUserId(loginIdAsLong);
-        fileInfo.setOriginalName(result.getOriginalName());
-        fileInfo.setFileSize(result.getFileSize());
-        fileInfo.setFileType(result.getFileType());
-        fileInfo.setBucketName(result.getBucketName());
-        fileInfo.setObjectName(result.getObjectName());
-        fileInfo.setFilePath(result.getFilePath());
-        fileInfo.setServiceModule(request.getServiceModule());
-        fileInfo.setBusinessType(request.getBusinessType());
-        fileInfo.setBusinessTable(request.getBusinessTable());
-        fileInfo.setBusinessId(request.getBusinessId());
+        FileInfo fileInfo = getFileInfo(request, result);
         save(fileInfo);
 
         return result;
@@ -136,5 +138,26 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
             throw new LainException("文件不存在");
         }
         return objectStorageService.getFileUrl(fileInfo.getBucketName(), fileInfo.getObjectName());
+    }
+
+    @NotNull
+    private static FileInfo getFileInfo(FileUploadRequest request, FileUploadResult result) {
+        long loginIdAsLong = StpUtil.getLoginIdAsLong();
+
+        // 3. 保存文件信息
+        FileInfo fileInfo = new FileInfo();
+        fileInfo.setFileId(result.getFileId());
+        fileInfo.setUserId(loginIdAsLong);
+        fileInfo.setOriginalName(result.getOriginalName());
+        fileInfo.setFileSize(result.getFileSize());
+        fileInfo.setFileType(result.getFileType());
+        fileInfo.setBucketName(result.getBucketName());
+        fileInfo.setObjectName(result.getObjectName());
+        fileInfo.setFilePath(result.getFilePath());
+        fileInfo.setServiceModule(request.getServiceModule());
+        fileInfo.setBusinessType(request.getBusinessType());
+        fileInfo.setBusinessTable(request.getBusinessTable());
+        fileInfo.setBusinessId(request.getBusinessId());
+        return fileInfo;
     }
 }
