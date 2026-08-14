@@ -1,7 +1,6 @@
 package com.lain.config.auth;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.exception.NotLoginException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;

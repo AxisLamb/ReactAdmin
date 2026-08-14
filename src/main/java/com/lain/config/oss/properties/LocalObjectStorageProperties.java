@@ -14,4 +14,6 @@ public class LocalObjectStorageProperties {
 
     /** 本地存储根目录 */
     private String basePath = "./uploads";
+
+    private String accessPath = "/files";
 }

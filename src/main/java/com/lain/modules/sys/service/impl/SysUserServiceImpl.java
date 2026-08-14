@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lain.common.constant.StatusEnum;
 import com.lain.common.utils.SecurityUtil;
 import com.lain.common.vo.R;
 import com.lain.config.auth.AuthConstant;
@@ -99,7 +100,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         // 设置默认状态
         if (user.getStatus() == null) {
-            user.setStatus(1);
+            user.setStatus(StatusEnum.ENABLE.getCode());
         }
 
         save(user);

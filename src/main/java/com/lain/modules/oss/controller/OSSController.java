@@ -104,25 +104,6 @@ public class OSSController {
     }
 
     /**
-     * 按业务维度 + 业务字段查询单个文件
-     * 示例(用户头像): serviceModule=sys&businessType=sys_user&businessId=1&businessField=avatar
-     */
-    @GetMapping("/one")
-    @SaCheckPermission("oss:file:list")
-    @Operation(summary = "按业务查询单个文件", description = "根据业务维度及业务字段查询单个文件，示例(用户头像): serviceModule=sys&businessType=sys_user&businessId=1&businessField=avatar")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "查询成功",
-            content = @Content(mediaType = "application/json",
-                schema = @Schema(implementation = FileInfo.class)))
-    })
-    public R<FileInfo> one(
-            @Parameter(description = "服务模块标识", required = true) @RequestParam("serviceModule") String serviceModule,
-            @Parameter(description = "业务类型", required = true) @RequestParam("businessType") String businessType,
-            @Parameter(description = "业务主键ID", required = true) @RequestParam("businessId") String businessId) {
-        return R.ok(fileInfoService.getFileByBusiness(serviceModule, businessType, businessId));
-    }
-
-    /**
      * 文件下载
      */
     @GetMapping("/download/{fileId}")
@@ -140,7 +121,7 @@ public class OSSController {
     }
 
     /**
-     * 获取文件访问URL
+     * 获取文件访问URL，已关闭，访问图片的方式必须通过下载接口
      */
     @GetMapping("/url/{fileId}")
     @Operation(summary = "获取文件访问URL", description = "根据文件ID获取文件的访问链接")
