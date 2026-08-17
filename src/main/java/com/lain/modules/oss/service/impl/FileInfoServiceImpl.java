@@ -1,6 +1,7 @@
 package com.lain.modules.oss.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lain.common.constant.StatusEnum;
@@ -138,6 +139,22 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
             throw new LainException("文件不存在");
         }
         return objectStorageService.getFileUrl(fileInfo.getBucketName(), fileInfo.getObjectName());
+    }
+
+    @Override
+    public String url(String businessType) {
+        long loginIdAsLong = StpUtil.getLoginIdAsLong();
+        List<FileInfo> files = list(new LambdaQueryWrapper<FileInfo>()
+                .eq(FileInfo::getUserId, loginIdAsLong)
+                .eq(FileInfo::getBusinessType, businessType)
+                .eq(FileInfo::getStatus, StatusEnum.ENABLE.getCode())
+                .orderByDesc(FileInfo::getUpdateTime));
+
+        if (CollectionUtil.isEmpty(files)) {
+            return null;
+        }
+
+        return files.getFirst().getFilePath();
     }
 
     @NotNull

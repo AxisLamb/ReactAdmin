@@ -50,4 +50,9 @@ public interface FileInfoService extends IService<FileInfo> {
      * 获取文件访问URL
      */
     String getFileUrl(String fileId);
+
+    /**
+     * 按业务维度 + 业务字段查询单个文件（如用户头像），取排序最前的一个
+     */
+    String url(String businessType);
 }

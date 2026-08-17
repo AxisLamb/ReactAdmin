@@ -86,6 +86,23 @@ public class OSSController {
      * 按业务维度查询文件列表
      * 示例: serviceModule=sys&businessType=sys_user&businessId=1 => 该用户绑定的全部文件
      */
+    @GetMapping("/url")
+    @SaCheckPermission("oss:file:list")
+    @Operation(summary = "按业务查询单一文件的访问URL", description = "根据业务维度查询该业务绑定的最新文件的访问URL，示例: businessType=avatar")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "查询成功",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class)))
+    })
+    public R<String> one(
+            @Parameter(description = "业务类型", required = true) @RequestParam("businessType") String businessType){
+        return R.ok(fileInfoService.url(businessType));
+    }
+
+    /**
+     * 按业务维度查询文件列表
+     * 示例: serviceModule=sys&businessType=sys_user&businessId=1 => 该用户绑定的全部文件
+     */
     @GetMapping("/list")
     @SaCheckPermission("oss:file:list")
     @Operation(summary = "按业务查询文件列表", description = "根据业务维度查询该业务绑定的全部文件，示例: serviceModule=sys&businessType=sys_user&businessId=1")
@@ -116,22 +133,6 @@ public class OSSController {
             @Parameter(description = "文件ID", required = true) @PathVariable("fileId") String fileId,
             HttpServletResponse response) {
         fileInfoService.downloadFile(fileId, response);
-    }
-
-    /**
-     * 获取文件访问URL，已关闭，访问图片的方式必须通过下载接口
-     */
-    @GetMapping("/url/{fileId}")
-    @Operation(summary = "获取文件访问URL", description = "根据文件ID获取文件的访问链接")
-    @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "获取成功",
-            content = @Content(mediaType = "application/json",
-                schema = @Schema(implementation = String.class)))
-    })
-    @SaCheckPermission("oss:file:url")
-    public R<String> url(
-            @Parameter(description = "文件ID", required = true) @PathVariable("fileId") String fileId) {
-        return R.ok(fileInfoService.getFileUrl(fileId));
     }
 
     /**

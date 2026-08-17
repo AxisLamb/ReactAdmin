@@ -9,6 +9,7 @@ import com.lain.config.oss.properties.LocalObjectStorageProperties;
 import com.lain.modules.oss.service.ObjectStorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,12 @@ import java.util.UUID;
 public class LocalObjectStorageServiceImpl implements ObjectStorageService {
 
     private final LocalObjectStorageProperties properties;
+
+    @Value("${server.port}")
+    private int serverPort;
+
+    @Value("${server.host:localhost}")
+    private String serverHost;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -89,7 +96,7 @@ public class LocalObjectStorageServiceImpl implements ObjectStorageService {
 
     @Override
     public String getFileUrl(String bucketName, String objectName) {
-        return "/file/" + bucketName + "/" + objectName;
+        return "http://" + serverHost + ":" + serverPort + "/file/" + bucketName + "/" + objectName;
     }
 
     @Override
