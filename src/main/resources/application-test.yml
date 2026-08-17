@@ -8,9 +8,9 @@ os:
             password: '123456'
             database: 0
     file:
-        type: MINIO
+        type: LOCAL
         local:
-            base-path: ./uploads
+            base-path: ./uploads/
 
         minio:
             endpoint: http://192.168.47.130:9000
@@ -36,16 +36,16 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
         druid:
             # PostgreSQL 连接
-#            driver-class-name: org.postgresql.Driver
-#            url: jdbc:postgresql://192.168.47.130:5432/lain_db
-#            username: postgres
-#            password: mysecretpassword
+            driver-class-name: org.postgresql.Driver
+            url: jdbc:postgresql://192.168.47.130:5432/lain_db
+            username: postgres
+            password: mysecretpassword
 
             # MySQL 连接
-            driver-class-name: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://192.168.47.130:3306/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-            username: root
-            password: 123456
+#            driver-class-name: com.mysql.cj.jdbc.Driver
+#            url: jdbc:mysql://192.168.47.130:3306/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+#            username: root
+#            password: 123456
 
             # SQL Server 连接
             #driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
