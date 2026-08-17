@@ -112,9 +112,9 @@ public class OSSController {
                 schema = @Schema(implementation = List.class)))
     })
     public R<List<FileInfo>> list(
-            @Parameter(description = "服务模块标识", required = true) @RequestParam("serviceModule") String serviceModule,
+            @Parameter(description = "服务模块标识") @RequestParam("serviceModule") String serviceModule,
             @Parameter(description = "业务类型", required = true) @RequestParam("businessType") String businessType,
-            @Parameter(description = "业务主键ID", required = true) @RequestParam("businessId") String businessId) {
+            @Parameter(description = "业务主键ID") @RequestParam("businessId") String businessId) {
         return R.ok(fileInfoService.listByBusiness(serviceModule, businessType, businessId));
     }
 

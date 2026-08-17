@@ -279,6 +279,8 @@ INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type
 (59, 2, '用户信息', NULL, NULL, 'sys:user:info', 2, NULL, 5, NULL, NULL, NULL, NULL);
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (61, 2, '登出接口', NULL, NULL, 'sys:user:logout', 2, NULL, 6, 1, TO_DATE('2026-01-07 15:06:11', 'YYYY-MM-DD HH24:MI:SS'), 1, TO_DATE('2026-01-07 15:06:11', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
+(62, 22, '数据统计', NULL, NULL, 'sys:dashboard:list', 2, NULL, 0, NULL, NULL, NULL, NULL);
 
 -- 角色表
 CREATE TABLE sys_role (
@@ -441,6 +443,7 @@ INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (240, 8, 4);
 INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (242, 9, 1);
 INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (243, 9, 2);
 INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (244, 9, 5);
+INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (245, 1, 62);
 
 -- 系统用户表
 CREATE TABLE sys_user (

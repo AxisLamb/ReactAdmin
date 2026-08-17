@@ -184,7 +184,8 @@ insert  into `sys_menu`(`menu_id`,`parent_id`,`name`,`url`,`react_component`,`pe
 (57,54,'修改字典项',NULL,NULL,'sys:dict:item:update',2,NULL,2,NULL,NULL,NULL,NULL),
 (58,54,'删除字典项',NULL,NULL,'sys:dict:item:delete',2,NULL,3,NULL,NULL,NULL,NULL),
 (59,2,'用户信息',NULL,NULL,'sys:user:info',2,NULL,5,NULL,NULL,NULL,NULL),
-(61,2,'登出接口',NULL,NULL,'sys:user:logout',2,NULL,6,1,'2026-01-07 15:06:11',1,'2026-01-07 15:06:11');
+(61,2,'登出接口',NULL,NULL,'sys:user:logout',2,NULL,6,1,'2026-01-07 15:06:11',1,'2026-01-07 15:06:11'),
+(62,22,'数据统计',NULL,NULL,'sys:dashboard:list',2,NULL,0,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `sys_role` */
 
@@ -335,7 +336,8 @@ insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values
 (240,8,4),
 (242,9,1),
 (243,9,2),
-(244,9,5);
+(244,9,5),
+(245,1,62);
 
 /*Table structure for table `sys_user` */
 
