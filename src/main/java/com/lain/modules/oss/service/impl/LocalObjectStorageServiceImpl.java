@@ -89,7 +89,7 @@ public class LocalObjectStorageServiceImpl implements ObjectStorageService {
 
     @Override
     public String getFileUrl(String bucketName, String objectName) {
-        return "/uploads/" + bucketName + "/" + objectName;
+        return "/file/" + bucketName + "/" + objectName;
     }
 
     @Override

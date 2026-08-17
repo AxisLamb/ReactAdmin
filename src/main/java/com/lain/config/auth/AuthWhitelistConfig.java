@@ -23,7 +23,7 @@ public class AuthWhitelistConfig {
         "/favicon.ico",
         "/auth/login",
         "/error",
-        "/upload/**"
+        "/file/**"
     );
 
     /**
