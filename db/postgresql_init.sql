@@ -120,6 +120,9 @@ COMMENT ON COLUMN sys_dict.create_time IS '创建时间';
 COMMENT ON COLUMN sys_dict.updated_by IS '更新者';
 COMMENT ON COLUMN sys_dict.update_time IS '更新时间';
 
+INSERT INTO sys_dict (dict_name,dict_type,status,remark,created_by,create_time,updated_by,update_time) VALUES
+	 ('test','test',1,'test',1, NOW(),1, NOW());
+
 -- 数据字典项表
 CREATE TABLE sys_dict_item (
     item_id BIGSERIAL PRIMARY KEY,
@@ -151,6 +154,11 @@ COMMENT ON COLUMN sys_dict_item.created_by IS '创建者';
 COMMENT ON COLUMN sys_dict_item.create_time IS '创建时间';
 COMMENT ON COLUMN sys_dict_item.updated_by IS '更新者';
 COMMENT ON COLUMN sys_dict_item.update_time IS '更新时间';
+
+INSERT INTO public.sys_dict_item (dict_id,item_label,item_value,status,order_num,remark,created_by,create_time,updated_by,update_time) VALUES
+	 (12,'avatar','user',1,0,'module',1,NOW(),1,NOW()),
+	 (12,'avatar','sys_user',1,0,'业务表',1,NOW(),1,NOW());
+
 
 -- 菜单管理表
 CREATE TABLE sys_menu (
