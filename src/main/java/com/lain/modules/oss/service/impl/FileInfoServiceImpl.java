@@ -151,10 +151,10 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
                 .orderByDesc(FileInfo::getUpdateTime));
 
         if (CollectionUtil.isEmpty(files)) {
-            return null;
+            throw new LainException("文件不存在");
         }
 
-        return files.getFirst().getFilePath();
+        return objectStorageService.getFileUrl(files.getFirst().getBucketName(), files.getFirst().getObjectName());
     }
 
     @NotNull

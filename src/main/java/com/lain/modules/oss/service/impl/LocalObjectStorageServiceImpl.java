@@ -1,5 +1,6 @@
 package com.lain.modules.oss.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.lain.common.exception.LainException;
 import com.lain.config.oss.model.FileUploadRequest;
@@ -96,7 +97,8 @@ public class LocalObjectStorageServiceImpl implements ObjectStorageService {
 
     @Override
     public String getFileUrl(String bucketName, String objectName) {
-        return "http://" + serverHost + ":" + serverPort + "/file/" + bucketName + "/" + objectName;
+        String tokenValue = StpUtil.getTokenValue();
+        return "http://" + serverHost + ":" + serverPort + "/file/" + bucketName + "/" + objectName + "?satoken=" + tokenValue;
     }
 
     @Override
