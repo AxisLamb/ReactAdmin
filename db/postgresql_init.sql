@@ -278,6 +278,8 @@ INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type
 (61, 2, '登出接口', NULL, NULL, 'sys:user:logout', 2, NULL, 6, 1, '2026-01-07 15:06:11+00', 1, '2026-01-07 15:06:11+00');
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (62, 22, '数据统计', NULL, NULL, 'sys:dashboard:list', 2, NULL, 0, NULL, NULL, NULL, NULL);
+INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
+(62, 22, '数据统计', NULL, NULL, 'sys:dashboard:list', 2, NULL, 0, NULL, NULL, NULL, NULL);
 
 -- 角色表
 CREATE TABLE sys_role (

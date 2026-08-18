@@ -278,6 +278,7 @@ INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (59, 2, N'用户信息', NULL, NULL, N'sys:user:info', 2, NULL, 5, NULL, NULL, NULL, NULL)
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (61, 2, N'登出接口', NULL, NULL, N'sys:user:logout', 2, NULL, 6, 1, CAST(N'2026-01-07T15:06:11.0000000' AS DateTime2), 1, CAST(N'2026-01-07T15:06:11.0000000' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (62, 2, N'用户列表', NULL, NULL, N'sys:user:list', 2, NULL, NULL, 1, CAST(N'2026-01-13T11:50:20.3982879' AS DateTime2), 1, CAST(N'2026-01-13T11:50:20.3982879' AS DateTime2))
+INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (63, 22, N'数据统计', NULL, NULL, N'sys:dashboard:list', 2, NULL, 0, NULL, NULL, NULL, NULL)
 SET IDENTITY_INSERT [dbo].[sys_menu] OFF
 GO
 SET IDENTITY_INSERT [dbo].[sys_role] ON
