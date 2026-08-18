@@ -98,6 +98,9 @@ CREATE TABLE `sys_dict` (
 
 /*Data for the table `sys_dict` */
 
+insert  into `sys_dict`(`dict_name`,`dict_type`,`status`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values
+('test','test',1,'test',1,NOW(),1,NOW());
+
 /*Table structure for table `sys_dict_item` */
 
 DROP TABLE IF EXISTS `sys_dict_item`;
@@ -119,6 +122,10 @@ CREATE TABLE `sys_dict_item` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据字典项表';
 
 /*Data for the table `sys_dict_item` */
+
+insert  into `sys_dict_item`(`dict_id`,`item_label`,`item_value`,`status`,`order_num`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values
+(12,'avatar','user',1,0,'module',1,NOW(),1,NOW()),
+(12,'avatar','sys_user',1,0,'业务表',1,NOW(),1,NOW());
 
 /*Table structure for table `sys_menu` */
 
