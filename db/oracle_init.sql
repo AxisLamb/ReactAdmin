@@ -133,7 +133,7 @@ COMMENT ON COLUMN sys_dict.update_time IS '更新时间';
 
 -- 插入字典数据
 INSERT INTO sys_dict(dict_name, dict_type, status, remark, created_by, create_time, updated_by, update_time) VALUES
-('test', 'test', 1, 'test', 1, SYSDATE, 1, SYSDATE);
+('images', 'images', 1, '图片定义', 1, SYSDATE, 1, SYSDATE);
 
 -- 数据字典项表
 CREATE TABLE sys_dict_item (

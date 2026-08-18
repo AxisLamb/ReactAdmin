@@ -99,7 +99,7 @@ CREATE TABLE `sys_dict` (
 /*Data for the table `sys_dict` */
 
 insert  into `sys_dict`(`dict_name`,`dict_type`,`status`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values
-('test','test',1,'test',1,NOW(),1,NOW());
+('images','images',1,'图片定义',1,NOW(),1,NOW());
 
 /*Table structure for table `sys_dict_item` */
 

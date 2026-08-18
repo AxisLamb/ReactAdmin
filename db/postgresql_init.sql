@@ -121,7 +121,7 @@ COMMENT ON COLUMN sys_dict.updated_by IS '更新者';
 COMMENT ON COLUMN sys_dict.update_time IS '更新时间';
 
 INSERT INTO sys_dict (dict_name,dict_type,status,remark,created_by,create_time,updated_by,update_time) VALUES
-	 ('test','test',1,'test',1, NOW(),1, NOW());
+	 ('images','images',1,'图片定义',1, NOW(),1, NOW());
 
 -- 数据字典项表
 CREATE TABLE sys_dict_item (

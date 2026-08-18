@@ -211,7 +211,7 @@ SET IDENTITY_INSERT [dbo].[sys_audit_log] ON
 INSERT [dbo].[sys_audit_log] ([log_id], [user_id], [username], [operation], [method], [params], [result], [ip], [user_agent], [time], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, 1, NULL, N'新增用户', N'com.lain.modules.sys.controller.SysUserController.save()', N'SysUserVO(userId=null, username=lain, roleId=9, roleName=null, password=123456, realName=lain, email=null, mobile=null, status=1) ', N'R(code=0, msg=success, data=保存成功)', N'0:0:0:0:0:0:0:1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 183, 1, CAST(N'2026-01-13T11:51:00.0843034' AS DateTime2), 1, CAST(N'2026-01-13T11:51:00.0843034' AS DateTime2))
 SET IDENTITY_INSERT [dbo].[sys_audit_log] OFF
 GO
-INSERT [dbo].[sys_dict] ([dict_name], [dict_type], [status], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (N'test', N'test', 1, N'test', 1, GETDATE(), 1, GETDATE())
+INSERT [dbo].[sys_dict] ([dict_name], [dict_type], [status], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (N'images', N'images', 1, N'图片定义', 1, GETDATE(), 1, GETDATE())
 GO
 INSERT [dbo].[sys_dict_item] ([dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (12, N'avatar', N'user', 1, 0, N'module', 1, GETDATE(), 1, GETDATE())
 INSERT [dbo].[sys_dict_item] ([dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (12, N'avatar', N'sys_user', 1, 0, N'业务表', 1, GETDATE(), 1, GETDATE())
