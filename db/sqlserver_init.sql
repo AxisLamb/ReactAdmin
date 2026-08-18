@@ -213,8 +213,8 @@ SET IDENTITY_INSERT [dbo].[sys_audit_log] OFF
 GO
 INSERT [dbo].[sys_dict] ([dict_name], [dict_type], [status], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (N'images', N'images', 1, N'图片定义', 1, GETDATE(), 1, GETDATE())
 GO
-INSERT [dbo].[sys_dict_item] ([dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (12, N'avatar', N'user', 1, 0, N'module', 1, GETDATE(), 1, GETDATE())
-INSERT [dbo].[sys_dict_item] ([dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (12, N'avatar', N'sys_user', 1, 0, N'业务表', 1, GETDATE(), 1, GETDATE())
+INSERT [dbo].[sys_dict_item] ([dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, N'avatar', N'user', 1, 0, N'module', 1, GETDATE(), 1, GETDATE())
+INSERT [dbo].[sys_dict_item] ([dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, N'avatar', N'sys_user', 1, 1, N'业务表', 1, GETDATE(), 1, GETDATE())
 GO
 SET IDENTITY_INSERT [dbo].[sys_menu] ON
 

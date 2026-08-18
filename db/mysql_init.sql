@@ -124,8 +124,8 @@ CREATE TABLE `sys_dict_item` (
 /*Data for the table `sys_dict_item` */
 
 insert  into `sys_dict_item`(`dict_id`,`item_label`,`item_value`,`status`,`order_num`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values
-(12,'avatar','user',1,0,'module',1,NOW(),1,NOW()),
-(12,'avatar','sys_user',1,0,'业务表',1,NOW(),1,NOW());
+(1,'avatar','user',1,0,'module',1,NOW(),1,NOW()),
+(1,'avatar','sys_user',1,1,'业务表',1,NOW(),1,NOW());
 
 /*Table structure for table `sys_menu` */
 

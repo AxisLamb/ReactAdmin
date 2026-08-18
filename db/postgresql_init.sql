@@ -156,8 +156,8 @@ COMMENT ON COLUMN sys_dict_item.updated_by IS '更新者';
 COMMENT ON COLUMN sys_dict_item.update_time IS '更新时间';
 
 INSERT INTO public.sys_dict_item (dict_id,item_label,item_value,status,order_num,remark,created_by,create_time,updated_by,update_time) VALUES
-	 (12,'avatar','user',1,0,'module',1,NOW(),1,NOW()),
-	 (12,'avatar','sys_user',1,0,'业务表',1,NOW(),1,NOW());
+	 (1,'avatar','user',1,0,'module',1,NOW(),1,NOW()),
+	 (1,'avatar','sys_user',1,1,'业务表',1,NOW(),1,NOW());
 
 
 -- 菜单管理表
