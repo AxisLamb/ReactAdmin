@@ -3,6 +3,7 @@ package com.lain.modules.sys.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lain.common.annotation.AuditLog;
 import com.lain.common.vo.R;
 import com.lain.modules.sys.service.SysRoleService;
 import com.lain.modules.sys.vo.SysRoleVO;
@@ -41,6 +42,7 @@ public class SysRoleController {
     @PostMapping("/add")
     @SaCheckPermission("sys:role:save")
     @Operation(summary = "Add role", description = "添加角色")
+    @AuditLog("新增角色")
     public R addRole(@RequestBody SysRoleVO roleVO) {
         sysRoleService.addRole(roleVO);
         return R.ok("新增角色成功");
@@ -50,6 +52,7 @@ public class SysRoleController {
     @PostMapping("/update")
     @SaCheckPermission("sys:role:update")
     @Operation(summary = "Update role", description = "更新角色")
+    @AuditLog("更新角色")
     public R updateRole(@RequestBody SysRoleVO roleVO) {
         sysRoleService.updateRole(roleVO);
         return R.ok("修改角色成功");
@@ -59,6 +62,7 @@ public class SysRoleController {
     @PostMapping("/delete")
     @SaCheckPermission("sys:role:delete")
     @Operation(summary = "Delete role", description = "删除角色")
+    @AuditLog("删除角色")
     public R deleteRole(Long id) {
         sysRoleService.deleteRole(id);
         return R.ok("删除角色成功");

@@ -54,7 +54,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         queryWrapper = queryWrapper.in(SysMenu::getType,
                 AuthConstant.MENU_TYPE_DIR,
                 AuthConstant.MENU_TYPE_MENU,
-                AuthConstant.MENU_TYPE_BUTTON);
+                AuthConstant.MENU_TYPE_BUTTON,
+                AuthConstant.MENU_TYPE_INF_DIR,
+                AuthConstant.MENU_TYPE_BUS,
+                AuthConstant.MENU_TYPE_INF);
 
         if (isPersonal) {
             List<Long> menuIds = findAllMenuIdsByUserId();
@@ -346,7 +349,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 return "父菜单的类型值必须小于子菜单的类型值（目录>菜单>按钮）";
             }
         }
-        if (childType > AuthConstant.MENU_TYPE_BUTTON) {
+        if (childType > AuthConstant.MENU_TYPE_INF) {
             return "菜单类型值无效";
         }
         return null; // 校验通过

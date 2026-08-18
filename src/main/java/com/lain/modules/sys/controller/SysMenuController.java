@@ -3,6 +3,7 @@ package com.lain.modules.sys.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.util.StrUtil;
+import com.lain.common.annotation.AuditLog;
 import com.lain.common.vo.R;
 import com.lain.modules.sys.service.SysMenuService;
 import com.lain.modules.sys.vo.RouteConfig;
@@ -49,6 +50,7 @@ public class SysMenuController {
     @PostMapping("/add")
     @SaCheckPermission("sys:menu:save")
     @Operation(summary = "add menu", description = "添加菜单")
+    @AuditLog("添加菜单")
     public R addMenu(@RequestBody SysMenuVO sysMenuVO) {
         String msg = sysMenuService.addMenu(sysMenuVO);
         if (StrUtil.isBlank(msg)) {
@@ -61,6 +63,7 @@ public class SysMenuController {
     @PostMapping("/update")
     @SaCheckPermission("sys:menu:update")
     @Operation(summary = "update menu", description = "更新菜单")
+    @AuditLog("更新菜单")
     public R updateMenu(@RequestBody SysMenuVO sysMenuVO) {
         String msg = sysMenuService.updateMenu(sysMenuVO);
         if (StrUtil.isBlank(msg)) {
@@ -73,6 +76,7 @@ public class SysMenuController {
     @PostMapping("/delete/{menuId}")
     @SaCheckPermission("sys:menu:delete")
     @Operation(summary = "delete menu", description = "删除菜单")
+    @AuditLog("删除菜单")
     public R deleteMenu(@PathVariable Long menuId) {
         String msg = sysMenuService.deleteMenu(menuId);
         if (StrUtil.isBlank(msg)) {

@@ -57,8 +57,8 @@ public class SysUserController {
      */
     @PostMapping("/save")
     @SaCheckPermission("sys:user:save")
-    @AuditLog("新增用户")
     @Operation(summary = "save user", description = "新增用户")
+    @AuditLog("新增用户")
     public R save(@RequestBody SysUserVO userVO) {
         return sysUserService.saveUser(userVO);
     }
@@ -69,6 +69,7 @@ public class SysUserController {
     @PostMapping("/update")
     @SaCheckPermission("sys:user:update")
     @Operation(summary = "update user", description = "修改用户")
+    @AuditLog("编辑用户")
     public R update(@RequestBody SysUserVO userVO) {
         return sysUserService.updateUser(userVO);
     }
@@ -79,6 +80,7 @@ public class SysUserController {
     @PostMapping("/delete")
     @SaCheckPermission("sys:user:delete")
     @Operation(summary = "delete users", description = "批量删除用户")
+    @AuditLog("删除用户")
     public R delete(@RequestBody Long[] userIds) {
         return sysUserService.deleteUserByIds(Arrays.asList(userIds));
     }

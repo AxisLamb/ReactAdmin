@@ -86,15 +86,32 @@ public class OSSController {
      * 按业务维度查询文件列表
      * 示例: serviceModule=sys&businessType=sys_user&businessId=1 => 该用户绑定的全部文件
      */
-    @GetMapping("/url")
+    @GetMapping("/getFileUrlByFileId")
     @SaCheckPermission("oss:file:list")
+    @Operation(summary = "按File Id获取File URL", description = "")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "查询成功",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class)))
+    })
+    public R<String> getFileUrlByFileId(
+            @Parameter(description = "业务类型", required = true) @RequestParam("fileId") String fileId){
+        return R.ok(fileInfoService.getFileUrl(fileId));
+    }
+
+    /**
+     * 按业务维度查询文件列表
+     * 示例: serviceModule=sys&businessType=sys_user&businessId=1 => 该用户绑定的全部文件
+     */
+    @GetMapping("/url")
+    @SaCheckPermission("oss:file:url")
     @Operation(summary = "按业务查询单一文件的访问URL", description = "根据业务维度查询该业务绑定的最新文件的访问URL，示例: businessType=avatar")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "查询成功",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = List.class)))
     })
-    public R<String> one(
+    public R<String> url(
             @Parameter(description = "业务类型", required = true) @RequestParam("businessType") String businessType){
         return R.ok(fileInfoService.url(businessType));
     }
@@ -112,9 +129,9 @@ public class OSSController {
                 schema = @Schema(implementation = List.class)))
     })
     public R<List<FileInfo>> list(
-            @Parameter(description = "服务模块标识") @RequestParam("serviceModule") String serviceModule,
-            @Parameter(description = "业务类型", required = true) @RequestParam("businessType") String businessType,
-            @Parameter(description = "业务主键ID") @RequestParam("businessId") String businessId) {
+            @Parameter(description = "服务模块标识") @RequestParam(value = "serviceModule" ,required = false) String serviceModule,
+            @Parameter(description = "业务类型") @RequestParam(value = "businessType" ,required = false) String businessType,
+            @Parameter(description = "业务主键ID") @RequestParam(value = "businessId" ,required = false) String businessId) {
         return R.ok(fileInfoService.listByBusiness(serviceModule, businessType, businessId));
     }
 
