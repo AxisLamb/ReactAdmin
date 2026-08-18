@@ -104,10 +104,9 @@ os:
       secret-key: password
     
     aliyun:
-      oss:
-        endpoint: your-endpoint
-        access-key-id: your-access-key-id
-        access-key-secret: your-access-key-secret
+      endpoint: your-endpoint
+      access-key-id: your-access-key-id
+      access-key-secret: your-access-key-secret
 ```
 
 
