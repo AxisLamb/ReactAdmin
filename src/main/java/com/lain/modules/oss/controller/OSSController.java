@@ -26,9 +26,9 @@ import java.util.List;
  * OSS文件控制器
  */
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/files")
 @RequiredArgsConstructor
-@Tag(name = "OSS文件管理", description = "文件上传、下载、业务关联等接口")
+@Tag(name = "OSS文件管理", description = "文件上传、下载等接口")
 public class OSSController {
 
     private final FileInfoService fileInfoService;
