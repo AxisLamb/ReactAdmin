@@ -8,7 +8,7 @@ GO
 
 USE [lain_db]
 GO
-/****** Object:  Table [dbo].[file_info]    Script Date: 2026/1/13 11:58:10 ******/
+/****** Object:  Table [dbo].[file_info]    Script Date: 2026/8/18 18:39:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -38,7 +38,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[sys_audit_log]    Script Date: 2026/1/13 11:58:10 ******/
+/****** Object:  Table [dbo].[sys_audit_log]    Script Date: 2026/8/18 18:39:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -64,7 +64,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[sys_dict]    Script Date: 2026/1/13 11:58:10 ******/
+/****** Object:  Table [dbo].[sys_dict]    Script Date: 2026/8/18 18:39:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -85,7 +85,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[sys_dict_item]    Script Date: 2026/1/13 11:58:10 ******/
+/****** Object:  Table [dbo].[sys_dict_item]    Script Date: 2026/8/18 18:39:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -108,7 +108,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[sys_menu]    Script Date: 2026/1/13 11:58:10 ******/
+/****** Object:  Table [dbo].[sys_menu]    Script Date: 2026/8/18 18:39:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -133,7 +133,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[sys_role]    Script Date: 2026/1/13 11:58:10 ******/
+/****** Object:  Table [dbo].[sys_role]    Script Date: 2026/8/18 18:39:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -153,7 +153,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[sys_role_menu]    Script Date: 2026/1/13 11:58:10 ******/
+/****** Object:  Table [dbo].[sys_role_menu]    Script Date: 2026/8/18 18:39:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -168,7 +168,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[sys_user]    Script Date: 2026/1/13 11:58:10 ******/
+/****** Object:  Table [dbo].[sys_user]    Script Date: 2026/8/18 18:39:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -191,7 +191,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[sys_user_role]    Script Date: 2026/1/13 11:58:10 ******/
+/****** Object:  Table [dbo].[sys_user_role]    Script Date: 2026/8/18 18:39:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -206,15 +206,18 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-SET IDENTITY_INSERT [dbo].[sys_audit_log] ON
 
-INSERT [dbo].[sys_audit_log] ([log_id], [user_id], [username], [operation], [method], [params], [result], [ip], [user_agent], [time], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, 1, NULL, N'新增用户', N'com.lain.modules.sys.controller.SysUserController.save()', N'SysUserVO(userId=null, username=lain, roleId=9, roleName=null, password=123456, realName=lain, email=null, mobile=null, status=1) ', N'R(code=0, msg=success, data=保存成功)', N'0:0:0:0:0:0:0:1', N'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 183, 1, CAST(N'2026-01-13T11:51:00.0843034' AS DateTime2), 1, CAST(N'2026-01-13T11:51:00.0843034' AS DateTime2))
-SET IDENTITY_INSERT [dbo].[sys_audit_log] OFF
 GO
-INSERT [dbo].[sys_dict] ([dict_name], [dict_type], [status], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (N'images', N'images', 1, N'图片定义', 1, GETDATE(), 1, GETDATE())
+SET IDENTITY_INSERT [dbo].[sys_dict] ON
+
+INSERT [dbo].[sys_dict] ([dict_id], [dict_name], [dict_type], [status], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, N'image', N'image', 1, N'图片定义', 1, CAST(N'2026-08-18T11:42:48.5633333' AS DateTime2), 1, CAST(N'2026-08-18T11:42:48.5633333' AS DateTime2))
+SET IDENTITY_INSERT [dbo].[sys_dict] OFF
 GO
-INSERT [dbo].[sys_dict_item] ([dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, N'avatar', N'user', 1, 0, N'module', 1, GETDATE(), 1, GETDATE())
-INSERT [dbo].[sys_dict_item] ([dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, N'avatar', N'sys_user', 1, 1, N'业务表', 1, GETDATE(), 1, GETDATE())
+SET IDENTITY_INSERT [dbo].[sys_dict_item] ON
+
+INSERT [dbo].[sys_dict_item] ([item_id], [dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, 1, N'avatar', N'user', 1, 0, N'module', 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2), 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2))
+INSERT [dbo].[sys_dict_item] ([item_id], [dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (2, 1, N'avatar', N'sys_user', 1, 1, N'业务表', 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2), 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2))
+SET IDENTITY_INSERT [dbo].[sys_dict_item] OFF
 GO
 SET IDENTITY_INSERT [dbo].[sys_menu] ON
 
@@ -234,7 +237,7 @@ INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (14, 11, N'删除菜单', NULL, NULL, N'sys:menu:delete', 2, NULL, 2, NULL, NULL, NULL, NULL)
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (19, 1, N'系统日志', N'sys/log', NULL, N'sys:log:list', 1, N'file-text', 4, NULL, NULL, NULL, NULL)
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (20, 19, N'删除日志', NULL, NULL, N'sys:log:delete', 2, NULL, 0, NULL, NULL, NULL, NULL)
-INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (22, 64, N'工作台', N'', N'', NULL, 4, N'bar-chart', 1, NULL, NULL, 1, CAST(N'2026-08-18T16:13:13.7973999' AS DateTime2))
+INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (22, 64, N'首页统计', N'', N'', NULL, 4, N'bar-chart', 1, NULL, NULL, 1, CAST(N'2026-08-18T16:13:13.7973999' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (37, 0, N'系统监控', N'monitor', NULL, NULL, 0, N'dashboard', 2, NULL, NULL, 1, CAST(N'2026-08-18T16:08:11.6361942' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (38, 37, N'服务监控', N'server', NULL, N'monitor:server:list', 1, N'safety', 0, NULL, NULL, 1, CAST(N'2026-08-18T14:41:49.5750511' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (39, 37, N'Redis监控', N'redis', NULL, N'monitor:redis:list', 1, N'database', 1, NULL, NULL, NULL, NULL)
@@ -256,92 +259,29 @@ INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (57, 49, N'修改字典项', NULL, NULL, N'sys:dict:item:update', 2, NULL, 6, NULL, NULL, NULL, NULL)
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (58, 49, N'删除字典项', NULL, NULL, N'sys:dict:item:delete', 2, NULL, 7, NULL, NULL, NULL, NULL)
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (59, 2, N'用户信息', NULL, NULL, N'sys:user:info', 2, NULL, 5, NULL, NULL, NULL, NULL)
-INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (61, 2, N'登出接口', NULL, NULL, N'sys:user:logout', 2, NULL, 6, 1, CAST(N'2026-01-07T15:06:11.0000000' AS DateTime2), 1, CAST(N'2026-01-07T15:06:11.0000000' AS DateTime2))
-INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (62, 2, N'用户列表', NULL, NULL, N'sys:user:list', 2, NULL, NULL, 1, CAST(N'2026-01-13T11:50:20.3982879' AS DateTime2), 1, CAST(N'2026-01-13T11:50:20.3982879' AS DateTime2))
+INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (61, 41, N'登出接口', NULL, NULL, N'sys:user:logout', 5, NULL, 6, 1, CAST(N'2026-01-07T15:06:11.0000000' AS DateTime2), 1, CAST(N'2026-01-07T15:06:11.0000000' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (63, 22, N'数据统计', NULL, NULL, N'sys:dashboard:list', 5, NULL, 0, NULL, NULL, NULL, NULL)
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (64, 0, N'通用接口', NULL, NULL, NULL, 3, N'star', 3, 1, CAST(N'2026-08-18T14:43:23.7727826' AS DateTime2), 1, CAST(N'2026-08-18T16:13:03.7224170' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (65, 64, N'文件', NULL, NULL, NULL, 4, N'folder', 3, 1, CAST(N'2026-08-18T17:02:16.2096924' AS DateTime2), 1, CAST(N'2026-08-18T17:02:23.0298749' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (66, 65, N'文件上传', NULL, NULL, N'oss:file:upload', 5, NULL, 1, 1, CAST(N'2026-08-18T17:04:10.2748154' AS DateTime2), 1, CAST(N'2026-08-18T17:04:10.2748154' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (67, 65, N'文件链接', NULL, NULL, N'oss:file:url', 5, NULL, 2, 1, CAST(N'2026-08-18T17:04:54.1635794' AS DateTime2), 1, CAST(N'2026-08-18T17:04:59.7311582' AS DateTime2))
+INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (68, 41, N'上传头像', NULL, NULL, N'sys:user:upload', 5, NULL, 3, 1, CAST(N'2026-08-18T18:23:39.4193711' AS DateTime2), 1, CAST(N'2026-08-18T18:23:39.4193711' AS DateTime2))
 SET IDENTITY_INSERT [dbo].[sys_menu] OFF
 GO
 SET IDENTITY_INSERT [dbo].[sys_role] ON
 
-INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, N'超级管理员', N'拥有系统所有权限，最高权限角色', 1, NULL, CAST(N'2025-12-02T11:50:30.0000000' AS DateTime2), NULL, NULL)
-INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (2, N'系统管理员', N'管理系统基础配置和用户', 1, NULL, CAST(N'2025-12-02T11:50:30.0000000' AS DateTime2), NULL, NULL)
+INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, N'超级管理员', N'拥有系统所有权限，最高权限角色', 1, NULL, CAST(N'2025-12-02T11:50:30.0000000' AS DateTime2), 1, CAST(N'2026-08-18T18:24:14.5365848' AS DateTime2))
+INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (2, N'系统管理员', N'管理系统基础配置和用户', 1, NULL, CAST(N'2025-12-02T11:50:30.0000000' AS DateTime2), 1, CAST(N'2026-08-18T17:23:34.3858641' AS DateTime2))
 INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (3, N'普通用户', N'普通操作员，拥有基本查看权限', 1, NULL, CAST(N'2025-12-02T11:50:30.0000000' AS DateTime2), NULL, NULL)
-INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (7, N'add user', N'add user', 1, 1, CAST(N'2026-01-05T16:54:36.0000000' AS DateTime2), 1, CAST(N'2026-01-13T11:55:53.8289147' AS DateTime2))
+INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (7, N'add user', N'add user', 1, 1, CAST(N'2026-01-05T16:54:36.0000000' AS DateTime2), 1, CAST(N'2026-08-18T17:23:45.5575616' AS DateTime2))
 INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (8, N'edit user', N'edit user', 1, 1, CAST(N'2026-01-05T17:00:49.0000000' AS DateTime2), 1, CAST(N'2026-01-13T11:55:44.7030094' AS DateTime2))
 INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (9, N'del user', N'del user', 1, 1, CAST(N'2026-01-05T17:07:12.0000000' AS DateTime2), 1, CAST(N'2026-01-13T11:55:57.2101194' AS DateTime2))
 INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (10, N'list user', N'list user', 1, 1, CAST(N'2026-01-05T17:07:48.0000000' AS DateTime2), 1, CAST(N'2026-01-13T11:56:02.3048120' AS DateTime2))
+INSERT [dbo].[sys_role] ([role_id], [role_name], [role_desc], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (11, N'接口测试员', N'接口测试员', 1, 1, CAST(N'2026-08-18T16:49:05.4963419' AS DateTime2), 1, CAST(N'2026-08-18T18:27:45.7833650' AS DateTime2))
 SET IDENTITY_INSERT [dbo].[sys_role] OFF
 GO
 SET IDENTITY_INSERT [dbo].[sys_role_menu] ON
 
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (1, 1, 1)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (2, 1, 2)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (3, 1, 3)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (4, 1, 4)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (5, 1, 5)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (6, 1, 6)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (7, 1, 7)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (8, 1, 8)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (9, 1, 9)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (10, 1, 10)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (11, 1, 11)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (12, 1, 12)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (13, 1, 13)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (14, 1, 14)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (15, 1, 15)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (16, 1, 16)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (17, 1, 17)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (18, 1, 18)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (19, 1, 19)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (20, 1, 20)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (22, 1, 22)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (23, 1, 23)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (24, 1, 24)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (25, 1, 25)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (26, 1, 26)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (27, 1, 27)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (28, 1, 28)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (29, 1, 29)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (30, 1, 30)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (31, 1, 31)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (32, 1, 32)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (33, 1, 33)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (34, 1, 34)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (35, 1, 35)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (36, 1, 36)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (37, 1, 37)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (38, 1, 38)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (39, 1, 39)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (40, 1, 40)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (41, 1, 41)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (42, 1, 42)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (43, 1, 43)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (44, 2, 1)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (45, 2, 2)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (46, 2, 3)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (47, 2, 4)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (48, 2, 5)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (49, 2, 6)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (50, 2, 7)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (51, 2, 8)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (52, 2, 9)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (53, 2, 10)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (54, 2, 11)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (55, 2, 12)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (56, 2, 13)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (57, 2, 14)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (59, 2, 22)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (60, 2, 23)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (61, 2, 24)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (62, 2, 29)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (63, 2, 33)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (64, 2, 41)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (65, 2, 42)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (66, 2, 43)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (68, 3, 22)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (69, 3, 23)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (70, 3, 24)
@@ -350,70 +290,132 @@ INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (72, 3, 33)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (73, 3, 41)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (74, 3, 42)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (75, 3, 43)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (76, 1, 44)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (77, 1, 45)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (78, 1, 46)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (79, 1, 47)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (80, 1, 48)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (81, 1, 49)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (82, 1, 50)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (83, 1, 51)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (84, 1, 52)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (85, 1, 53)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (86, 1, 54)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (87, 1, 55)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (88, 1, 56)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (89, 1, 57)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (90, 1, 58)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (91, 2, 49)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (92, 2, 50)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (93, 2, 51)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (94, 2, 52)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (95, 2, 53)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (96, 2, 54)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (97, 2, 55)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (98, 2, 56)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (99, 2, 57)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (100, 2, 58)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (101, 1, 59)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (102, 2, 59)
-GO
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (103, 3, 59)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (104, 3, 11)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (210, 8, 1)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (211, 8, 2)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (212, 8, 4)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (213, 8, 62)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (214, 7, 1)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (215, 7, 2)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (216, 7, 3)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (217, 7, 62)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (218, 9, 1)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (219, 9, 2)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (220, 9, 5)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (221, 9, 62)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (222, 10, 1)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (223, 10, 2)
-INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (224, 10, 62)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (403, 2, 64)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (404, 2, 1)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (405, 2, 65)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (406, 2, 2)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (407, 2, 66)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (408, 2, 3)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (409, 2, 67)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (410, 2, 4)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (411, 2, 5)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (412, 2, 6)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (413, 2, 7)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (414, 2, 8)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (415, 2, 9)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (416, 2, 10)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (417, 2, 11)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (418, 2, 12)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (419, 2, 13)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (420, 2, 14)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (421, 2, 41)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (422, 2, 42)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (423, 2, 43)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (424, 2, 44)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (425, 2, 46)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (426, 2, 47)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (427, 2, 48)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (428, 2, 49)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (429, 2, 50)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (430, 2, 51)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (431, 2, 52)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (432, 2, 53)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (433, 2, 55)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (434, 2, 56)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (435, 2, 57)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (436, 2, 58)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (437, 2, 59)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (438, 7, 64)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (439, 7, 1)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (440, 7, 65)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (441, 7, 2)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (442, 7, 3)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (443, 7, 67)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (445, 1, 64)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (446, 1, 1)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (447, 1, 65)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (448, 1, 2)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (449, 1, 66)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (450, 1, 3)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (451, 1, 67)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (452, 1, 4)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (453, 1, 68)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (454, 1, 5)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (455, 1, 6)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (456, 1, 7)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (457, 1, 8)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (458, 1, 9)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (459, 1, 10)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (460, 1, 11)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (461, 1, 12)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (462, 1, 13)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (463, 1, 14)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (464, 1, 19)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (465, 1, 20)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (466, 1, 22)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (467, 1, 37)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (468, 1, 38)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (469, 1, 39)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (470, 1, 40)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (471, 1, 41)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (472, 1, 42)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (473, 1, 43)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (474, 1, 44)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (475, 1, 46)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (476, 1, 47)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (477, 1, 48)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (478, 1, 49)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (479, 1, 50)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (480, 1, 51)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (481, 1, 52)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (482, 1, 53)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (483, 1, 55)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (484, 1, 56)
+GO
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (485, 1, 57)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (486, 1, 58)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (487, 1, 59)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (488, 1, 61)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (489, 1, 63)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (500, 11, 64)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (501, 11, 1)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (502, 11, 68)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (503, 11, 41)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (504, 11, 49)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (505, 11, 50)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (506, 11, 51)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (507, 11, 52)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (508, 11, 53)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (509, 11, 55)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (510, 11, 56)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (511, 11, 57)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (512, 11, 58)
 SET IDENTITY_INSERT [dbo].[sys_role_menu] OFF
 GO
 SET IDENTITY_INSERT [dbo].[sys_user] ON
 
-INSERT [dbo].[sys_user] ([user_id], [username], [password], [real_name], [email], [mobile], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, N'admin', N'$2a$10$bddSw9Plnp9wvu8/XyNGz.EA.EtpSa/Bc2ag399fXWaHpQ93bwxXa', N'系统管理员', N'admin@example.com', N'13800138000', 1, NULL, CAST(N'2025-12-02T11:50:46.0000000' AS DateTime2), NULL, NULL)
-INSERT [dbo].[sys_user] ([user_id], [username], [password], [real_name], [email], [mobile], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (2, N'sysadmin', N'$2a$10$XhTMMAx1jCp/XzpXvNNnzOtI5l44E/XIY98fDZy7Os2Q/VPBZDGLe', N'张三', N'zhangsan@example.com', N'13800138001', 1, NULL, CAST(N'2025-12-02T11:50:46.0000000' AS DateTime2), NULL, NULL)
-INSERT [dbo].[sys_user] ([user_id], [username], [password], [real_name], [email], [mobile], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (3, N'user', N'$2a$10$mrOhEfIDpwpq/i0j1PQeYexHysPVN8DCuG6vNo8rIHZ4C6w3aKQo6', N'李四', N'lisi@example.com', N'13800138002', 1, NULL, CAST(N'2025-12-02T11:50:46.0000000' AS DateTime2), NULL, NULL)
+INSERT [dbo].[sys_user] ([user_id], [username], [password], [real_name], [email], [mobile], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, N'admin', N'$2a$10$6/KAus4VcvtyXfwVM9scKezhGg4YZ1bynx2IZZ4HkYvGUqNGcNGg6', N'超级管理员', N'admin@example.com', N'13800138000', 1, NULL, CAST(N'2025-12-02T11:50:46.0000000' AS DateTime2), 1, CAST(N'2026-08-18T17:20:09.2482751' AS DateTime2))
+INSERT [dbo].[sys_user] ([user_id], [username], [password], [real_name], [email], [mobile], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (2, N'sysadmin', N'$2a$10$6/KAus4VcvtyXfwVM9scKezhGg4YZ1bynx2IZZ4HkYvGUqNGcNGg6', N'系统管理员', N'zhangsan@example.com', N'13800138001', 1, NULL, CAST(N'2025-12-02T11:50:46.0000000' AS DateTime2), 1, CAST(N'2026-08-18T17:20:18.7628490' AS DateTime2))
+INSERT [dbo].[sys_user] ([user_id], [username], [password], [real_name], [email], [mobile], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (3, N'user', N'$2a$10$6/KAus4VcvtyXfwVM9scKezhGg4YZ1bynx2IZZ4HkYvGUqNGcNGg6', N'张三', N'lisi@example.com', N'13800138002', 1, NULL, CAST(N'2025-12-02T11:50:46.0000000' AS DateTime2), 1, CAST(N'2026-08-18T17:20:28.7832086' AS DateTime2))
+INSERT [dbo].[sys_user] ([user_id], [username], [password], [real_name], [email], [mobile], [status], [created_by], [create_time], [updated_by], [update_time]) VALUES (5, N'laoqian', N'$2a$10$6/KAus4VcvtyXfwVM9scKezhGg4YZ1bynx2IZZ4HkYvGUqNGcNGg6', N'老千', NULL, NULL, 1, 1, CAST(N'2026-08-18T18:25:21.5762095' AS DateTime2), 1, CAST(N'2026-08-18T18:25:21.5762095' AS DateTime2))
 SET IDENTITY_INSERT [dbo].[sys_user] OFF
 GO
 SET IDENTITY_INSERT [dbo].[sys_user_role] ON
 
-INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (1, 1, 1)
-INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (2, 2, 2)
-INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (3, 3, 3)
-INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (4, 1, 1)
-INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (5, 2, 2)
-INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (6, 3, 3)
-INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (7, 4, 2)
-INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (8, 4, 3)
+INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (11, 1, 1)
+INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (12, 2, 2)
+INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (13, 3, 3)
+INSERT [dbo].[sys_user_role] ([id], [user_id], [role_id]) VALUES (14, 5, 11)
 SET IDENTITY_INSERT [dbo].[sys_user_role] OFF
 GO
 ALTER TABLE [dbo].[file_info] ADD  DEFAULT ((1)) FOR [status]
@@ -445,4 +447,12 @@ GO
 ALTER TABLE [dbo].[sys_user] ADD  DEFAULT ((1)) FOR [status]
 GO
 ALTER TABLE [dbo].[sys_user] ADD  DEFAULT (getdate()) FOR [create_time]
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'类型0, 1, 2都是会展示在系统页面的元素
+0 一级菜单 1 页面 2 页面上的按钮
+
+类型3, 4, 5 表示不会展示在系统页面，表示接口以及其所属业务分类
+3 接口目录 4 接口业务 5 具体接口
+
+都可以分配给角色' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'sys_menu', @level2type=N'COLUMN',@level2name=N'type'
 GO
