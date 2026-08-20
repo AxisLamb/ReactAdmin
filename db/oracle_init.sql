@@ -297,6 +297,10 @@ INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type
 (67, 65, '文件链接', NULL, NULL, 'oss:file:url', 5, NULL, 2, 1, TO_DATE('2026-08-18 17:04:54', 'YYYY-MM-DD HH24:MI:SS'), 1, TO_DATE('2026-08-18 17:04:59', 'YYYY-MM-DD HH24:MI:SS'));
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (68, 41, '上传头像', NULL, NULL, 'sys:user:upload', 5, NULL, 3, 1, TO_DATE('2026-08-18 18:23:39', 'YYYY-MM-DD HH24:MI:SS'), 1, TO_DATE('2026-08-18 18:23:39', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
+(69, 1, '系统配置', 'sys/config', 'SysConfig', NULL, 1, 'setting', 10, NULL, NULL, NULL, NULL);
+INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
+(70, 69, '上传图片', NULL, NULL, 'sys:config:loginPageUpload', 2, NULL, 7, NULL, NULL, NULL, NULL);
 
 -- 角色表
 CREATE TABLE sys_role (
@@ -470,6 +474,8 @@ INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (509, 11, 55);
 INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (510, 11, 56);
 INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (511, 11, 57);
 INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (512, 11, 58);
+INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (543, 1, 69);
+INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (545, 1, 70);
 
 -- 系统用户表
 CREATE TABLE sys_user (
@@ -587,8 +593,8 @@ CREATE SEQUENCE seq_file_info START WITH 6 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_audit_log START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_dict START WITH 2 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_dict_item START WITH 5 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_sys_menu START WITH 69 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_sys_menu START WITH 71 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_role START WITH 12 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_sys_role_menu START WITH 513 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_sys_role_menu START WITH 546 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_user START WITH 6 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_user_role START WITH 15 INCREMENT BY 1 NOCACHE;

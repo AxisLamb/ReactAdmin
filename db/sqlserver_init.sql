@@ -268,6 +268,8 @@ INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (66, 65, N'文件上传', NULL, NULL, N'oss:file:upload', 5, NULL, 1, 1, CAST(N'2026-08-18T17:04:10.2748154' AS DateTime2), 1, CAST(N'2026-08-18T17:04:10.2748154' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (67, 65, N'文件链接', NULL, NULL, N'oss:file:url', 5, NULL, 2, 1, CAST(N'2026-08-18T17:04:54.1635794' AS DateTime2), 1, CAST(N'2026-08-18T17:04:59.7311582' AS DateTime2))
 INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (68, 41, N'上传头像', NULL, NULL, N'sys:user:upload', 5, NULL, 3, 1, CAST(N'2026-08-18T18:23:39.4193711' AS DateTime2), 1, CAST(N'2026-08-18T18:23:39.4193711' AS DateTime2))
+INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (69, 1, N'系统配置', N'sys/config', N'SysConfig', NULL, 1, N'setting', 10, NULL, NULL, NULL, NULL)
+INSERT [dbo].[sys_menu] ([menu_id], [parent_id], [name], [url], [react_component], [perms], [type], [icon], [order_num], [created_by], [create_time], [updated_by], [update_time]) VALUES (70, 69, N'上传图片', NULL, NULL, N'sys:config:loginPageUpload', 2, NULL, 7, NULL, NULL, NULL, NULL)
 SET IDENTITY_INSERT [dbo].[sys_menu] OFF
 GO
 SET IDENTITY_INSERT [dbo].[sys_role] ON
@@ -402,6 +404,8 @@ INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (509, 11, 55)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (510, 11, 56)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (511, 11, 57)
 INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (512, 11, 58)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (543, 1, 69)
+INSERT [dbo].[sys_role_menu] ([id], [role_id], [menu_id]) VALUES (545, 1, 70)
 SET IDENTITY_INSERT [dbo].[sys_role_menu] OFF
 GO
 SET IDENTITY_INSERT [dbo].[sys_user] ON

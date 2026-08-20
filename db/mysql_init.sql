@@ -145,7 +145,7 @@ CREATE TABLE `sys_menu` (
   `updated_by` bigint DEFAULT NULL COMMENT '更新者ID',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单管理';
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单管理';
 
 /*Data for the table `sys_menu` */
 
@@ -194,7 +194,9 @@ insert  into `sys_menu`(`menu_id`,`parent_id`,`name`,`url`,`react_component`,`pe
 (65,64,'文件',NULL,NULL,NULL,4,'folder',3,1,'2026-08-18 17:02:16',1,'2026-08-18 17:02:23'),
 (66,65,'文件上传',NULL,NULL,'oss:file:upload',5,NULL,1,1,'2026-08-18 17:04:10',1,'2026-08-18 17:04:10'),
 (67,65,'文件链接',NULL,NULL,'oss:file:url',5,NULL,2,1,'2026-08-18 17:04:54',1,'2026-08-18 17:04:59'),
-(68,41,'上传头像',NULL,NULL,'sys:user:upload',5,NULL,3,1,'2026-08-18 18:23:39',1,'2026-08-18 18:23:39');
+(68,41,'上传头像',NULL,NULL,'sys:user:upload',5,NULL,3,1,'2026-08-18 18:23:39',1,'2026-08-18 18:23:39'),
+(69,1,'系统配置','sys/config','SysConfig',NULL,1,'setting',10,NULL,NULL,NULL,NULL),
+(70,69,'上传图片',NULL,NULL,'sys:config:loginPageUpload',2,NULL,7,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `sys_role` */
 
@@ -233,7 +235,7 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint NOT NULL COMMENT '角色ID',
   `menu_id` bigint NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=513 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色与菜单对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=546 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色与菜单对应关系';
 
 /*Data for the table `sys_role_menu` */
 
@@ -354,7 +356,9 @@ insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values
 (509,11,55),
 (510,11,56),
 (511,11,57),
-(512,11,58);
+(512,11,58),
+(543,1,69),
+(545,1,70);
 
 /*Table structure for table `sys_user` */
 

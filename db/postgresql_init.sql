@@ -282,6 +282,10 @@ INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type
 (67, 65, '文件链接', NULL, NULL, 'oss:file:url', 5, NULL, 2, 1, '2026-08-18 17:04:54+00', 1, '2026-08-18 17:04:59+00');
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (68, 41, '上传头像', NULL, NULL, 'sys:user:upload', 5, NULL, 3, 1, '2026-08-18 18:23:39+00', 1, '2026-08-18 18:23:39+00');
+INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
+(69, 1, '系统配置', 'sys/config', 'SysConfig', NULL, 1, 'setting', 10, NULL, NULL, NULL, NULL);
+INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
+(70, 69, '上传图片', NULL, NULL, 'sys:config:loginPageUpload', 2, NULL, 7, NULL, NULL, NULL, NULL);
 
 -- 角色表
 CREATE TABLE sys_role (
@@ -455,6 +459,8 @@ INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (509, 11, 55);
 INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (510, 11, 56);
 INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (511, 11, 57);
 INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (512, 11, 58);
+INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (543, 1, 69);
+INSERT INTO sys_role_menu(id, role_id, menu_id) VALUES (545, 1, 70);
 
 -- 系统用户表
 CREATE TABLE sys_user (
@@ -604,8 +610,8 @@ SELECT setval('file_info_id_seq', 6);
 SELECT setval('sys_audit_log_log_id_seq', 1);
 SELECT setval('sys_dict_dict_id_seq', 2);
 SELECT setval('sys_dict_item_item_id_seq', 5);
-SELECT setval('sys_menu_menu_id_seq', 69);
+SELECT setval('sys_menu_menu_id_seq', 71);
 SELECT setval('sys_role_role_id_seq', 12);
-SELECT setval('sys_role_menu_id_seq', 513);
+SELECT setval('sys_role_menu_id_seq', 546);
 SELECT setval('sys_user_user_id_seq', 6);
 SELECT setval('sys_user_role_id_seq', 15);
