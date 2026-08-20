@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.3.0 (64 bit)
-MySQL - 8.3.0 : Database - lain_db
+SQLyog Community v13.1.5  (64 bit)
+MySQL - 8.0.20 : Database - lain_db
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 8.3.0 : Database - lain_db
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`lain_db` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`lain_db` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `lain_db`;
 
@@ -45,7 +45,7 @@ CREATE TABLE `file_info` (
   KEY `idx_business` (`business_type`,`business_id`),
   KEY `idx_service_module` (`service_module`),
   KEY `idx_created_time` (`create_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文件信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文件信息表';
 
 /*Data for the table `file_info` */
 
@@ -71,7 +71,7 @@ CREATE TABLE `sys_audit_log` (
   PRIMARY KEY (`log_id`),
   KEY `idx_user_id` (`user_id`),
   KEY `idx_create_time` (`create_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统审计日志';
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统审计日志';
 
 /*Data for the table `sys_audit_log` */
 
@@ -91,12 +91,12 @@ CREATE TABLE `sys_dict` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`dict_id`),
   UNIQUE KEY `uk_dict_type` (`dict_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据字典表';
 
 /*Data for the table `sys_dict` */
 
-insert  into `sys_dict`(`dict_name`,`dict_type`,`status`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values
-('image','image',1,'图片定义',1,NOW(),1,NOW());
+insert  into `sys_dict`(`dict_id`,`dict_name`,`dict_type`,`status`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values
+(1,'image','image',1,'图片定义',1,'2026-08-18 18:36:50',1,'2026-08-18 18:48:17');
 
 /*Table structure for table `sys_dict_item` */
 
@@ -116,15 +116,15 @@ CREATE TABLE `sys_dict_item` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`item_id`),
   KEY `idx_dict_id` (`dict_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据字典项表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据字典项表';
 
 /*Data for the table `sys_dict_item` */
 
-insert  into `sys_dict_item`(`dict_id`,`item_label`,`item_value`,`status`,`order_num`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values
-(1,'avatar','user',1,0,'module',1,NOW(),1,NOW()),
-(1,'avatar','sys_user',1,1,'业务表',1,NOW(),1,NOW()),
-(1,'loginPage','sys',1,2,'module',1,NOW(),1,NOW()),
-(1,'loginPage','file_info',1,3,'业务表',1,NOW(),1,NOW());
+insert  into `sys_dict_item`(`item_id`,`dict_id`,`item_label`,`item_value`,`status`,`order_num`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values
+(3,1,'avatar','user',1,0,'module',1,'2026-08-18 18:36:50',1,'2026-08-18 18:36:50'),
+(4,1,'avatar','sys_user',1,1,'业务表',1,'2026-08-18 18:36:50',1,'2026-08-18 18:36:50'),
+(5,1,'loginPage','sys',1,2,'module',1,'2026-08-20 11:15:27',1,'2026-08-20 16:43:46'),
+(6,1,'loginPage','file_info',1,3,'业务表',1,'2026-08-20 11:15:54',1,'2026-08-20 16:43:51');
 
 /*Table structure for table `sys_menu` */
 
@@ -145,32 +145,31 @@ CREATE TABLE `sys_menu` (
   `updated_by` bigint DEFAULT NULL COMMENT '更新者ID',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单管理';
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单管理';
 
 /*Data for the table `sys_menu` */
 
 insert  into `sys_menu`(`menu_id`,`parent_id`,`name`,`url`,`react_component`,`perms`,`type`,`icon`,`order_num`,`created_by`,`create_time`,`updated_by`,`update_time`) values
 (1,0,'系统管理','sys',NULL,NULL,0,'setting',1,NULL,NULL,1,'2026-08-18 16:08:18'),
 (2,1,'用户管理','sys/user','UserList','sys:user:list',1,'user',0,NULL,NULL,NULL,NULL),
-(3,2,'新增用户',NULL,NULL,'sys:user:save',2,NULL,0,NULL,NULL,NULL,NULL),
-(4,2,'修改用户',NULL,NULL,'sys:user:update',2,NULL,1,NULL,NULL,NULL,NULL),
-(5,2,'删除用户',NULL,NULL,'sys:user:delete',2,NULL,2,NULL,NULL,NULL,NULL),
-(6,2,'重置密码',NULL,NULL,'sys:user:reset',2,NULL,3,NULL,NULL,NULL,NULL),
+(3,2,'新增用户',NULL,NULL,'sys:user:save',2,NULL,1,NULL,NULL,NULL,NULL),
+(4,2,'修改用户',NULL,NULL,'sys:user:update',2,NULL,2,NULL,NULL,NULL,NULL),
+(5,2,'删除用户',NULL,NULL,'sys:user:delete',2,NULL,3,NULL,NULL,NULL,NULL),
+(6,2,'重置密码',NULL,NULL,'sys:user:reset',2,NULL,4,NULL,NULL,NULL,NULL),
 (7,1,'角色管理','sys/role','RoleList','sys:role:list',1,'team',1,NULL,NULL,NULL,NULL),
-(8,7,'新增角色',NULL,NULL,'sys:role:save',2,NULL,0,NULL,NULL,NULL,NULL),
-(9,7,'修改角色',NULL,NULL,'sys:role:update',2,NULL,1,NULL,NULL,NULL,NULL),
-(10,7,'删除角色',NULL,NULL,'sys:role:delete',2,NULL,2,NULL,NULL,NULL,NULL),
+(8,7,'新增角色',NULL,NULL,'sys:role:save',2,NULL,1,NULL,NULL,NULL,NULL),
+(9,7,'修改角色',NULL,NULL,'sys:role:update',2,NULL,2,NULL,NULL,NULL,NULL),
+(10,7,'删除角色',NULL,NULL,'sys:role:delete',2,NULL,3,NULL,NULL,NULL,NULL),
 (11,1,'菜单管理','sys/menu','MenuList','sys:menu:list',1,'menu',2,NULL,NULL,NULL,NULL),
-(12,11,'新增菜单',NULL,NULL,'sys:menu:save',2,NULL,0,NULL,NULL,NULL,NULL),
-(13,11,'修改菜单',NULL,NULL,'sys:menu:update',2,NULL,1,NULL,NULL,NULL,NULL),
-(14,11,'删除菜单',NULL,NULL,'sys:menu:delete',2,NULL,2,NULL,NULL,NULL,NULL),
+(12,11,'新增菜单',NULL,NULL,'sys:menu:save',2,NULL,1,NULL,NULL,NULL,NULL),
+(13,11,'修改菜单',NULL,NULL,'sys:menu:update',2,NULL,2,NULL,NULL,NULL,NULL),
+(14,11,'删除菜单',NULL,NULL,'sys:menu:delete',2,NULL,3,NULL,NULL,NULL,NULL),
 (19,1,'系统日志','sys/log',NULL,'sys:log:list',1,'file-text',4,NULL,NULL,NULL,NULL),
 (20,19,'删除日志',NULL,NULL,'sys:log:delete',2,NULL,0,NULL,NULL,NULL,NULL),
 (22,64,'首页统计','','',NULL,4,'bar-chart',1,NULL,NULL,1,'2026-08-18 16:13:13'),
 (37,0,'系统监控','monitor',NULL,NULL,0,'dashboard',2,NULL,NULL,1,'2026-08-18 16:08:11'),
-(38,37,'服务监控','server',NULL,'monitor:server:list',1,'safety',0,NULL,NULL,1,'2026-08-18 14:41:49'),
-(39,37,'Redis监控','redis',NULL,'monitor:redis:list',1,'database',1,NULL,NULL,NULL,NULL),
-(40,37,'接口文档','',NULL,NULL,1,'database',2,NULL,NULL,1,'2026-08-18 14:42:19'),
+(38,37,'服务监控','/monitor',NULL,'outer',1,'safety',0,NULL,NULL,1,'2026-08-20 16:34:11'),
+(40,37,'接口文档','/doc.html',NULL,'outer',1,'database',2,NULL,NULL,1,'2026-08-18 14:42:19'),
 (41,64,'个人中心','','',NULL,4,'user',2,NULL,NULL,1,'2026-08-18 17:02:43'),
 (42,41,'修改信息',NULL,NULL,'sys:user:update',5,NULL,0,NULL,NULL,1,'2026-08-18 14:45:11'),
 (43,41,'修改密码',NULL,NULL,'sys:user:update',5,NULL,1,NULL,NULL,1,'2026-08-18 14:45:18'),
@@ -188,15 +187,18 @@ insert  into `sys_menu`(`menu_id`,`parent_id`,`name`,`url`,`react_component`,`pe
 (57,49,'修改字典项',NULL,NULL,'sys:dict:item:update',2,NULL,6,NULL,NULL,NULL,NULL),
 (58,49,'删除字典项',NULL,NULL,'sys:dict:item:delete',2,NULL,7,NULL,NULL,NULL,NULL),
 (59,2,'用户信息',NULL,NULL,'sys:user:info',2,NULL,5,NULL,NULL,NULL,NULL),
-(61,41,'登出接口',NULL,NULL,'sys:user:logout',5,NULL,6,1,'2026-01-07 15:06:11',1,'2026-01-07 15:06:11'),
 (63,22,'数据统计',NULL,NULL,'sys:dashboard:list',5,NULL,0,NULL,NULL,NULL,NULL),
 (64,0,'通用接口',NULL,NULL,NULL,3,'star',3,1,'2026-08-18 14:43:23',1,'2026-08-18 16:13:03'),
 (65,64,'文件',NULL,NULL,NULL,4,'folder',3,1,'2026-08-18 17:02:16',1,'2026-08-18 17:02:23'),
 (66,65,'文件上传',NULL,NULL,'oss:file:upload',5,NULL,1,1,'2026-08-18 17:04:10',1,'2026-08-18 17:04:10'),
 (67,65,'文件链接',NULL,NULL,'oss:file:url',5,NULL,2,1,'2026-08-18 17:04:54',1,'2026-08-18 17:04:59'),
 (68,41,'上传头像',NULL,NULL,'sys:user:upload',5,NULL,3,1,'2026-08-18 18:23:39',1,'2026-08-18 18:23:39'),
-(69,1,'系统配置','sys/config','SysConfig',NULL,1,'setting',10,NULL,NULL,NULL,NULL),
-(70,69,'上传图片',NULL,NULL,'sys:config:loginPageUpload',2,NULL,7,NULL,NULL,NULL,NULL);
+(69,1,'系统配置','sys/config','SysConfig',NULL,1,'setting',10,1,'2026-08-20 11:10:57',1,'2026-08-20 11:12:51'),
+(70,69,'上传图片',NULL,NULL,'sys:config:loginPageUpload',2,NULL,0,1,'2026-08-20 11:11:27',1,'2026-08-20 11:11:27'),
+(71,2,'查询用户',NULL,NULL,'sys:user:list',2,NULL,0,1,'2026-08-20 16:12:57',1,'2026-08-20 16:12:57'),
+(72,7,'查询角色',NULL,NULL,'sys:role:list',2,NULL,0,1,'2026-08-20 16:24:54',1,'2026-08-20 16:24:54'),
+(73,11,'查询菜单',NULL,NULL,'sys:menu:list',2,NULL,0,1,'2026-08-20 16:25:44',1,'2026-08-20 16:25:44'),
+(74,44,'查询文件',NULL,NULL,'oss:file:list',2,NULL,0,1,'2026-08-20 16:26:28',1,'2026-08-20 16:26:28');
 
 /*Table structure for table `sys_role` */
 
@@ -217,14 +219,14 @@ CREATE TABLE `sys_role` (
 /*Data for the table `sys_role` */
 
 insert  into `sys_role`(`role_id`,`role_name`,`role_desc`,`status`,`created_by`,`create_time`,`updated_by`,`update_time`) values
-(1,'超级管理员','拥有系统所有权限，最高权限角色',1,NULL,'2025-12-02 11:50:30',1,'2026-08-18 18:24:14'),
+(1,'超级管理员','拥有系统所有权限，最高权限角色',1,NULL,'2025-12-02 11:50:30',1,'2026-08-20 17:00:13'),
 (2,'系统管理员','管理系统基础配置和用户',1,NULL,'2025-12-02 11:50:30',1,'2026-08-18 17:23:34'),
-(3,'普通用户','普通操作员，拥有基本查看权限',1,NULL,'2025-12-02 11:50:30',NULL,NULL),
+(3,'普通用户','普通操作员，拥有基本查看权限',1,NULL,'2025-12-02 11:50:30',1,'2026-08-20 17:00:45'),
 (7,'add user','add user',1,1,'2026-01-05 16:54:36',1,'2026-08-18 17:23:45'),
 (8,'edit user','edit user',1,1,'2026-01-05 17:00:49',1,'2026-01-13 11:55:44'),
 (9,'del user','del user',1,1,'2026-01-05 17:07:12',1,'2026-01-13 11:55:57'),
-(10,'list user','list user',1,1,'2026-01-05 17:07:48',1,'2026-01-13 11:56:02'),
-(11,'接口测试员','接口测试员',1,1,'2026-08-18 16:49:05',1,'2026-08-18 18:27:45');
+(10,'list user','list user',1,1,'2026-01-05 17:07:48',1,'2026-08-20 17:00:59'),
+(11,'接口测试员','接口测试员',1,1,'2026-08-18 16:49:05',1,'2026-08-20 17:01:33');
 
 /*Table structure for table `sys_role_menu` */
 
@@ -235,29 +237,17 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint NOT NULL COMMENT '角色ID',
   `menu_id` bigint NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=546 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色与菜单对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=736 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色与菜单对应关系';
 
 /*Data for the table `sys_role_menu` */
 
 insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values
-(68,3,22),
-(69,3,23),
-(70,3,24),
-(71,3,29),
-(72,3,33),
-(73,3,41),
-(74,3,42),
-(75,3,43),
-(103,3,59),
-(104,3,11),
 (210,8,1),
 (211,8,2),
 (212,8,4),
 (218,9,1),
 (219,9,2),
 (220,9,5),
-(222,10,1),
-(223,10,2),
 (403,2,64),
 (404,2,1),
 (405,2,65),
@@ -299,66 +289,89 @@ insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values
 (441,7,2),
 (442,7,3),
 (443,7,67),
-(445,1,64),
-(446,1,1),
-(447,1,65),
-(448,1,2),
-(449,1,66),
-(450,1,3),
-(451,1,67),
-(452,1,4),
-(453,1,68),
-(454,1,5),
-(455,1,6),
-(456,1,7),
-(457,1,8),
-(458,1,9),
-(459,1,10),
-(460,1,11),
-(461,1,12),
-(462,1,13),
-(463,1,14),
-(464,1,19),
-(465,1,20),
-(466,1,22),
-(467,1,37),
-(468,1,38),
-(469,1,39),
-(470,1,40),
-(471,1,41),
-(472,1,42),
-(473,1,43),
-(474,1,44),
-(475,1,46),
-(476,1,47),
-(477,1,48),
-(478,1,49),
-(479,1,50),
-(480,1,51),
-(481,1,52),
-(482,1,53),
-(483,1,55),
-(484,1,56),
-(485,1,57),
-(486,1,58),
-(487,1,59),
-(488,1,61),
-(489,1,63),
-(500,11,64),
-(501,11,1),
-(502,11,68),
-(503,11,41),
-(504,11,49),
-(505,11,50),
-(506,11,51),
-(507,11,52),
-(508,11,53),
-(509,11,55),
-(510,11,56),
-(511,11,57),
-(512,11,58),
-(543,1,69),
-(545,1,70);
+(640,1,1),
+(641,1,2),
+(642,1,3),
+(643,1,4),
+(644,1,5),
+(645,1,6),
+(646,1,7),
+(647,1,8),
+(648,1,9),
+(649,1,10),
+(650,1,11),
+(651,1,12),
+(652,1,13),
+(653,1,14),
+(654,1,19),
+(655,1,20),
+(656,1,22),
+(657,1,37),
+(658,1,38),
+(659,1,40),
+(660,1,41),
+(661,1,42),
+(662,1,43),
+(663,1,44),
+(664,1,46),
+(665,1,47),
+(666,1,48),
+(667,1,49),
+(668,1,50),
+(669,1,51),
+(670,1,52),
+(671,1,53),
+(672,1,55),
+(673,1,56),
+(674,1,57),
+(675,1,58),
+(676,1,59),
+(678,1,63),
+(679,1,64),
+(680,1,65),
+(681,1,66),
+(682,1,67),
+(683,1,68),
+(684,1,69),
+(685,1,70),
+(686,1,71),
+(687,1,72),
+(688,1,73),
+(689,1,74),
+(690,3,64),
+(691,3,1),
+(692,3,2),
+(693,3,71),
+(694,3,7),
+(695,3,72),
+(696,3,41),
+(697,3,73),
+(698,3,42),
+(699,3,74),
+(700,3,43),
+(701,3,11),
+(702,3,44),
+(703,3,49),
+(704,3,50),
+(705,3,55),
+(706,3,59),
+(707,10,1),
+(708,10,2),
+(709,10,71),
+(710,10,59),
+(722,11,64),
+(723,11,1),
+(724,11,65),
+(725,11,2),
+(726,11,66),
+(727,11,67),
+(728,11,68),
+(729,11,71),
+(730,11,41),
+(731,11,42),
+(732,11,43),
+(733,11,22),
+(735,11,63);
 
 /*Table structure for table `sys_user` */
 
@@ -378,7 +391,7 @@ CREATE TABLE `sys_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `uk_username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统用户';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统用户';
 
 /*Data for the table `sys_user` */
 
@@ -386,7 +399,8 @@ insert  into `sys_user`(`user_id`,`username`,`password`,`real_name`,`email`,`mob
 (1,'admin','$2a$10$6/KAus4VcvtyXfwVM9scKezhGg4YZ1bynx2IZZ4HkYvGUqNGcNGg6','超级管理员','admin@example.com','13800138000',1,NULL,'2025-12-02 11:50:46',1,'2026-08-18 17:20:09'),
 (2,'sysadmin','$2a$10$6/KAus4VcvtyXfwVM9scKezhGg4YZ1bynx2IZZ4HkYvGUqNGcNGg6','系统管理员','zhangsan@example.com','13800138001',1,NULL,'2025-12-02 11:50:46',1,'2026-08-18 17:20:18'),
 (3,'user','$2a$10$6/KAus4VcvtyXfwVM9scKezhGg4YZ1bynx2IZZ4HkYvGUqNGcNGg6','张三','lisi@example.com','13800138002',1,NULL,'2025-12-02 11:50:46',1,'2026-08-18 17:20:28'),
-(5,'laoqian','$2a$10$6/KAus4VcvtyXfwVM9scKezhGg4YZ1bynx2IZZ4HkYvGUqNGcNGg6','老千',NULL,NULL,1,1,'2026-08-18 18:25:21',1,'2026-08-18 18:25:21');
+(8,'laoqian','$2a$10$Agta9Zvhd5VgrnUZ52DImugLMHjHBTRRDKawlp53mRSf4cAfjaybi','老千',NULL,NULL,1,1,'2026-08-20 17:04:22',1,'2026-08-20 17:04:22'),
+(9,'pagetester','$2a$10$iTYVhZt.wYzxyu1NlYk2seEjb32BgCD7zTcq6.JJmFaIXgCF4sT52','页面权限测试员',NULL,NULL,1,1,'2026-08-20 17:05:45',1,'2026-08-20 17:05:45');
 
 /*Table structure for table `sys_user_role` */
 
@@ -397,7 +411,7 @@ CREATE TABLE `sys_user_role` (
   `user_id` bigint NOT NULL COMMENT '用户ID',
   `role_id` bigint NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户与角色对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户与角色对应关系';
 
 /*Data for the table `sys_user_role` */
 
@@ -405,7 +419,8 @@ insert  into `sys_user_role`(`id`,`user_id`,`role_id`) values
 (11,1,1),
 (12,2,2),
 (13,3,3),
-(14,5,11);
+(20,8,11),
+(22,9,10);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
