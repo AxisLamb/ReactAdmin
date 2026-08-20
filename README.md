@@ -10,16 +10,12 @@
 
 登录账号：admin / admin123
 
-这套东西，能帮你省掉多少重复劳动？
-如果你接过后台管理系统的需求，一定对这几件事不陌生：
-
-用户、角色、菜单，这三张表怎么设计才能灵活又清晰？
-
-文件到底存本地、MinIO 还是云厂商？能不能别一换方案就改代码？
-
-缓存用 Redis 还是本地 Caffeine，能不能配置一把就切？
-
-这些事，ReactAdmin 都替你考虑完了。不玩虚的，每一行代码都经得起推敲，也经得起业务场景的折腾。
+![登录页轮播](https://lain-test-oss.oss-cn-shenzhen.aliyuncs.com/%E7%99%BB%E5%BD%95%E9%A1%B5.png?Expires=1787202269&OSSAccessKeyId=TMP.3KwEuKLTv2WCXjEScsNRutX4zA5Q2v9jD5yCP3ZtpaYL3JecXr9pfnUmgGH8FiL8ooDU4gPXVLwoiiWaqRTmdEGc5AxYyq&Signature=uzBy%2BOusPPeJ2ezs6kB5GdzlqA4%3D)
+![系统页面](https://lain-test-oss.oss-cn-shenzhen.aliyuncs.com/%E7%B3%BB%E7%BB%9F%E9%A1%B5%E9%9D%A2.png)
+![菜单权限以及接口权限](https://lain-test-oss.oss-cn-shenzhen.aliyuncs.com/%E8%8F%9C%E5%8D%95%E6%9D%83%E9%99%90%E4%BB%A5%E5%8F%8A%E6%8E%A5%E5%8F%A3%E6%9D%83%E9%99%90.png)
+![文件管理](https://lain-test-oss.oss-cn-shenzhen.aliyuncs.com/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86.png)
+![角色配置](https://lain-test-oss.oss-cn-shenzhen.aliyuncs.com/%E8%A7%92%E8%89%B2%E9%85%8D%E7%BD%AE.png)
+![登录页轮播配置](https://lain-test-oss.oss-cn-shenzhen.aliyuncs.com/%E7%99%BB%E5%BD%95%E9%A1%B5%E8%BD%AE%E8%AF%A2%E9%85%8D%E7%BD%AE.png)
 
 ### 技术栈
 
