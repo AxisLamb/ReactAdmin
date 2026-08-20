@@ -22,6 +22,7 @@ public class AuthWhitelistConfig {
         "/v3/api-docs-ext/**",
         "/favicon.ico",
         "/auth/login",
+        "/sys/config/loginPageList",
         "/error",
         "/file/**"
     );

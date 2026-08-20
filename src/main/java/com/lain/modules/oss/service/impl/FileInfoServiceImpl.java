@@ -81,7 +81,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
                 .eq(StringUtils.hasText(serviceModule), FileInfo::getServiceModule, serviceModule)
                 .eq(StringUtils.hasText(businessType), FileInfo::getBusinessType, businessType)
                 .eq(StringUtils.hasText(businessId), FileInfo::getBusinessId, businessId)
-                .eq(FileInfo::getStatus, 1));
+                .eq(FileInfo::getStatus, StatusEnum.ENABLE.getCode()));
 
         return files;
     }
@@ -92,7 +92,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
         if (refs.isEmpty()) {
             return null;
         }
-        return getByFileId(refs.get(0).getFileId());
+        return getByFileId(refs.getFirst().getFileId());
     }
 
     @Override

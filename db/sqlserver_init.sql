@@ -217,6 +217,8 @@ SET IDENTITY_INSERT [dbo].[sys_dict_item] ON
 
 INSERT [dbo].[sys_dict_item] ([item_id], [dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (1, 1, N'avatar', N'user', 1, 0, N'module', 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2), 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2))
 INSERT [dbo].[sys_dict_item] ([item_id], [dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (2, 1, N'avatar', N'sys_user', 1, 1, N'业务表', 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2), 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2))
+INSERT [dbo].[sys_dict_item] ([item_id], [dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (3, 1, N'loginPage', N'sys', 1, 2, N'module', 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2), 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2))
+INSERT [dbo].[sys_dict_item] ([item_id], [dict_id], [item_label], [item_value], [status], [order_num], [remark], [created_by], [create_time], [updated_by], [update_time]) VALUES (4, 1, N'loginPage', N'file_info', 1, 3, N'业务表', 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2), 1, CAST(N'2026-08-18T11:42:48.6200000' AS DateTime2))
 SET IDENTITY_INSERT [dbo].[sys_dict_item] OFF
 GO
 SET IDENTITY_INSERT [dbo].[sys_menu] ON

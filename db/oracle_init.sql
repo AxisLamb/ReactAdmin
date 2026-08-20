@@ -168,6 +168,10 @@ INSERT INTO sys_dict_item(dict_id, item_label, item_value, status, order_num, re
 (1, 'avatar', 'user', 1, 0, 'module', 1, SYSDATE, 1, SYSDATE);
 INSERT INTO sys_dict_item(dict_id, item_label, item_value, status, order_num, remark, created_by, create_time, updated_by, update_time) VALUES
 (1, 'avatar', 'sys_user', 1, 1, '业务表', 1, SYSDATE, 1, SYSDATE);
+INSERT INTO sys_dict_item(dict_id, item_label, item_value, status, order_num, remark, created_by, create_time, updated_by, update_time) VALUES
+(1, 'loginPage', 'sys', 1, 2, 'module', 1, SYSDATE, 1, SYSDATE);
+INSERT INTO sys_dict_item(dict_id, item_label, item_value, status, order_num, remark, created_by, create_time, updated_by, update_time) VALUES
+(1, 'loginPage', 'file_info', 1, 3, '业务表', 1, SYSDATE, 1, SYSDATE);
 
 -- 菜单管理表
 CREATE TABLE sys_menu (
@@ -582,7 +586,7 @@ END;
 CREATE SEQUENCE seq_file_info START WITH 6 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_audit_log START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_dict START WITH 2 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_sys_dict_item START WITH 3 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_sys_dict_item START WITH 5 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_menu START WITH 69 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_role START WITH 12 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_sys_role_menu START WITH 513 INCREMENT BY 1 NOCACHE;

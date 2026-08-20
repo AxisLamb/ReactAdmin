@@ -153,7 +153,9 @@ COMMENT ON COLUMN sys_dict_item.update_time IS '更新时间';
 
 INSERT INTO public.sys_dict_item (dict_id,item_label,item_value,status,order_num,remark,created_by,create_time,updated_by,update_time) VALUES
 	 (1,'avatar','user',1,0,'module',1,NOW(),1,NOW()),
-	 (1,'avatar','sys_user',1,1,'业务表',1,NOW(),1,NOW());
+	 (1,'avatar','sys_user',1,1,'业务表',1,NOW(),1,NOW()),
+	 (1,'loginPage','sys',1,2,'module',1,NOW(),1,NOW()),
+	 (1,'loginPage','file_info',1,3,'业务表',1,NOW(),1,NOW());
 
 
 -- 菜单管理表
@@ -601,7 +603,7 @@ CREATE TRIGGER trigger_sys_user_update_time
 SELECT setval('file_info_id_seq', 6);
 SELECT setval('sys_audit_log_log_id_seq', 1);
 SELECT setval('sys_dict_dict_id_seq', 2);
-SELECT setval('sys_dict_item_item_id_seq', 3);
+SELECT setval('sys_dict_item_item_id_seq', 5);
 SELECT setval('sys_menu_menu_id_seq', 69);
 SELECT setval('sys_role_role_id_seq', 12);
 SELECT setval('sys_role_menu_id_seq', 513);

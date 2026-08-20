@@ -13,6 +13,11 @@ public class UploadAuthInterceptor implements HandlerInterceptor {
                              HttpServletResponse response,
                              Object handler) throws Exception {
 
+        String uri = request.getRequestURI();
+        if (uri.contains("loginpage")) {
+            return true;
+        }
+
         // ① 登录校验
         if (!StpUtil.isLogin()) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -22,7 +27,6 @@ public class UploadAuthInterceptor implements HandlerInterceptor {
         }
 
         // ② 解析文件名中的 businessId
-        String uri = request.getRequestURI();
         String businessId = parseBusinessId(uri);
         if (businessId == null) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());

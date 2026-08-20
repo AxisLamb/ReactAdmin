@@ -116,13 +116,15 @@ CREATE TABLE `sys_dict_item` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`item_id`),
   KEY `idx_dict_id` (`dict_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据字典项表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据字典项表';
 
 /*Data for the table `sys_dict_item` */
 
 insert  into `sys_dict_item`(`dict_id`,`item_label`,`item_value`,`status`,`order_num`,`remark`,`created_by`,`create_time`,`updated_by`,`update_time`) values
 (1,'avatar','user',1,0,'module',1,NOW(),1,NOW()),
-(1,'avatar','sys_user',1,1,'业务表',1,NOW(),1,NOW());
+(1,'avatar','sys_user',1,1,'业务表',1,NOW(),1,NOW()),
+(1,'loginPage','sys',1,2,'module',1,NOW(),1,NOW()),
+(1,'loginPage','file_info',1,3,'业务表',1,NOW(),1,NOW());
 
 /*Table structure for table `sys_menu` */
 
