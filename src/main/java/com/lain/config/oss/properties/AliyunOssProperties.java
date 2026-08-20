@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = AliyunOssProperties.PREFIX)
 public class AliyunOssProperties {
 
-    public static final String PREFIX = "os.file.aliyun.oss";
+    public static final String PREFIX = "os.file.aliyun";
 
     /** OSS 服务端点 */
     private String endpoint;
