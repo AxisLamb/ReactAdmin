@@ -16,9 +16,12 @@ import com.lain.modules.sys.service.SysMenuService;
 import com.lain.modules.sys.service.SysRoleService;
 import com.lain.modules.sys.vo.RouteConfig;
 import com.lain.modules.sys.vo.SysMenuVO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -72,12 +75,47 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         if (CollectionUtil.isEmpty(menus)) {
             return List.of();
         }
+//        return menus.stream()
+//                .map(menu -> {
+//                    SysMenuVO menuVO = new SysMenuVO();
+//                    BeanUtils.copyProperties(menu, menuVO);
+//                    return menuVO;
+//                }).collect(Collectors.toList());
         return menus.stream()
                 .map(menu -> {
                     SysMenuVO menuVO = new SysMenuVO();
                     BeanUtils.copyProperties(menu, menuVO);
+                    // 外链菜单（perms=outer）：拼接本机服务器地址，返回完整外链 URL 给前端
+                    if (AuthConstant.MENU_PERMS_OUTER.equals(menu.getPerms())) {
+                        menuVO.setUrl(buildOuterUrl(menu.getUrl()));
+                    }
                     return menuVO;
-                }).collect(Collectors.toList());
+                })
+                .sorted(Comparator.comparing(SysMenuVO::getOrderNum, Comparator.nullsLast(Integer::compareTo)))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 拼接外链菜单完整 URL：本机服务器地址 + 菜单 url
+     * 例如 url=doc.html，当前请求 http://localhost:8888 => http://localhost:8888/doc.html
+     *
+     * @param url 菜单配置的 url（相对路径）
+     * @return 完整外链 URL
+     */
+    private String buildOuterUrl(String url) {
+        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attrs == null || StrUtil.isBlank(url)) {
+            return url;
+        }
+        // url 本身已是完整地址时直接返回
+        if (url.startsWith("http://") || url.startsWith("https://")) {
+            return url;
+        }
+        HttpServletRequest request = attrs.getRequest();
+        String base = request.getScheme() + "://" + request.getServerName()
+                + (request.getServerPort() != 80 && request.getServerPort() != 443 ? ":" + request.getServerPort() : "");
+        String path = url.startsWith("/") ? url : "/" + url;
+        return base + path;
     }
 
     @Override
@@ -246,6 +284,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         for (SysMenu menu : menus) {
             // 只处理目录(0)和菜单(1)，按钮(2)不生成路由
             if (menu.getType() != null && menu.getType() > 1) {
+                continue;
+            }
+            // 外链菜单（perms=outer）不生成内部路由，由前端直接跳转外部地址
+            if (AuthConstant.MENU_PERMS_OUTER.equals(menu.getPerms())) {
                 continue;
             }
 

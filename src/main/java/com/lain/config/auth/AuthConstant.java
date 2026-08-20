@@ -15,4 +15,7 @@ public class AuthConstant {
     public static final Integer MENU_TYPE_BUS = 4; // 页面
     public static final Integer MENU_TYPE_INF = 5; // 按钮
 
+    // 外链菜单标记 sys_menu.perms，perms=outer 表示该菜单为外部网站链接
+    public static final String MENU_PERMS_OUTER = "outer";
+
 }

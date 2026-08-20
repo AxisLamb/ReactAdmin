@@ -24,7 +24,9 @@ public class AuthWhitelistConfig {
         "/auth/login",
         "/sys/config/loginPageList",
         "/error",
-        "/file/**"
+        "/file/**",
+        "/monitor/**",
+        "/actuator/**"
     );
 
     /**

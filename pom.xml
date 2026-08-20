@@ -42,6 +42,8 @@
         <qiniu-java-sdk.version>7.15.1</qiniu-java-sdk.version>
         <minio.version>8.5.12</minio.version>
         <agentscope.version>2.0.0</agentscope.version>
+        <!-- Spring Boot Admin 监控（版本需与 Spring Boot 对应，SB 3.2.x 对应 SBA 3.2.x） -->
+        <spring-boot-admin.version>3.2.3</spring-boot-admin.version>
     </properties>
 
     <dependencies>
@@ -53,6 +55,26 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Actuator 监控端点 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Admin Server 监控面板 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+
+        <!-- Spring Boot Admin Client 客户端注册 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
 
         <dependency>
