@@ -26,7 +26,8 @@ public class AuthWhitelistConfig {
         "/error",
         "/file/**",
         "/monitor/**",
-        "/actuator/**"
+        "/actuator/**",
+        "/druid/**"
     );
 
     /**
