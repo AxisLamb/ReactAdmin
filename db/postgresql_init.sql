@@ -237,9 +237,9 @@ INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (41, 64, '个人中心', NULL, NULL, NULL, 4, 'user', 2, NULL, NULL, 1, '2026-08-18 17:02:43+00');
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
-(42, 41, '修改信息', NULL, NULL, 'sys:profile:update', 5, NULL, 0, NULL, NULL, 1, '2026-08-18 14:45:11+00');
+(42, 41, '修改信息', NULL, NULL, 'sys:user:update', 5, NULL, 0, NULL, NULL, 1, '2026-08-18 14:45:11+00');
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
-(43, 41, '修改密码', NULL, NULL, 'sys:profile:password', 5, NULL, 1, NULL, NULL, 1, '2026-08-18 14:45:18+00');
+(43, 41, '修改密码', NULL, NULL, 'sys:user:update', 5, NULL, 1, NULL, NULL, 1, '2026-08-18 14:45:18+00');
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
 (44, 1, '文件管理', 'sys/file', 'FileList', 'oss:file:list', 1, 'folder', 3, NULL, NULL, 1, '2026-08-18 14:40:40+00');
 INSERT INTO sys_menu(menu_id, parent_id, name, url, react_component, perms, type, icon, order_num, created_by, create_time, updated_by, update_time) VALUES
