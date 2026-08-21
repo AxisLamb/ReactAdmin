@@ -32,3 +32,6 @@ target/
 *.iws
 out/
 uploads/
+
+# 环境变量文件（含数据库/Redis/OSS 等敏感凭据，禁止提交）
+*.env
