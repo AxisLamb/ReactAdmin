@@ -19,7 +19,7 @@ services:
     restart: always
 
   redis:
-    image: redis:4
+    image: registry.cn-shenzhen.aliyuncs.com/lain_docker_server/redis:4
     container_name: react-admin-redis
     hostname: system.redis.com
 #    env_file:
@@ -33,7 +33,10 @@ services:
     volumes:
       - /usr/project/reactadmin/redis/data:/data
     networks:
-      - myserver-net
+      myserver-net:
+        # 网络别名，确保应用容器能通过 system.redis.com 解析到本服务
+        aliases:
+          - system.redis.com
     restart: always
 
   mysql-db:
@@ -50,7 +53,10 @@ services:
       - /usr/project/reactadmin/mysql/data:/var/lib/mysql
       - /usr/project/reactadmin/mysql/mysql_init_data:/docker-entrypoint-initdb.d
     networks:
-      - myserver-net
+      myserver-net:
+        # 网络别名，确保应用容器能通过 system.db.com 解析到本服务
+        aliases:
+          - system.db.com
     restart: always
 
   nginx:

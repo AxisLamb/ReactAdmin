@@ -2,8 +2,8 @@ os:
     cache:
         type: REDIS
         redis:
-            # ip: 10.10.10.181
-            ip: production.redis.com
+            # 与 docker-compose redis 服务 hostname 对齐（服务名亦可写 redis）
+            ip: system.redis.com
             port: 6379
             # 密码通过环境变量注入，避免硬编码（与 redis 容器/外部 Redis 保持一致）
             password: ${REDIS_PASSWORD}
@@ -42,9 +42,9 @@ spring:
 #            username: postgres
 #            password: mysecretpassword
 
-            # MySQL 连接
+            # MySQL 连接（与 docker-compose mysql-db 服务 hostname 对齐，服务名亦可写 mysql-db）
             driver-class-name: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://192.168.47.130:3306/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+            url: jdbc:mysql://system.db.com:3306/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
             username: root
             # 密码通过环境变量注入，避免硬编码
             password: ${MYSQL_PASSWORD}
