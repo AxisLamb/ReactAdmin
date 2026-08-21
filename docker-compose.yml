@@ -1,0 +1,56 @@
+version: '3.7'
+services:
+  react-admin:
+    image: registry.cn-shenzhen.aliyuncs.com/lain_docker_server/react-admin:latest
+    container_name: react-admin-backend
+    hostname: system.reactadmin.com
+    ports:
+      # 0.0.0.0:要绑定的宿主机端口:docker容器内端口
+      - "8080:8080"
+    env_file:
+      - ./test.env
+    expose:
+      - "8080"
+    depends_on:
+      - mysql-db
+    networks:
+      - myserver-net
+    restart: always
+
+  mysql-db:
+    image: registry.cn-shenzhen.aliyuncs.com/lain_wms/mysql_img:8.0.11
+    container_name: mydb
+    hostname: system.db.com
+    env_file:
+      - ./test.env
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - /usr/project/reactadmin/mysql/data:/var/lib/mysql
+      - /usr/project/reactadmin/mysql/mysql_init_data:/docker-entrypoint-initdb.d
+    networks:
+      - myserver-net
+    restart: always
+
+  nginx:
+    image: registry.cn-shenzhen.aliyuncs.com/lain_docker_server/react-admin-front:latest
+    container_name: react-admin-frontend
+    hostname: system.reactadminfront.com
+    environment:
+      - NGINX_HOST=system.reactadminfront.com
+      - DOCKER_REQUEST_DOMAIN_PREFIX=http://react-admin:8080
+    ports:
+      - "80:80"
+    expose:
+      - "80"
+    depends_on:
+      - react-admin
+    networks:
+      - myserver-net
+    restart: always
+
+networks:
+  myserver-net:
+    driver: bridge
