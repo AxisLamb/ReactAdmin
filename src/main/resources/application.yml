@@ -26,6 +26,18 @@ spring:
     throw-exception-if-no-handler-found: true
 #  resources:
 #    add-mappings: false
+  # Spring Boot Admin 监控配置
+  boot:
+    admin:
+      # Admin Server UI 访问路径
+      context-path: /monitor
+      client:
+        # 注册到 Admin Server（本应用自身即是 Server，注册地址与 Server 一致）
+        url: http://localhost:8888/monitor
+        instance:
+          # 实例名称
+          name: lain-experiment
+          prefer-ip: true
 
 
 #mybatis
@@ -77,8 +89,20 @@ knife4j:
       required: false
       defaultValue: ""
 
+# Spring Boot Actuator 监控端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
 # Sa-Token 配置
 sa-token:
+  # 是否读取 body 中 token
+  is-read-body: true
   # token 名称 (同时也是 cookie 名称)
   token-name: satoken
   # token 有效期（单位：秒） 默认30天，-1代表永久有效

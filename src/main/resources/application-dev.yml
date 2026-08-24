@@ -1,6 +1,6 @@
 os:
     cache:
-        type: REDIS
+        type: LOCAL
         redis:
             # ip: 10.10.10.181
             ip: localhost
@@ -10,7 +10,8 @@ os:
     file:
         type: LOCAL
         local:
-            base-path: ./uploads
+            # 实际存储路径（项目根路径下）
+            base-path: ./uploads/
 
         minio:
             endpoint: http://10.37.131.224:9000
@@ -18,10 +19,9 @@ os:
             secret-key: password
 
         aliyun:
-            oss:
-                endpoint: your-endpoint
-                access-key-id: your-access-key-id
-                access-key-secret: your-access-key-secret
+            endpoint: oss-cn-guangzhou.aliyuncs.com
+            access-key-id: LTAI5t732qaqGVAxxUve8JdS
+            access-key-secret: vBTaJqcYUjnugDMUOu5dLPxbvYUeEi
 
 spring:
     cache:
@@ -42,16 +42,16 @@ spring:
 #            password: mysecretpassword
 
             # MySQL 连接
-            driver-class-name: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://10.37.131.222:3307/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-            username: root
-            password: 123456
+#            driver-class-name: com.mysql.cj.jdbc.Driver
+#            url: jdbc:mysql://10.37.131.222:3307/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+#            username: root
+#            password: 123456
 
             # SQL Server 连接
-            #driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-            #url: jdbc:sqlserver://192.168.47.130:1433;DatabaseName=lain_db
-            #username: sa
-            #password: 123456
+            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            url: jdbc:sqlserver://192.168.1.154:1433;DatabaseName=lain_db;encrypt=false;trustServerCertificate=true
+            username: sa
+            password: admin123
 
             # Oracle 连接
             #driver-class-name: oracle.jdbc.OracleDriver
@@ -75,8 +75,8 @@ spring:
             stat-view-servlet:
                 enabled: true
                 url-pattern: /druid/*
-                #login-username: admin
-                #login-password: admin
+                login-username: admin
+                login-password: admin
             filter:
                 stat:
                     log-slow-sql: true
