@@ -19,9 +19,9 @@ os:
             secret-key: password
 
         aliyun:
-            endpoint: oss-cn-guangzhou.aliyuncs.com
-            access-key-id: LTAI5t732qaqGVAxxUve8JdS
-            access-key-secret: vBTaJqcYUjnugDMUOu5dLPxbvYUeEi
+            endpoint: xxx
+            access-key-id: xxx
+            access-key-secret: xxx
 
 spring:
     cache:
