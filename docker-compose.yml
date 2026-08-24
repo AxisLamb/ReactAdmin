@@ -6,11 +6,11 @@ services:
     hostname: system.reactadmin.com
     ports:
       # 0.0.0.0:要绑定的宿主机端口:docker容器内端口
-      - "8080:8080"
+      - "8888:8888"
     env_file:
       - ./prod.env
     expose:
-      - "8080"
+      - "8888"
     depends_on:
       - mysql-db
       - redis
@@ -24,7 +24,7 @@ services:
     hostname: system.redis.com
 #    env_file:
 #      - ./prod.env
-    # 官方 redis 镜像不读取环境变量，需通过 command 传参；$$ 转义为 $ 供容器内 sh 展开 REDIS_PASSWORD
+#     官方 redis 镜像不读取环境变量，需通过 command 传参；$$ 转义为 $ 供容器内 sh 展开 REDIS_PASSWORD
 #    command: sh -c 'exec redis-server --requirepass "$$REDIS_PASSWORD" --appendonly yes'
     ports:
       - "6379:6379"
@@ -65,9 +65,9 @@ services:
     hostname: system.reactadminfront.com
     env_file:
       - ./prod.env
-    environment:
-      - NGINX_HOST=system.reactadminfront.com
-      - DOCKER_REQUEST_DOMAIN_PREFIX=http://react-admin:8080
+#    environment:
+#      - NGINX_HOST=system.reactadminfront.com
+#      - DOCKER_REQUEST_DOMAIN_PREFIX=http://react-admin:8080
     ports:
       - "80:80"
     expose:

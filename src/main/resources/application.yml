@@ -7,12 +7,12 @@ server:
   port: 8888
   connection-timeout: 5000ms
   servlet:
-    context-path: /
+    context-path: /api
 
 spring:
   # 环境 dev|test|prod
   profiles:
-    active: test
+    active: dev
   # jackson时间格式化
   jackson:
     time-zone: GMT+8
