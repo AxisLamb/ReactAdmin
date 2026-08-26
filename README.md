@@ -22,6 +22,10 @@
 ![接口文档API](https://lain-test-oss.oss-cn-shenzhen.aliyuncs.com/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3API.png)
 ![数据库监控](https://lain-test-oss.oss-cn-shenzhen.aliyuncs.com/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%91%E6%8E%A7.png)
 
+### docker 部署
+
+参考[DEPLOY_dockercompose.md](DEPLOY_dockercompose.md)
+
 ### 技术栈
 
 #### 后端技术栈
