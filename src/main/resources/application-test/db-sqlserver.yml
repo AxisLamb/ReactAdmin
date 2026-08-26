@@ -1,0 +1,8 @@
+# test 环境数据库连接 - SQL Server（os.db.type=sqlserver 时加载）
+spring:
+    datasource:
+        druid:
+            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            url: jdbc:sqlserver://192.168.47.130:1433;DatabaseName=lain_db
+            username: sa
+            password: admin123

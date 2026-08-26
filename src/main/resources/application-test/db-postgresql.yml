@@ -1,0 +1,8 @@
+# test 环境数据库连接 - PostgreSQL（os.db.type=postgresql 时加载）
+spring:
+    datasource:
+        druid:
+            driver-class-name: org.postgresql.Driver
+            url: jdbc:postgresql://192.168.47.130:5432/lain_db
+            username: postgres
+            password: mysecretpassword

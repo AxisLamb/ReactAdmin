@@ -1,0 +1,8 @@
+# os.cache.type=REDIS：加载 spring.data.redis 连接配置
+spring:
+    data:
+        redis:
+            host: ${os.cache.redis.ip}
+            password: ${os.cache.redis.password}
+            port: ${os.cache.redis.port}
+            database: ${os.cache.redis.database}

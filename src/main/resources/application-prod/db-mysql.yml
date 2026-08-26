@@ -1,0 +1,10 @@
+# prod 环境数据库连接 - MySQL（os.db.type=mysql 时加载，连接信息通过环境变量注入）
+spring:
+    datasource:
+        druid:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            # 与 docker-compose mysql-db 服务 hostname 对齐，服务名亦可写 mysql-db
+            url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+            username: root
+            # 密码通过环境变量注入，避免硬编码
+            password: ${MYSQL_PASSWORD}

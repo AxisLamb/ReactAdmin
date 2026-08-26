@@ -1,0 +1,9 @@
+# prod 环境数据库连接 - PostgreSQL（os.db.type=postgresql 时加载，连接信息通过环境变量注入）
+spring:
+    datasource:
+        druid:
+            driver-class-name: org.postgresql.Driver
+            # 连接信息通过环境变量注入，避免硬编码
+            url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+            username: ${POSTGRES_USER}
+            password: ${POSTGRES_PASSWORD}

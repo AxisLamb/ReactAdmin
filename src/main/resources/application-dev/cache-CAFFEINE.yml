@@ -1,0 +1,5 @@
+# os.cache.type=CAFFEINE（本地内存缓存）：无需连接 Redis，因此不加载 spring.data.redis 配置，
+# 同时排除 Spring Boot 的 Redis 自动配置，避免创建默认 RedisConnectionFactory（localhost:6379）
+spring:
+    autoconfigure:
+        exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration

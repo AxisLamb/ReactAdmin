@@ -1,0 +1,8 @@
+# dev 环境数据库连接 - Oracle（os.db.type=oracle 时加载）
+spring:
+    datasource:
+        druid:
+            driver-class-name: oracle.jdbc.OracleDriver
+            url: jdbc:oracle:thin:@192.168.47.130:1521:lain_db
+            username: lain
+            password: '123456'

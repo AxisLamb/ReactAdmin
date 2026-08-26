@@ -1,0 +1,8 @@
+# dev 环境数据库连接 - MySQL（os.db.type=mysql 时加载）
+spring:
+    datasource:
+        druid:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            url: jdbc:mysql://10.37.131.222:3307/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+            username: root
+            password: 123456

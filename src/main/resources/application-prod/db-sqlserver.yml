@@ -1,0 +1,9 @@
+# prod 环境数据库连接 - SQL Server（os.db.type=sqlserver 时加载，连接信息通过环境变量注入）
+spring:
+    datasource:
+        druid:
+            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            # 连接信息通过环境变量注入，避免硬编码
+            url: jdbc:sqlserver://${SQLSERVER_HOST}:${SQLSERVER_PORT};DatabaseName=${SQLSERVER_DB};encrypt=false;trustServerCertificate=true
+            username: ${SQLSERVER_USER}
+            password: ${SQLSERVER_PASSWORD}

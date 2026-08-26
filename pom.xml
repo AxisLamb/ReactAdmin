@@ -23,7 +23,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <!-- 版本管理 -->
         <mybatis-plus.version>3.5.15</mybatis-plus.version>
-        <sa-token.version>1.40.0</sa-token.version>
+        <sa-token.version>1.41.0</sa-token.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <hutool.version>5.8.16</hutool.version>
         <mysql-connector.version>8.2.0</mysql-connector.version>
@@ -153,9 +153,14 @@
             <artifactId>sa-token-spring-boot-autoconfig</artifactId>
             <version>${sa-token.version}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.dev33</groupId>-->
+<!--            <artifactId>sa-token-redis-jackson</artifactId>-->
+<!--            <version>${sa-token.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-redis-jackson</artifactId>
+            <artifactId>sa-token-caffeine</artifactId>
             <version>${sa-token.version}</version>
         </dependency>
 

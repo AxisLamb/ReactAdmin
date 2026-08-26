@@ -1,0 +1,8 @@
+# dev 环境数据库连接 - SQL Server（os.db.type=sqlserver 时加载）
+spring:
+    datasource:
+        druid:
+            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            url: jdbc:sqlserver://192.168.1.154:1433;DatabaseName=lain_db;encrypt=false;trustServerCertificate=true
+            username: sa
+            password: admin123

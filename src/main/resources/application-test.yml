@@ -1,4 +1,7 @@
 os:
+    # 数据库类型：mysql / postgresql / sqlserver / oracle，切换后自动加载 application-test/db-<type>.yml
+    db:
+        type: postgresql
     cache:
         type: REDIS
         redis:
@@ -23,40 +26,16 @@ os:
             access-key-secret: your-access-key-secret
 
 spring:
+    config:
+        # 按环境目录加载对应数据库连接配置 / 缓存连接配置（os.cache.type=REDIS 时才加载 spring.data.redis）
+        import: classpath:application-test/db-${os.db.type:postgresql}.yml, classpath:application-test/cache-${os.cache.type:REDIS}.yml
     cache:
         type: GENERIC
-    data:
-        redis:
-            host: ${os.cache.redis.ip}
-            password: ${os.cache.redis.password}
-            port: ${os.cache.redis.port}
-            database: ${os.cache.redis.database}
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         druid:
-            # PostgreSQL 连接
-            driver-class-name: org.postgresql.Driver
-            url: jdbc:postgresql://192.168.47.130:5432/lain_db
-            username: postgres
-            password: mysecretpassword
-
-            # MySQL 连接
-#            driver-class-name: com.mysql.cj.jdbc.Driver
-#            url: jdbc:mysql://192.168.47.130:3306/lain_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-#            username: root
-#            password: 123456
-
-            # SQL Server 连接
-            #driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-            #url: jdbc:sqlserver://192.168.47.130:1433;DatabaseName=lain_db
-            #username: sa
-            #password: 123456
-
-            # Oracle 连接
-            #driver-class-name: oracle.jdbc.OracleDriver
-            #url: jdbc:oracle:thin:@192.168.47.130:1521:lain_db
-            #username: lain
-            #password: 123456
+            # 数据库连接（driver-class-name / url / username / password）
+            # 由 os.db.type 对应的 application-test/db-<type>.yml 提供
             initial-size: 10
             max-active: 100
             min-idle: 10

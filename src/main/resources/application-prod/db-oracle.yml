@@ -1,0 +1,9 @@
+# prod 环境数据库连接 - Oracle（os.db.type=oracle 时加载，连接信息通过环境变量注入）
+spring:
+    datasource:
+        druid:
+            driver-class-name: oracle.jdbc.OracleDriver
+            # 连接信息通过环境变量注入，避免硬编码
+            url: jdbc:oracle:thin:@${ORACLE_HOST}:${ORACLE_PORT}:${ORACLE_SID}
+            username: ${ORACLE_USER}
+            password: ${ORACLE_PASSWORD}
