@@ -198,7 +198,8 @@ insert  into `sys_menu`(`menu_id`,`parent_id`,`name`,`url`,`react_component`,`pe
 (71,2,'查询用户',NULL,NULL,'sys:user:list',2,NULL,0,1,'2026-08-20 16:12:57',1,'2026-08-20 16:12:57'),
 (72,7,'查询角色',NULL,NULL,'sys:role:list',2,NULL,0,1,'2026-08-20 16:24:54',1,'2026-08-20 16:24:54'),
 (73,11,'查询菜单',NULL,NULL,'sys:menu:list',2,NULL,0,1,'2026-08-20 16:25:44',1,'2026-08-20 16:25:44'),
-(74,44,'查询文件',NULL,NULL,'oss:file:list',2,NULL,0,1,'2026-08-20 16:26:28',1,'2026-08-20 16:26:28');
+(74,44,'查询文件',NULL,NULL,'oss:file:list',2,NULL,0,1,'2026-08-20 16:26:28',1,'2026-08-20 16:26:28'),
+(74,37,'数据库监控','/druid',NULL,'outer',1,'database',3,1,'2026-08-20 16:26:28',1,'2026-08-20 16:26:28');
 
 /*Table structure for table `sys_role` */
 
@@ -371,7 +372,8 @@ insert  into `sys_role_menu`(`id`,`role_id`,`menu_id`) values
 (731,11,42),
 (732,11,43),
 (733,11,22),
-(735,11,63);
+(735,11,63),
+(785,1,75);
 
 /*Table structure for table `sys_user` */
 
