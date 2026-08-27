@@ -1,4 +1,4 @@
-FROM registry.cn-shenzhen.aliyuncs.com/lain_wms/mini-java:17
+FROM registry.cn-shenzhen.aliyuncs.com/lain_wms/mini-java:21
 MAINTAINER LAIN
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
