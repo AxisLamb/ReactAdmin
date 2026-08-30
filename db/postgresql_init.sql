@@ -615,3 +615,59 @@ SELECT setval('sys_role_role_id_seq', 12);
 SELECT setval('sys_role_menu_id_seq', 546);
 SELECT setval('sys_user_user_id_seq', 6);
 SELECT setval('sys_user_role_id_seq', 15);
+
+-- 闲鱼机器人聊天消息表
+CREATE TABLE xianyu_chat_message (
+    id BIGSERIAL PRIMARY KEY,
+    chat_id VARCHAR(64) NOT NULL,
+    user_id VARCHAR(64) NOT NULL,
+    item_id VARCHAR(64) NOT NULL,
+    role VARCHAR(16) NOT NULL,
+    content TEXT NOT NULL,
+    create_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+-- 创建索引
+CREATE INDEX idx_chat_id ON xianyu_chat_message(chat_id);
+CREATE INDEX idx_user_item ON xianyu_chat_message(user_id, item_id);
+CREATE INDEX idx_create_time ON xianyu_chat_message(create_time);
+
+-- 添加注释
+COMMENT ON TABLE xianyu_chat_message IS '闲鱼机器人聊天消息表';
+COMMENT ON COLUMN xianyu_chat_message.id IS '主键ID';
+COMMENT ON COLUMN xianyu_chat_message.chat_id IS '会话ID';
+COMMENT ON COLUMN xianyu_chat_message.user_id IS '用户ID(用户消息存真实user_id，助手消息存卖家ID)';
+COMMENT ON COLUMN xianyu_chat_message.item_id IS '商品ID';
+COMMENT ON COLUMN xianyu_chat_message.role IS '消息角色: user/assistant/system';
+COMMENT ON COLUMN xianyu_chat_message.content IS '消息内容';
+COMMENT ON COLUMN xianyu_chat_message.create_time IS '创建时间';
+
+-- 闲鱼会话议价次数表
+CREATE TABLE xianyu_chat_bargain (
+    chat_id VARCHAR(64) PRIMARY KEY,
+    count INT NOT NULL DEFAULT 0,
+    last_updated TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+-- 添加注释
+COMMENT ON TABLE xianyu_chat_bargain IS '闲鱼会话议价次数表';
+COMMENT ON COLUMN xianyu_chat_bargain.chat_id IS '会话ID';
+COMMENT ON COLUMN xianyu_chat_bargain.count IS '议价次数';
+COMMENT ON COLUMN xianyu_chat_bargain.last_updated IS '最后更新时间';
+
+-- 闲鱼商品信息缓存表
+CREATE TABLE xianyu_item (
+    item_id VARCHAR(64) PRIMARY KEY,
+    data TEXT NOT NULL,
+    price NUMERIC(10,2),
+    description TEXT,
+    last_updated TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+-- 添加注释
+COMMENT ON TABLE xianyu_item IS '闲鱼商品信息缓存表';
+COMMENT ON COLUMN xianyu_item.item_id IS '商品ID';
+COMMENT ON COLUMN xianyu_item.data IS '商品完整数据(JSON)';
+COMMENT ON COLUMN xianyu_item.price IS '商品价格(元)';
+COMMENT ON COLUMN xianyu_item.description IS '商品描述';
+COMMENT ON COLUMN xianyu_item.last_updated IS '最后更新时间';

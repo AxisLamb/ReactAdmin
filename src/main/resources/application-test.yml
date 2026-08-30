@@ -1,7 +1,7 @@
 os:
     # 数据库类型：mysql / postgresql / sqlserver / oracle，切换后自动加载 application-test/db-<type>.yml
     db:
-        type: postgresql
+        type: mysql
     cache:
         type: REDIS
         redis:

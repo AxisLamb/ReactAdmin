@@ -424,6 +424,48 @@ insert  into `sys_user_role`(`id`,`user_id`,`role_id`) values
 (20,8,11),
 (22,9,10);
 
+/*Table structure for table `xianyu_chat_message` */
+
+DROP TABLE IF EXISTS `xianyu_chat_message`;
+
+CREATE TABLE `xianyu_chat_message` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `chat_id` varchar(64) NOT NULL COMMENT '会话ID',
+  `user_id` varchar(64) NOT NULL COMMENT '用户ID(用户消息存真实user_id，助手消息存卖家ID)',
+  `item_id` varchar(64) NOT NULL COMMENT '商品ID',
+  `role` varchar(16) NOT NULL COMMENT '消息角色: user/assistant/system',
+  `content` text NOT NULL COMMENT '消息内容',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_chat_id` (`chat_id`),
+  KEY `idx_user_item` (`user_id`,`item_id`),
+  KEY `idx_create_time` (`create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='闲鱼机器人聊天消息表';
+
+/*Table structure for table `xianyu_chat_bargain` */
+
+DROP TABLE IF EXISTS `xianyu_chat_bargain`;
+
+CREATE TABLE `xianyu_chat_bargain` (
+  `chat_id` varchar(64) NOT NULL COMMENT '会话ID',
+  `count` int NOT NULL DEFAULT '0' COMMENT '议价次数',
+  `last_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  PRIMARY KEY (`chat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='闲鱼会话议价次数表';
+
+/*Table structure for table `xianyu_item` */
+
+DROP TABLE IF EXISTS `xianyu_item`;
+
+CREATE TABLE `xianyu_item` (
+  `item_id` varchar(64) NOT NULL COMMENT '商品ID',
+  `data` text NOT NULL COMMENT '商品完整数据(JSON)',
+  `price` decimal(10,2) DEFAULT NULL COMMENT '商品价格(元)',
+  `description` text COMMENT '商品描述',
+  `last_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后更新时间',
+  PRIMARY KEY (`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='闲鱼商品信息缓存表';
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

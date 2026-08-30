@@ -10,9 +10,9 @@ server:
     context-path: /
 
 spring:
-  # 环境 dev|test|prod
+  # 环境 dev|test|prod（Maven 占位符，打包时由 -Pdev/-Ptest/-Pprod 注入）
   profiles:
-    active: dev
+    active: test
   # jackson时间格式化
   jackson:
     time-zone: GMT+8
@@ -117,3 +117,36 @@ sa-token:
   token-style: uuid
   # 是否输出操作日志
   is-log: true
+
+# 闲鱼自动值守机器人
+xianyu:
+  # 是否随应用启动自动运行
+  enabled: ${XIANYU_ENABLED:true}
+  # 模型 API Key（环境变量 API_KEY）
+  api-key: ${API_KEY:}
+  # 闲鱼网页端 Cookie 字符串（环境变量 COOKIES_STR）
+  cookies-str: ${COOKIES_STR:}
+  # 模型服务地址（默认通义千问 OpenAI 兼容接口）
+  model-base-url: ${MODEL_BASE_URL:https://api.deepseek.com}
+  # 模型名称
+  model-name: ${MODEL_NAME:deepseek-v4-flash}
+  # 提示词目录，默认读取 classpath:prompts/，可指定外部目录覆盖（对应 PROMPT_DIR）
+  prompt-dir: ${PROMPT_DIR:}
+  # 心跳间隔（秒）
+  heartbeat-interval: ${HEARTBEAT_INTERVAL:15}
+  # 心跳超时（秒）
+  heartbeat-timeout: ${HEARTBEAT_TIMEOUT:5}
+  # Token 刷新间隔（秒）
+  token-refresh-interval: ${TOKEN_REFRESH_INTERVAL:3600}
+  # Token 刷新失败重试间隔（秒）
+  token-retry-interval: ${TOKEN_RETRY_INTERVAL:300}
+  # 人工接管超时时间（秒），超时自动恢复自动回复
+  manual-mode-timeout: ${MANUAL_MODE_TIMEOUT:3600}
+  # 消息过期时间（毫秒），过滤超时消息
+  message-expire-time: ${MESSAGE_EXPIRE_TIME:300000}
+  # 接管模式切换关键词（卖家发送该词切换人工/AI接管）
+  toggle-keywords: ${TOGGLE_KEYWORDS:。}
+  # 模拟人工输入延迟
+  simulate-human-typing: ${SIMULATE_HUMAN_TYPING:false}
+  # 每个会话保留的最大消息数
+  max-history: ${MAX_HISTORY:100}

@@ -483,3 +483,63 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'类型0, 1, 2�
 
 都可以分配给角色' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'sys_menu', @level2type=N'COLUMN',@level2name=N'type'
 GO
+/****** Object:  Table [dbo].[xianyu_chat_message] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[xianyu_chat_message](
+        [id] [bigint] IDENTITY(1,1) NOT NULL,
+        [chat_id] [nvarchar](64) NOT NULL,
+        [user_id] [nvarchar](64) NOT NULL,
+        [item_id] [nvarchar](64) NOT NULL,
+        [role] [nvarchar](16) NOT NULL,
+        [content] [nvarchar](max) NOT NULL,
+        [create_time] [datetime2](7) NOT NULL,
+PRIMARY KEY CLUSTERED
+(
+        [id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON,
+ OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+CREATE INDEX [idx_chat_id] ON [dbo].[xianyu_chat_message]([chat_id])
+GO
+CREATE INDEX [idx_user_item] ON [dbo].[xianyu_chat_message]([user_id], [item_id])
+GO
+CREATE INDEX [idx_create_time] ON [dbo].[xianyu_chat_message]([create_time])
+GO
+/****** Object:  Table [dbo].[xianyu_chat_bargain] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[xianyu_chat_bargain](
+        [chat_id] [nvarchar](64) NOT NULL,
+        [count] [int] NOT NULL,
+        [last_updated] [datetime2](7) NOT NULL,
+PRIMARY KEY CLUSTERED
+(
+        [chat_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON,
+ OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[xianyu_item] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[xianyu_item](
+        [item_id] [nvarchar](64) NOT NULL,
+        [data] [nvarchar](max) NOT NULL,
+        [price] [decimal](10, 2) NULL,
+        [description] [nvarchar](max) NULL,
+        [last_updated] [datetime2](7) NOT NULL,
+PRIMARY KEY CLUSTERED
+(
+        [item_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON,
+ OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
