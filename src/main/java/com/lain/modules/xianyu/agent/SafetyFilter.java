@@ -3,7 +3,7 @@ package com.lain.modules.xianyu.agent;
 import java.util.List;
 
 /**
- * 安全过滤接口（对应 Python 版 _safe_filter）
+ * 安全过滤接口
  */
 @FunctionalInterface
 public interface SafetyFilter {

@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 闲鱼 WebSocket 常驻值守客户端（对应 Python 版 main.py 的 XianyuLive）
+ * 闲鱼 WebSocket 常驻值守客户端
  * <p>
  * 职责：建立并维持 WebSocket 长连接、心跳保活、Token 周期刷新、消息接收/解密/AI 回复，
  * 支持人工接管模式切换与模拟人工输入延迟。
@@ -232,7 +232,7 @@ public class XianyuLive {
     // ==================== 连接初始化 ====================
 
     /**
-     * 连接注册（对应 Python 版 init）
+     * 连接注册
      */
     private void init(WebSocket webSocket) {
         // 如果没有 token 或者 token 过期，获取新 token
@@ -281,7 +281,7 @@ public class XianyuLive {
     }
 
     /**
-     * 刷新 Token（对应 Python 版 refresh_token）
+     * 刷新 Token
      */
     public String refreshToken() {
         try {
@@ -299,7 +299,7 @@ public class XianyuLive {
                 return null;
             }
         } catch (LainException e) {
-            // 风控/Cookie 失效为致命错误：终止机器人，避免每5秒重连高频请求加重风控（对齐 Python 版直接终止）
+            // 风控/Cookie 失效为致命错误：终止机器人，避免每5秒重连高频请求加重风控
             log.error("Token刷新致命错误: {}", e.getMessage());
             fatalError = true;
             forceClose("fatal error");
@@ -313,7 +313,7 @@ public class XianyuLive {
     // ==================== 定时任务 ====================
 
     /**
-     * 心跳维护循环（每秒检查，对应 Python 版 heartbeat_loop）
+     * 心跳维护循环
      */
     private void startHeartbeatLoop() {
         heartbeatExecutor = newDaemonScheduler("xianyu-heartbeat");
@@ -339,7 +339,7 @@ public class XianyuLive {
     }
 
     /**
-     * Token 刷新循环（每分钟检查，对应 Python 版 token_refresh_loop）
+     * Token 刷新循环
      */
     private void startTokenRefreshLoop() {
         tokenRefreshExecutor = newDaemonScheduler("xianyu-token-refresh");
@@ -424,7 +424,7 @@ public class XianyuLive {
     // ==================== 消息处理 ====================
 
     /**
-     * 处理所有类型的消息（对应 Python 版 handle_message）
+     * 处理所有类型的消息
      */
     private void handleMessage(JsonNode messageData, WebSocket webSocket) {
         try {
@@ -715,7 +715,7 @@ public class XianyuLive {
     }
 
     /**
-     * 检查消息是否包含切换关键词（消息为关键词的子串即命中，与 Python in 语义一致）
+     * 检查消息是否包含切换关键词
      */
     private boolean checkToggleKeywords(String message) {
         String messageStripped = message.strip();
@@ -778,10 +778,10 @@ public class XianyuLive {
     }
 
     /**
-     * 构建商品描述（对应 Python 版 build_item_description）
+     * 构建商品描述
      */
     private String buildItemDescription(JsonNode itemInfo) {
-        // 处理 SKU 列表（真实数据可能不含 skuList 字段，缺失时按空列表处理，对齐 Python 版 .get("skuList", [])）
+        // 处理 SKU 列表（真实数据可能不含 skuList 字段，缺失时按空列表处理）
         ArrayNode skuDetails = MAPPER.createArrayNode();
         JsonNode skuListNode = itemInfo.path("skuList");
         ArrayNode rawSkuList = skuListNode.isArray() ? (ArrayNode) skuListNode : MAPPER.createArrayNode();
@@ -842,7 +842,7 @@ public class XianyuLive {
     // ==================== 消息发送 ====================
 
     /**
-     * 发送聊天消息（对应 Python 版 send_msg）
+     * 发送聊天消息
      */
     private void sendMsg(WebSocket webSocket, String cid, String toid, String text) {
         ObjectNode textBody = MAPPER.createObjectNode();
@@ -926,7 +926,7 @@ public class XianyuLive {
     // ==================== WebSocket 监听器 ====================
 
     /**
-     * WebSocket 监听器（回调由 JDK 单线程串行调用，消息顺序处理，对应 Python async for）
+     * WebSocket 监听器（回调由 JDK 单线程串行调用，消息顺序处理）
      */
     private class LiveListener implements WebSocket.Listener {
 
@@ -984,7 +984,7 @@ public class XianyuLive {
     }
 
     /**
-     * 处理单条 WebSocket 文本消息（对应 Python 版 main 循环中的消息处理）
+     * 处理单条 WebSocket 文本消息
      */
     private void handleWebSocketMessage(String message) {
         try {

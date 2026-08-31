@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 闲鱼 H5 API 封装（对应 Python 版 XianyuApis.py）
+ * 闲鱼 H5 API 封装
  * <p>
  * 使用 Hutool HttpRequest 维护带 Cookie 的有状态会话：
  * 请求时携带完整 Cookie 头，响应后从 Set-Cookie 头增量更新。
@@ -39,7 +39,7 @@ public class XianyuApis {
     /** 登录状态检查地址 */
     private static final String HAS_LOGIN_URL = "https://passport.goofish.com/newlogin/hasLogin.do";
 
-    /** 默认请求头（对应 Python 版 session.headers） */
+    /** 默认请求头 **/
     private static final Map<String, String> DEFAULT_HEADERS = new HashMap<>() {{
         put("accept", "application/json");
         put("accept-language", "zh-CN,zh;q=0.9");

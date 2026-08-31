@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * 意图路由决策器（对应 Python 版 IntentRouter，三级路由策略：关键词 → 正则 → 大模型兜底，技术类优先）
+ * 意图路由决策器
  */
 public class IntentRouter {
 

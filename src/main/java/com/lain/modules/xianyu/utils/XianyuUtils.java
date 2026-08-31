@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * 闲鱼工具类（对应 Python 版 utils/xianyu_utils.py）
+ * 闲鱼工具类
  */
 public final class XianyuUtils {
 

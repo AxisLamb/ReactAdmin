@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 大模型调用客户端（OpenAI 兼容 Chat Completions 接口，对应 Python 版 openai SDK 调用）
+ * 大模型调用客户端（OpenAI 兼容 Chat Completions 接口）
  * <p>
  * 默认对接通义千问 DashScope 兼容接口，支持 enable_search 联网搜索与动态温度参数。
  */
@@ -37,7 +37,7 @@ public class LlmClient {
      *
      * @param messages      消息链
      * @param temperature   温度参数
-     * @param enableSearch  是否启用联网搜索（对应 Python extra_body.enable_search）
+     * @param enableSearch  是否启用联网搜索
      * @param maxTokens     最大输出 token 数
      * @return 模型回复内容
      */

@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 闲鱼智能回复机器人（对应 Python 版 XianyuAgent.py 的 XianyuReplyBot）
+ * 闲鱼智能回复机器人
  * <p>
  * 多专家协同决策：意图分类 → 领域 Agent 分发（议价/技术/默认），支持上下文感知对话。
  */
@@ -47,7 +47,7 @@ public class XianyuReplyBot {
     }
 
     /**
-     * 初始化各领域 Agent（对应 Python 版 _init_agents）
+     * 初始化各领域 Agent
      */
     private void initAgents() {
         agents.put("classify", new ClassifyAgent(llmClient, promptLoader.load("classify_prompt"), this::safeFilter));

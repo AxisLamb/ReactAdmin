@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 提示词加载器（对应 Python 版 _init_system_prompts 的加载逻辑）
+ * 提示词加载器
  * <p>
  * 加载优先级：外部目录 {prompt-dir}/{name}.txt → classpath prompts/{name}.txt → classpath prompts/{name}_example.txt
  */
@@ -43,7 +43,7 @@ public class PromptLoader {
     }
 
     /**
-     * 清空缓存并重新加载（对应 Python 版 reload_prompts）
+     * 清空缓存并重新加载
      */
     public void reload() {
         cache.clear();

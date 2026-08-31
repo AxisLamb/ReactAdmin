@@ -3,7 +3,7 @@ package com.lain.modules.xianyu.agent;
 import java.util.List;
 
 /**
- * Agent 基类（对应 Python 版 BaseAgent）
+ * Agent 基类
  */
 public abstract class BaseAgent {
 

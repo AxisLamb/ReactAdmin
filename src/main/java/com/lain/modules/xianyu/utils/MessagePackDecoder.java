@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * MessagePack 解码器（纯 Java 实现，对应 Python 版 MessagePackDecoder）
+ * MessagePack 解码器
  */
 public class MessagePackDecoder {
 

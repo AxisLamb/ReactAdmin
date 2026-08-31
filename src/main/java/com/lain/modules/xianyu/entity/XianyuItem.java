@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 闲鱼商品信息缓存（对应 Python 版 items 表）
+ * 闲鱼商品信息缓存
  */
 @Data
 @TableName("xianyu_item")

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 聊天上下文管理器（对应 Python 版 context_manager.py，SQLite 存储改为项目数据库）
+ * 聊天上下文管理器
  * <p>
  * 负责存储和检索用户与商品之间的对话历史、议价次数统计、商品信息缓存。
  */

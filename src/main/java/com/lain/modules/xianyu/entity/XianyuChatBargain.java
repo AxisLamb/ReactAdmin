@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 闲鱼会话议价次数（对应 Python 版 chat_bargain_counts 表）
+ * 闲鱼会话议价次数
  */
 @Data
 @TableName("xianyu_chat_bargain")

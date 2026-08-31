@@ -3,7 +3,7 @@ package com.lain.modules.xianyu.agent;
 import java.util.List;
 
 /**
- * 议价处理 Agent（对应 Python 版 PriceAgent，采用阶梯让步 + 动态温度策略）
+ * 议价处理 Agent（采用阶梯让步 + 动态温度策略）
  */
 public class PriceAgent extends BaseAgent {
 

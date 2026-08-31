@@ -3,7 +3,7 @@ package com.lain.modules.xianyu.agent;
 import java.util.List;
 
 /**
- * 默认处理 Agent（对应 Python 版 DefaultAgent，使用更高温度使回复更自然）
+ * 默认处理 Agent
  */
 public class DefaultAgent extends BaseAgent {
 

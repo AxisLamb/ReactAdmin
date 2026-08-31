@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 闲鱼机器人聊天消息（对应 Python 版 messages 表）
+ * 闲鱼机器人聊天消息
  * <p>
  * 注意：不继承 BaseEntity，机器人后台线程无 Sa-Token 登录上下文，时间字段手动赋值
  */

@@ -3,7 +3,7 @@ package com.lain.modules.xianyu.agent;
 import java.util.List;
 
 /**
- * 技术咨询 Agent（对应 Python 版 TechAgent，启用联网搜索增强）
+ * 技术咨询 Agent
  */
 public class TechAgent extends BaseAgent {
 

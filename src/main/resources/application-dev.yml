@@ -1,7 +1,7 @@
 os:
     # 数据库类型：mysql / postgresql / sqlserver / oracle，切换后自动加载 application-dev/db-<type>.yml
     db:
-        type: sqlserver
+        type: mysql
     cache:
         type: CAFFEINE
         redis:
@@ -11,7 +11,7 @@ os:
             password: 'SbtyMveYNfLzTks7H0apCmyStPzWJqjy'
             database: 0
     file:
-        type: LOCAL
+        type: ALIYUN
         local:
             # 实际存储路径（项目根路径下）
             base-path: ./uploads/
@@ -22,9 +22,9 @@ os:
             secret-key: password
 
         aliyun:
-            endpoint: xxx
-            access-key-id: xxx
-            access-key-secret: xxx
+            endpoint: oss-cn-guangzhou.aliyuncs.com
+            access-key-id: LTAI5t732qaqGVAxxUve8JdS
+            access-key-secret: vBTaJqcYUjnugDMUOu5dLPxbvYUeEi
 
 spring:
     config:

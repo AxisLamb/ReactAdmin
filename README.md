@@ -18,7 +18,7 @@
 - **数据库连接池**: Druid 1.2.20
 - **支持数据库**: PostgreSQL, MySQL, Oracle, SQLServer
 - **支持缓存层**: REDIS, Caffeine
-- **支持OSS**: 本地存储，MINIO, 阿里云
+- **支持OSS**: 本地存储, MINIO, 阿里云
 - **文档工具**: Knife4j 4.4.0
 - **后端仓库**: [ReactAdmin](https://github.com/AxisLamb/ReactAdmin)
 

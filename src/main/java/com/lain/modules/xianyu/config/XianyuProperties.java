@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * 闲鱼自动值守机器人配置（对应 Python 版 XianyuAutoAgent 的 .env 配置）
+ * 闲鱼自动值守机器人配置
  */
 @Data
 @Component
