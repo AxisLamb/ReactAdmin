@@ -27,7 +27,9 @@ public class AuthWhitelistConfig {
         "/file/**",
         "/monitor/**",
         "/actuator/**",
-        "/druid/**"
+        "/druid/**",
+        // 微信机器人回调：微信服务器不会携带本站登录态，必须放行
+        "/wechat/**"
     );
 
     /**

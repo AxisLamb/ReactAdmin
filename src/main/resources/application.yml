@@ -99,6 +99,33 @@ management:
     health:
       show-details: ALWAYS
 
+# 微信机器人（AgentScope 2.0 Gateway / Channel 接入）
+# 接入步骤详见 docs/WECHAT_BOT.md
+wechat:
+  bot:
+    # 配置好 app-id/secret/token/encoding-aes-key 后再改为 true
+    enabled: false
+    # wecom=企业微信自建应用；official-account=微信公众号
+    channel-type: wecom
+    # 企业微信填 CorpID，公众号填 AppID
+    app-id: ${WECHAT_APP_ID:}
+    # 企业微信填自建应用 Secret，公众号填 AppSecret
+    secret: ${WECHAT_SECRET:}
+    # 回调配置页的 Token
+    token: ${WECHAT_TOKEN:}
+    # 回调配置页的 EncodingAESKey（43 位）
+    encoding-aes-key: ${WECHAT_AES_KEY:}
+    # 仅企业微信需要：自建应用 AgentId
+    agent-id: ${WECHAT_AGENT_ID:}
+    # 与微信后台填写的回调地址路径保持一致
+    callback-path: /wechat/callback
+    encrypt-mode: true
+    agent:
+      model: dashscope:qwen3.7-plus
+      # 生产环境请勿开启文件上传下载之外的系统操作类工具
+      enable-file-tools: false
+      worker-threads: 8
+
 # Sa-Token 配置
 sa-token:
   # 是否读取 body 中 token
