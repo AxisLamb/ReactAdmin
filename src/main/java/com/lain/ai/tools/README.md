@@ -231,3 +231,56 @@ setx NODE_BIN "C:\Program Files\nodejs\node.exe"
 ```
 
 设置后重启 IDE 生效。
+
+---
+
+# AgentScope 2.0 Windows cmd 命令工具（CmdAssistant）
+
+## 概述
+
+让 Agent 自主运行 **Windows 的 cmd 命令**并拿到完整输出（标准输出 / 标准错误 /
+退出码）。Agent 通过多轮「执行 → 观察输出 → 判断 → 再执行」自主决定用什么命令，
+完成从探查到修改的完整任务。
+
+演示入口：`CmdOperationAgent.main`（CLI 多轮对话，逐条输入需求）。
+
+## 工具：runCmd
+
+- **功能**：执行一条 cmd 命令并返回结构化结果
+- **参数**：
+  - `command`：cmd 命令，可含管道 `|`、连接符 `&` / `&&`、重定向 `>`
+  - `workingDirectory`（可选）：命令工作目录，默认当前工程目录
+  - `timeoutSeconds`（可选）：执行超时，默认 120 秒，超时强制终止
+  - `stdin`（可选）：写入命令标准输入的内容（给需要交互输入的程序）
+- **返回**：`退出码` + `标准输出` + `标准错误`（单段超长自动截断防刷爆上下文）
+
+## 敏感操作人工批准
+
+命令会先被启发式扫描，命中规则后**暂停询问人工**，批准才执行：
+
+| 等级 | 行为 | 例子 |
+|------|------|------|
+| 高危（硬拒绝） | 无论是否批准都不执行 | `format c:`、`rd /s /q C:\`、删 `C:\Windows`、`diskpart`、`cipher /w` |
+| 敏感（询问用户） | 调 `CommandApprover.approve(...)`，用户 y/N | `del`、`erase`、`rd`、`taskkill /f`、`shutdown`、`reg add/delete`、`sc`、`net user`、`curl`、`wget`、`pscp/scp/ftp`、`git push`、含上传/下载的 `powershell` 等 |
+| 安全 | 直接执行 | `dir`、`type`、`findstr`、`echo`、`where`、`ipconfig` 等只读/无害命令 |
+
+批准通道通过构造函数注入（`new CmdAssistant(approver)`）；不传时敏感命令一律拒绝
+（安全默认）。`CmdOperationAgent` 内置 `ConsoleApprover`：敏感命令在控制台打印
+原因与完整命令，读用户 `y/N` 决定放行。
+
+判定说明：按 `&` / `|` / `;` / 换行拆段逐段匹配，启发式可能误报——宁可多问一次
+也不放行危险命令。Agent 被拦截后应改走只读命令路径，或向用户说明必要性后请求重试。
+
+## 编码说明
+
+Windows cmd 默认代码页 936（GBK），与 Java UTF-8 读取不匹配会乱码。
+工具每行命令自动加 `chcp 65001>nul & ` 前缀切换代码页，输出按 UTF-8 读取，
+`echo 你好` 等中文内容可直接读回。
+
+## 注意事项
+
+- 每条命令都是独立进程，**工作目录不延续**；需要固定目录请传 `workingDirectory`
+  或命令内 `cd /d <路径> && ...`
+- 命令执行在服务线程上同步进行，超时（默认 120s）会 `destroyForcibly` 强杀，
+  返回超时前已产生的输出
+- 命令的批准询问会阻塞到用户响应（等同 AgentScope 2.0 的 Ask / HITL 语义）

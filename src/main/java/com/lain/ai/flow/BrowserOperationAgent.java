@@ -64,14 +64,14 @@ public class BrowserOperationAgent {
 
         RuntimeContext ctx = RuntimeContext.builder()
                 .sessionId("browser-op-session")
-                .userId("CC")
+                .userId("XIXI")
                 .build();
 
         System.out.println("已注册工具: " + AgentLifecycleLogger.describeToolkit(toolkit));
 
         // 第一轮：打开网页并读取内容（首次调用会自动安装 agent-browser）
         agent.call(Msg.builder()
-                .textContent("请打开 https://www.goofish.com/ 这个网页，并告诉我页面的标题和主要内容是什么。")
+                .textContent("我已经用chrome打开了 https://www.goofish.com/ 这个网页，并已经登录，请你用agent-browser打开我的消息")
                 .build(), ctx).block();
 
         // 第二轮：截图并提取交互元素
