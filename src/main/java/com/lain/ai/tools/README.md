@@ -172,6 +172,19 @@ openPage(打开网页) → waitForPageLoad(等待加载)
 - 所有进程执行带超时保护（默认 60 秒），防止 `wait --load networkidle` 在 SPA 页面无限挂起
 - 截图文件保存在 `.agentscope/workspace/browser-shots/` 目录下
 
+## 可观测性
+
+调试时想看清楚 Agent 每一步在做什么，`BrowserAssistant` 会输出命令级日志：
+
+```
+[browser] ▶ open | 参数: https://example.com | 超时 120s
+[browser] ◀ open | 耗时 9.9s | 退出码 0 | 输出: Opened https://example.com/
+```
+
+超过 10 秒或退出码非 0 的命令自动升级为 WARN。环境不可用时会把完整诊断信息（node 路径、启动命令、探测结果、安装日志）一次性打出。
+
+想要"推理 / 模型调用 / 工具调用"各阶段的耗时，挂载 `AgentLifecycleLogger` 中间件即可，详见 [`flow/README.md`](../flow/README.md)。
+
 ## Windows 排错
 
 ### 现象：cmd 里 `agent-browser install` 成功，但 Java 里报找不到命令

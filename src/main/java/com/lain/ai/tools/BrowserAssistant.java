@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.agentscope.core.shutdown.AgentShuttingDownException;
 import io.agentscope.core.tool.Tool;
 import io.agentscope.core.tool.ToolParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,6 +20,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -44,8 +47,16 @@ import java.util.concurrent.TimeUnit;
  */
 public class BrowserAssistant {
 
+    private static final Logger log = LoggerFactory.getLogger(BrowserAssistant.class);
+
     /** agent-browser 命令名 */
     private static final String CLI = "agent-browser";
+
+    /** 命令执行耗时超过该值（毫秒）时按 WARN 输出，便于定位卡点 */
+    private static final long SLOW_COMMAND_MS = 10_000L;
+
+    /** 日志中命令输出的最大展示长度 */
+    private static final int MAX_LOG_PREVIEW = 500;
 
     /** 环境变量：显式指定 agent-browser 可执行文件（或其 JS 入口）的完整路径 */
     private static final String ENV_AGENT_BROWSER_BIN = "AGENT_BROWSER_BIN";
@@ -346,6 +357,7 @@ public class BrowserAssistant {
      */
     private String execute(long timeoutSeconds, String... args) {
         if (!ensureInstalled()) {
+            log.error("[browser] 环境不可用，诊断信息:\n{}", failureDetail());
             return "浏览器工具未就绪: agent-browser 不可用且自动安装失败。\n"
                     + failureDetail()
                     + "\n处理方式: 手动执行 'npm install -g agent-browser' 后再执行 'agent-browser install'；"
@@ -354,6 +366,10 @@ public class BrowserAssistant {
 
         List<String> command = new ArrayList<>(cliCommand());
         command.addAll(List.of(args));
+
+        String operation = args.length > 0 ? args[0] : "unknown";
+        long startNanos = System.nanoTime();
+        log.info("[browser] ▶ {} | 参数: {} | 超时 {}s", operation, previewArgs(args), timeoutSeconds);
 
         Process process = null;
         try {
@@ -375,6 +391,9 @@ public class BrowserAssistant {
 
             if (!finished) {
                 running.destroyForcibly();
+                log.error("[browser] ✖ {} 超时 | 超过 {} 秒 | 命令: {} | 已执行 {}",
+                        operation, timeoutSeconds, String.join(" ", command),
+                        formatDuration(elapsedMillis(startNanos)));
                 return "浏览器操作超时（超过 " + timeoutSeconds + " 秒）: " + String.join(" ", command)
                         + "\n建议: 若是等待页面加载导致超时，请改用 waitForPageLoad 的 load 或 domcontentloaded 模式；"
                         + "若页面已渲染完成，可直接执行 snapshot 或 screenshot。";
@@ -392,6 +411,7 @@ public class BrowserAssistant {
             }
 
             int exitCode = running.exitValue();
+            logCommandEnd(operation, elapsedMillis(startNanos), exitCode, firstNonBlank(stdout, stderr));
             if (exitCode != 0) {
                 result.append("\n命令: ").append(String.join(" ", command))
                         .append("\n退出码: ").append(exitCode);
@@ -399,6 +419,7 @@ public class BrowserAssistant {
             }
             return !result.isEmpty() ? result.toString() : "操作成功: " + String.join(" ", command);
         } catch (IOException e) {
+            log.error("[browser] ✖ {} 启动失败 | {}", operation, e.getMessage());
             throw new AgentShuttingDownException("执行浏览器命令失败: " + e.getMessage());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -820,6 +841,53 @@ public class BrowserAssistant {
         if (!prepend.isEmpty()) {
             env.put(pathKey, prepend + (current == null ? "" : current));
         }
+    }
+
+    /**
+     * 输出命令执行结果日志，慢命令或失败命令升级为 WARN
+     *
+     * @param operation     操作名
+     * @param elapsedMillis 耗时（毫秒）
+     * @param exitCode      退出码
+     * @param output        命令输出
+     */
+    private void logCommandEnd(String operation, long elapsedMillis, int exitCode, String output) {
+        String message = String.format("[browser] ◀ %s | 耗时 %s | 退出码 %d | 输出: %s",
+                operation, formatDuration(elapsedMillis), exitCode, preview(output));
+        if (elapsedMillis >= SLOW_COMMAND_MS || exitCode != 0) {
+            log.warn("{}", message);
+        } else {
+            log.info("{}", message);
+        }
+    }
+
+    /** 命令参数预览，跳过第一个参数（操作名） */
+    private String previewArgs(String... args) {
+        if (args.length <= 1) {
+            return "无";
+        }
+        return preview(String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
+    }
+
+    /** 截断并规整预览文本 */
+    private String preview(String text) {
+        if (text == null) {
+            return "";
+        }
+        String flat = text.replaceAll("\\s+", " ");
+        return flat.length() <= MAX_LOG_PREVIEW ? flat : flat.substring(0, MAX_LOG_PREVIEW) + "…";
+    }
+
+    private long elapsedMillis(long startNanos) {
+        return (System.nanoTime() - startNanos) / 1_000_000L;
+    }
+
+    /** 耗时格式化：超过 1 秒用 s，否则用 ms */
+    private String formatDuration(long millis) {
+        if (millis >= 1_000) {
+            return String.format("%.1fs", millis / 1000.0);
+        }
+        return millis + "ms";
     }
 
     private boolean isWindows() {

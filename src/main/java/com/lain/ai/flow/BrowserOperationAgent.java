@@ -33,6 +33,11 @@ public class BrowserOperationAgent {
         Toolkit toolkit = new Toolkit();
         toolkit.registerTool(browserAssistant);
 
+        // 生命周期日志中间件：输出"推理 / 模型调用 / 工具调用"各阶段耗时，
+        // 慢步骤自动升级为 WARN —— 这是定位"Agent 卡在哪"的主要手段。
+        // 第三个参数开启后会在 DEBUG 级别逐个打印 AgentEvent（事件流全量追踪）。
+        AgentLifecycleLogger lifecycleLogger = new AgentLifecycleLogger(5_000L, 300, false);
+
         HarnessAgent agent = HarnessAgent.builder()
                 .name("browser-operator")
                 .sysPrompt("""
@@ -50,6 +55,7 @@ public class BrowserOperationAgent {
                 .model("dashscope:qwen3.7-plus")
                 .workspace(Paths.get(".agentscope/workspace"))
                 .toolkit(toolkit) // 注册工具包
+                .middleware(lifecycleLogger) // 生命周期埋点（2.0 主推，Hook 已废弃）
                 .compaction(CompactionConfig.builder()
                         .triggerMessages(30)
                         .keepMessages(10)
@@ -60,6 +66,8 @@ public class BrowserOperationAgent {
                 .sessionId("browser-op-session")
                 .userId("CC")
                 .build();
+
+        System.out.println("已注册工具: " + AgentLifecycleLogger.describeToolkit(toolkit));
 
         // 第一轮：打开网页并读取内容（首次调用会自动安装 agent-browser）
         agent.call(Msg.builder()
